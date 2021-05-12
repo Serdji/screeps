@@ -7,7 +7,7 @@
  * mod.thing == 'a thing'; // true
  */
 
-const CreepRole = require('CreepRole');
+const CreepRole = require('creep/CreepRole');
 
 const {
   ROLE_ATTACK,

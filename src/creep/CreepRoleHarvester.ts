@@ -6,7 +6,7 @@
  * var mod = require('CreepHarvester');
  * mod.thing == 'a thing'; // true
  */
-const CreepRole = require('CreepRole');
+const CreepRole = require('creep/CreepRole');
 
 const { ROLE_HARVESTER, LIMIT_HARVESTER_MAX } = require('properties');
 
