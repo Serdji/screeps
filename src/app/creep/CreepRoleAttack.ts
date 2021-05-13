@@ -8,11 +8,13 @@
  */
 
 import { CreepRole } from "./CreepRole";
-import { properties } from "../properties";
-
-const { ROLE_ATTACK, LIMIT_ATTACK_MAX, PATROLLING_COORDINATES } = properties;
 
 export class CreepRoleAttack extends CreepRole {
+  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+    super(nameSpawn, properties);
+    this.spawn();
+  }
+  
   public run(creep: Creep): void {
     const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
     if (target) {
@@ -29,13 +31,14 @@ export class CreepRoleAttack extends CreepRole {
    * @param creep
    */
   private patrolling(creep: Creep) {
-    PATROLLING_COORDINATES.forEach(([x, y], i) => {
+    const { PATROLLING_COORDINATES } = this.properties;
+    (PATROLLING_COORDINATES as [[number, number]]).forEach(([x, y], i) => {
       if (creep.memory.isForward) {
         if (creep.memory.counter === i) {
           if (creep.pos.x === x && creep.pos.y === y) creep.memory.counter++;
           creep.moveTo(x, y);
         }
-        if (creep.memory.counter >= PATROLLING_COORDINATES.length - 1) creep.memory.isForward = false;
+        if (creep.memory.counter >= (PATROLLING_COORDINATES as [[number, number]]).length - 1) creep.memory.isForward = false;
       } else {
         if (creep.memory.counter === i) {
           if (creep.pos.x === x && creep.pos.y === y) creep.memory.counter--;
@@ -47,6 +50,7 @@ export class CreepRoleAttack extends CreepRole {
   }
 
   public spawn() {
+    const { ROLE_ATTACK, LIMIT_ATTACK_MAX } = this.properties;
     super.spawn(ROLE_ATTACK, LIMIT_ATTACK_MAX);
   }
 }

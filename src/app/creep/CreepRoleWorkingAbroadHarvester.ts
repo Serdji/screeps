@@ -9,13 +9,12 @@
 import { CreepRole } from "./CreepRole";
 import { properties } from "../properties";
 
-const { ROLE_WORKING_ABROAD_HARVESTER, LIMIT_WORKING_ABROAD_HARVESTER } = properties;
-
 export class CreepRoleWorkingAbroadHarvester extends CreepRole {
   private roomName: string;
-  public constructor(roomName: string) {
-    super();
+  public constructor(roomName: string, nameSpawn: string, properties: { [ket: string]: any }) {
+    super(nameSpawn, properties);
     this.roomName = roomName; // Имя комнаты, куда отправляем крипса
+    this.spawn();
   }
 
   public run(creep: Creep): void {
@@ -66,6 +65,7 @@ export class CreepRoleWorkingAbroadHarvester extends CreepRole {
   }
 
   public spawn(): void {
-    super.spawn(ROLE_WORKING_ABROAD_HARVESTER + this.roomName, LIMIT_WORKING_ABROAD_HARVESTER);
+    const { ROLE_WORKING_ABROAD_HARVESTER, LIMIT_WORKING_ABROAD_HARVESTER } = this.properties;
+    super.spawn((ROLE_WORKING_ABROAD_HARVESTER as string) + this.roomName, LIMIT_WORKING_ABROAD_HARVESTER);
   }
 }
