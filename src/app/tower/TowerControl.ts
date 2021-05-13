@@ -7,25 +7,23 @@
  * mod.thing == 'a thing'; // true
  */
 
-module.exports = class TowerControl {
-
-  run() {
+export class TowerControl {
+  public run(): void {
     for (const name in Game.rooms) {
       // Выбираем все пушки
       const towers = Game.rooms[name].find(FIND_MY_STRUCTURES, {
         filter: { structureType: STRUCTURE_TOWER }
-      });
-      if ( towers.length ) {
-        for (const name in towers) {
-          const tower = Game.getObjectById( towers[name].id )
-          if(tower) {
-            this.attack(tower)
-            this.heal(tower)
-            this.repair(tower)
+      }) as StructureTower[];
+      if (towers.length) {
+        for (const index in towers) {
+          const tower = Game.getObjectById(towers[index].id);
+          if (tower) {
+            this.attack(tower);
+            this.heal(tower);
+            this.repair(tower);
           }
         }
       }
-
     }
   }
 
@@ -33,9 +31,9 @@ module.exports = class TowerControl {
    * Если есть кого атаковать АТАКУЕМ
    * @param tower
    */
-  attack(tower) {
+  private attack(tower: StructureTower): void {
     const closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-    if(closestHostile) {
+    if (closestHostile) {
       tower.attack(closestHostile);
     }
   }
@@ -44,11 +42,11 @@ module.exports = class TowerControl {
    * Если есть что чинить ЧИНЕМ
    * @param tower
    */
-  repair(tower) {
+  private repair(tower: StructureTower): void {
     const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-      filter: (structure) => structure.hits < structure.hitsMax
+      filter: structure => structure.hits < structure.hitsMax
     });
-    if(closestDamagedStructure) {
+    if (closestDamagedStructure) {
       tower.repair(closestDamagedStructure);
     }
   }
@@ -57,13 +55,12 @@ module.exports = class TowerControl {
    * Если есть кого лечить ЛЕЧИМ
    * @param tower
    */
-  heal(tower) {
+  private heal(tower: StructureTower): void {
     const closestDamagedStructure = tower.pos.findClosestByRange(FIND_CREEPS, {
-      filter: (structure) => structure.hits < structure.hitsMax
+      filter: structure => structure.hits < structure.hitsMax
     });
-    if(closestDamagedStructure) {
+    if (closestDamagedStructure) {
       tower.heal(closestDamagedStructure);
     }
   }
-
-};
+}

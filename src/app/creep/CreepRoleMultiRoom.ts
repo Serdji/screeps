@@ -6,34 +6,34 @@
  * var mod = require('CreepRoleMultiRoom');
  * mod.thing == 'a thing'; // true
  */
+import { CreepRole } from "./CreepRole";
+import { properties } from "../properties";
 
-const CreepRole = require('creep/CreepRole');
+const { ROLE_MULTI_ROOM, LIMIT_MULTI_ROOM } = properties;
 
-const {ROLE_MULTI_ROOM, LIMIT_MULTI_ROOM} = require('properties');
-
-module.exports = class CreepRoleMultiRoom extends CreepRole {
-  constructor(roomName) {
+export class CreepRoleMultiRoom extends CreepRole {
+  private readonly roomName: string;
+  constructor(roomName: string) {
     super();
     this.roomName = roomName; // Имя комнаты, куда отправляем крипса
   }
 
-  run(creep) {
-
+  public run(creep: Creep): void {
     // Проверяем, совпадает ли имя комнаты в которой находиться крипс с именем куда ехеть
     // елси нет, едем в ту комнату
     if (creep.room.name !== this.roomName && !creep.memory.upgrading) {
-      const exitDir = Game.map.findExit(creep.room, this.roomName);
-      const exit = creep.pos.findClosestByRange(exitDir);
+      const exitDir = Game.map.findExit(creep.room, this.roomName) as ExitConstant;
+      const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
       creep.moveTo(exit);
       // Как приехали в нужную комнату, начинаем работать
     } else {
       if (creep.memory.upgrading && creep.store[RESOURCE_ENERGY] === 0) {
         creep.memory.upgrading = false;
-        creep.say('🔄 Копать');
+        creep.say("🔄 Копать");
       }
       if (!creep.memory.upgrading && creep.store.getFreeCapacity() === 0) {
         creep.memory.upgrading = true;
-        creep.say('⚡ Упгрейдить');
+        creep.say("⚡ Упгрейдить");
       }
 
       if (creep.memory.upgrading) {
@@ -41,37 +41,31 @@ module.exports = class CreepRoleMultiRoom extends CreepRole {
 
         // Ести есть что постороить, строим
         if (constructions.length) {
-          const construction = Game.getObjectById(constructions[0].id)
+          const construction = Game.getObjectById(constructions[0].id) as ConstructionSite;
           if (creep.build(construction) === ERR_NOT_IN_RANGE) {
-            creep.moveTo(construction, {visualizePathStyle: {stroke: '#ffffff'}});
+            creep.moveTo(construction, { visualizePathStyle: { stroke: "#ffffff" } });
           }
-        // Если нечего стоить и польностью забит клад, едем домой
-        }  else {
-
+          // Если нечего стоить и польностью забит клад, едем домой
+        } else {
           // Проверяем, если имя домашней комнаты не совпадает с комнотой в которой находися крипс, едем в ту комнату
           if (creep.memory.roomName !== creep.room.name && creep.memory.upgrading) {
-            const exitDir = Game.map.findExit(creep.room, creep.memory.roomName);
-            const exit = creep.pos.findClosestByRange(exitDir);
+            const exitDir = Game.map.findExit(creep.room, creep.memory.roomName) as ExitConstant;
+            const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
             creep.moveTo(exit);
             // Если имена совпали, едем убгрейживать контролер
           } else {
-            if (creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
-              creep.moveTo(creep.room.controller, {visualizePathStyle: {stroke: '#ffffff'}});
+            if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {
+              creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#ffffff" } });
             }
           }
         }
-
-
       } else {
-        super.mining(creep)
+        super.mining(creep);
       }
-
     }
-
   }
 
-
-  spawn() {
+  public spawn(): void {
     super.spawn(ROLE_MULTI_ROOM + this.roomName, LIMIT_MULTI_ROOM);
   }
 };

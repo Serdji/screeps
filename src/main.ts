@@ -1,7 +1,7 @@
-import { ErrorMapper } from "utils/ErrorMapper";
+import { ErrorMapper } from "app/utils/ErrorMapper";
 
 declare global {
-  /*
+  /**
     Example types, expand on these or remove them and add your own.
     Note: Values, properties defined here do no fully *exist* by this type definiton alone.
           You must also give them an implemention if you would like to use them. (ex. actually setting a `role` property in a Creeps memory)
@@ -16,9 +16,17 @@ declare global {
   }
 
   interface CreepMemory {
+    building: boolean;
+    harvester: boolean;
+    upgrading: boolean;
     role: string;
     room: string;
     working: boolean;
+    sourceIndex: number | null;
+    roomName: string;
+    isForward: boolean;
+    counter: number;
+    level: number;
   }
 
   // Syntax for adding proprties to `global` (ex "global.log")
