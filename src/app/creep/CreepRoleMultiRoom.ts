@@ -12,8 +12,8 @@ import { properties } from "../properties";
 const { ROLE_MULTI_ROOM, LIMIT_MULTI_ROOM } = properties;
 
 export class CreepRoleMultiRoom extends CreepRole {
-  private readonly roomName: string;
-  constructor(roomName: string) {
+  private roomName: string;
+  public constructor(roomName: string) {
     super();
     this.roomName = roomName; // Имя комнаты, куда отправляем крипса
   }

@@ -11,7 +11,7 @@ import { properties } from "../properties";
 
 const { ROLE_HARVESTER, LIMIT_HARVESTER_MAX } = properties;
 
-module.exports = class CreepRoleHarvester extends CreepRole {
+export class CreepRoleHarvester extends CreepRole {
   public run(creep: Creep) {
     if (creep.memory.harvester && creep.store[RESOURCE_ENERGY] === 0) {
       creep.memory.harvester = false;

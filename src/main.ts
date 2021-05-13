@@ -1,5 +1,17 @@
 import { ErrorMapper } from "app/utils/ErrorMapper";
 
+import { properties } from "app/properties";
+
+import { CreepRoleAttack } from "app/creep/CreepRoleAttack";
+import { CreepRoleBuilder } from "app/creep/CreepRoleBuilder";
+import { CreepRoleHarvester } from "app/creep/CreepRoleHarvester";
+import { CreepRoleUpgrader } from "app/creep/CreepRoleUpgrader";
+import { CreepRoleMultiRoom } from "app/creep/CreepRoleMultiRoom";
+
+import { TowerControl } from "app/tower/TowerControl";
+
+const { ROLE_HARVESTER, ROLE_BUILDER, ROLE_UPGRADER, ROLE_ATTACK, ROLE_MULTI_ROOM } = properties;
+
 declare global {
   /**
     Example types, expand on these or remove them and add your own.
@@ -46,6 +58,51 @@ export const loop = ErrorMapper.wrapLoop(() => {
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {
       delete Memory.creeps[name];
+      console.log('Помер крипт и удален из памяти:', name);
+    }
+  }
+
+  const creepRoleHarvester = new CreepRoleHarvester();
+  const creepRoleUpgrader = new CreepRoleUpgrader();
+  const creepRoleBuilder = new CreepRoleBuilder();
+  const creepRoleMultiRoomW7N3 = new CreepRoleMultiRoom("W7N3");
+  const creepRoleMultiRoomW8N2 = new CreepRoleMultiRoom("W8N2");
+
+  const creepRoleAttack = new CreepRoleAttack();
+
+  const towerControl = new TowerControl();
+
+  creepRoleHarvester.spawn();
+  creepRoleUpgrader.spawn();
+  creepRoleBuilder.spawn();
+  creepRoleMultiRoomW7N3.spawn();
+  creepRoleMultiRoomW8N2.spawn();
+
+  creepRoleAttack.spawn();
+
+  towerControl.run();
+
+  for (const name in Game.creeps) {
+    const creep = Game.creeps[name];
+    switch (creep.memory.role) {
+      case ROLE_HARVESTER:
+        creepRoleHarvester.run(creep);
+        break;
+      case ROLE_UPGRADER:
+        creepRoleUpgrader.run(creep);
+        break;
+      case ROLE_BUILDER:
+        creepRoleBuilder.run(creep);
+        break;
+      case ROLE_MULTI_ROOM + "W7N3":
+        creepRoleMultiRoomW7N3.run(creep);
+        break;
+      case ROLE_MULTI_ROOM + "W8N2":
+        creepRoleMultiRoomW8N2.run(creep);
+        break;
+      case ROLE_ATTACK:
+        creepRoleAttack.run(creep);
+        break;
     }
   }
 });
