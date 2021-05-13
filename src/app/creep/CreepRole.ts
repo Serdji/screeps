@@ -1,32 +1,12 @@
-import { properties } from "../properties";
-
-const {
-  SIZE_NAME_CREEP,
-
-  ROLE_ATTACK,
-
-  ROOM_ENERGY_LIMIT_300,
-  ROOM_ENERGY_LIMIT_550,
-  ROOM_ENERGY_LIMIT_800,
-  ROOM_ENERGY_LIMIT_1300,
-
-  LEVEL_CREEP,
-  LEVEL_1,
-  LEVEL_2,
-  LEVEL_3,
-  LEVEL_4,
-  FIT_WORKING_300,
-  FIT_WORKING_550,
-  FIT_WORKING_800,
-  FIT_WORKING_1300,
-
-  FIT_ATTACK_300,
-  FIT_ATTACK_550,
-  FIT_ATTACK_800,
-  FIT_ATTACK_1300
-} = properties;
-
 export class CreepRole {
+  public nameSpawn: string;
+  public properties: { [ket: string]: any };
+
+  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+    this.nameSpawn = nameSpawn;
+    this.properties = properties;
+  }
+
   public run(creep: Creep): void {}
 
   /**
@@ -35,6 +15,30 @@ export class CreepRole {
    * @param sizeCreeps Колличество крипсов
    */
   public spawn(role: string, sizeCreeps: number): void {
+    const {
+      ROLE_ATTACK,
+
+      ROOM_ENERGY_LIMIT_300,
+      ROOM_ENERGY_LIMIT_550,
+      ROOM_ENERGY_LIMIT_800,
+      ROOM_ENERGY_LIMIT_1300,
+
+      LEVEL_CREEP,
+      LEVEL_1,
+      LEVEL_2,
+      LEVEL_3,
+      LEVEL_4,
+      FIT_WORKING_300,
+      FIT_WORKING_550,
+      FIT_WORKING_800,
+      FIT_WORKING_1300,
+
+      FIT_ATTACK_300,
+      FIT_ATTACK_550,
+      FIT_ATTACK_800,
+      FIT_ATTACK_1300
+    } = this.properties;
+
     const creepRole = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === role);
     const sourceID = null;
     if (sizeCreeps) {
@@ -165,7 +169,7 @@ export class CreepRole {
       counter,
       level
     } as CreepMemory;
-    if (Game.spawns.Spawn1.spawnCreep(fit, nameCreep, { memory }) === OK) {
+    if (Game.spawns[this.nameSpawn].spawnCreep(fit, nameCreep, { memory }) === OK) {
       console.log(`Новый крипт | Роль -> ${role} | Имя -> ${nameCreep}`);
     }
   }
@@ -175,6 +179,7 @@ export class CreepRole {
    * @returns {string}
    */
   private makeId(): string {
+    const { SIZE_NAME_CREEP } = this.properties;
     let result = "";
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     const charactersLength = characters.length;

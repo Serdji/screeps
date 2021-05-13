@@ -6,12 +6,15 @@
  * var mod = require('CreepHarvester');
  * mod.thing == 'a thing'; // true
  */
-import { CreepRole } from "./CreepRole";
 import { properties } from "../properties";
-
-const { ROLE_HARVESTER, LIMIT_HARVESTER_MAX } = properties;
+import { CreepRole } from "./CreepRole";
 
 export class CreepRoleHarvester extends CreepRole {
+  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+    super(nameSpawn, properties);
+    this.spawn();
+  }
+
   public run(creep: Creep) {
     if (creep.memory.harvester && creep.store[RESOURCE_ENERGY] === 0) {
       creep.memory.harvester = false;
@@ -43,6 +46,7 @@ export class CreepRoleHarvester extends CreepRole {
   }
 
   public spawn() {
+    const { ROLE_HARVESTER, LIMIT_HARVESTER_MAX } = this.properties;
     super.spawn(ROLE_HARVESTER, LIMIT_HARVESTER_MAX);
   }
-};
+}

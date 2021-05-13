@@ -1,17 +1,5 @@
 import { ErrorMapper } from "app/utils/ErrorMapper";
-
-import { properties } from "app/properties";
-
-import { CreepRoleAttack } from "app/creep/CreepRoleAttack";
-import { CreepRoleBuilder } from "app/creep/CreepRoleBuilder";
-import { CreepRoleHarvester } from "app/creep/CreepRoleHarvester";
-import { CreepRoleUpgrader } from "app/creep/CreepRoleUpgrader";
-import { CreepRoleWorkingAbroadUpgrader } from "app/creep/CreepRoleWorkingAbroadUpgrader";
-
-import { TowerControl } from "app/tower/TowerControl";
-import { CreepRoleWorkingAbroadHarvester } from "./app/creep/CreepRoleWorkingAbroadHarvester";
-
-const { ROLE_HARVESTER, ROLE_BUILDER, ROLE_UPGRADER, ROLE_ATTACK, ROLE_WORKING_ABROAD_UPGRADER, ROLE_WORKING_ABROAD_HARVESTER } = properties;
+import { App } from "./app/App";
 
 declare global {
   /**
@@ -61,61 +49,5 @@ export const loop = ErrorMapper.wrapLoop(() => {
     }
   }
 
-  const creepRoleHarvester = new CreepRoleHarvester();
-  const creepRoleUpgrader = new CreepRoleUpgrader();
-  const creepRoleBuilder = new CreepRoleBuilder();
-
-  const creepRoleWorkingAbroadUpgraderW7N3 = new CreepRoleWorkingAbroadUpgrader("W7N3");
-  const creepRoleWorkingAbroadUpgraderW8N2 = new CreepRoleWorkingAbroadUpgrader("W8N2");
-
-  const creepRoleWorkingAbroadHarvesterW7N3 = new CreepRoleWorkingAbroadHarvester("W7N3");
-  const creepRoleWorkingAbroadHarvesterW8N2 = new CreepRoleWorkingAbroadHarvester("W8N2");
-
-  const creepRoleAttack = new CreepRoleAttack();
-
-  const towerControl = new TowerControl();
-
-  creepRoleHarvester.spawn();
-  creepRoleUpgrader.spawn();
-  creepRoleBuilder.spawn();
-
-  creepRoleWorkingAbroadUpgraderW7N3.spawn();
-  creepRoleWorkingAbroadUpgraderW8N2.spawn();
-
-  creepRoleWorkingAbroadHarvesterW7N3.spawn();
-  creepRoleWorkingAbroadHarvesterW8N2.spawn();
-
-  creepRoleAttack.spawn();
-
-  towerControl.run();
-
-  for (const name in Game.creeps) {
-    const creep = Game.creeps[name];
-    switch (creep.memory.role) {
-      case ROLE_HARVESTER:
-        creepRoleHarvester.run(creep);
-        break;
-      case ROLE_UPGRADER:
-        creepRoleUpgrader.run(creep);
-        break;
-      case ROLE_BUILDER:
-        creepRoleBuilder.run(creep);
-        break;
-      case ROLE_WORKING_ABROAD_UPGRADER + "W7N3":
-        creepRoleWorkingAbroadUpgraderW7N3.run(creep);
-        break;
-      case ROLE_WORKING_ABROAD_UPGRADER + "W8N2":
-        creepRoleWorkingAbroadUpgraderW8N2.run(creep);
-        break;
-      case ROLE_WORKING_ABROAD_HARVESTER + "W7N3":
-        creepRoleWorkingAbroadHarvesterW7N3.run(creep);
-        break;
-      case ROLE_WORKING_ABROAD_HARVESTER + "W8N2":
-        creepRoleWorkingAbroadHarvesterW8N2.run(creep);
-        break;
-      case ROLE_ATTACK:
-        creepRoleAttack.run(creep);
-        break;
-    }
-  }
+  new App();
 });

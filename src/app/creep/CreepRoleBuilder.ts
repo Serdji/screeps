@@ -8,11 +8,13 @@
  */
 
 import { CreepRole } from "./CreepRole";
-import { properties } from "../properties";
-
-const { ROLE_BUILDER, LIMIT_BUILDER_MAX } = properties;
 
 export class CreepRoleBuilder extends CreepRole {
+  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+    super(nameSpawn, properties);
+    this.spawn();
+  }
+  
   public run(creep: Creep): void {
     if (creep.memory.building && creep.store[RESOURCE_ENERGY] === 0) {
       creep.memory.building = false;
@@ -63,6 +65,7 @@ export class CreepRoleBuilder extends CreepRole {
   }
 
   public spawn(): void {
+    const { ROLE_BUILDER, LIMIT_BUILDER_MAX } = this.properties;
     super.spawn(ROLE_BUILDER, LIMIT_BUILDER_MAX);
   }
 }

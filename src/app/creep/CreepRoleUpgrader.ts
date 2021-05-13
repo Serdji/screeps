@@ -8,11 +8,13 @@
  */
 
 import { CreepRole } from "./CreepRole";
-import { properties } from "../properties";
-
-const { ROLE_UPGRADER, LIMIT_UPGRADER_MAX } = properties;
 
 export class CreepRoleUpgrader extends CreepRole {
+  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+    super(nameSpawn, properties);
+    this.spawn();
+  }
+
   public run(creep: Creep): void {
     if (creep.memory.upgrading && creep.store[RESOURCE_ENERGY] === 0) {
       creep.memory.upgrading = false;
@@ -34,6 +36,7 @@ export class CreepRoleUpgrader extends CreepRole {
   }
 
   public spawn(): void {
+    const { ROLE_UPGRADER, LIMIT_UPGRADER_MAX } = this.properties;
     super.spawn(ROLE_UPGRADER, LIMIT_UPGRADER_MAX);
   }
 }
