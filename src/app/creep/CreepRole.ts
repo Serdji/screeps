@@ -36,7 +36,7 @@ export class CreepRole {
    */
   public spawn(role: string, sizeCreeps: number): void {
     const creepRole = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === role);
-    const sourceIndex = null;
+    const sourceID = null;
     if (sizeCreeps) {
       if (creepRole.length < sizeCreeps) {
         for (const roomName in Game.rooms) {
@@ -49,10 +49,10 @@ export class CreepRole {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_300) {
               switch (role) {
                 case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_300, role, sourceIndex, roomName, LEVEL_1);
+                  this.spawnFit(FIT_ATTACK_300, role, sourceID, roomName, LEVEL_1);
                   break;
                 default:
-                  this.spawnFit(FIT_WORKING_300, role, sourceIndex, roomName, LEVEL_1);
+                  this.spawnFit(FIT_WORKING_300, role, sourceID, roomName, LEVEL_1);
                   break;
               }
             }
@@ -65,10 +65,10 @@ export class CreepRole {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_550) {
               switch (role) {
                 case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_550, role, sourceIndex, roomName, LEVEL_2);
+                  this.spawnFit(FIT_ATTACK_550, role, sourceID, roomName, LEVEL_2);
                   break;
                 default:
-                  this.spawnFit(FIT_WORKING_550, role, sourceIndex, roomName, LEVEL_2);
+                  this.spawnFit(FIT_WORKING_550, role, sourceID, roomName, LEVEL_2);
                   break;
               }
             }
@@ -81,10 +81,10 @@ export class CreepRole {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_800) {
               switch (role) {
                 case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_800, role, sourceIndex, roomName, LEVEL_3);
+                  this.spawnFit(FIT_ATTACK_800, role, sourceID, roomName, LEVEL_3);
                   break;
                 default:
-                  this.spawnFit(FIT_WORKING_800, role, sourceIndex, roomName, LEVEL_3);
+                  this.spawnFit(FIT_WORKING_800, role, sourceID, roomName, LEVEL_3);
                   break;
               }
             }
@@ -96,10 +96,10 @@ export class CreepRole {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_1300) {
               switch (role) {
                 case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_1300, role, sourceIndex, roomName, LEVEL_4);
+                  this.spawnFit(FIT_ATTACK_1300, role, sourceID, roomName, LEVEL_4);
                   break;
                 default:
-                  this.spawnFit(FIT_WORKING_1300, role, sourceIndex, roomName, LEVEL_4);
+                  this.spawnFit(FIT_WORKING_1300, role, sourceID, roomName, LEVEL_4);
                   break;
               }
             }
@@ -116,10 +116,11 @@ export class CreepRole {
   public mining(creep: Creep): void {
     const sources: Source[] = creep.room.find(FIND_SOURCES);
     const quantitySources = sources.length - 1;
-    creep.memory.sourceIndex =
-      creep.memory.sourceIndex !== null ? creep.memory.sourceIndex : _.random(0, quantitySources);
-    const sourceId: Id<Source> = sources[creep.memory.sourceIndex].id;
-    const source = Game.getObjectById(sourceId) as Source;
+    if (creep.memory.sourceID === null) {
+      const sourceId: Id<Source> = sources[_.random(0, quantitySources)].id;
+      creep.memory.sourceID = sourceId;
+    }
+    const source = Game.getObjectById(creep.memory.sourceID) as Source;
     if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
       creep.moveTo(source, { visualizePathStyle: { stroke: "#ffaa00" } });
     }
@@ -142,14 +143,14 @@ export class CreepRole {
    * Собираем фит для крипса
    * @param fit Массив с телом крипса
    * @param role Роль
-   * @param sourceIndex Индекс ресурса на ктороый пойдет майнить крипс
+   * @param sourceID Индекс ресурса на ктороый пойдет майнить крипс
    * @param roomName Имя комноты в которой был создан крипс
    * @param level Уровень крипса
    */
   private spawnFit(
     fit: BodyPartConstant[],
     role: CreepMemory["role"],
-    sourceIndex: CreepMemory["sourceIndex"],
+    sourceID: CreepMemory["sourceID"],
     roomName: CreepMemory["roomName"],
     level: CreepMemory["level"],
     isForward: CreepMemory["isForward"] = true,
@@ -158,7 +159,7 @@ export class CreepRole {
     const nameCreep = `${this.makeId()}${Game.time}${role}${level}`;
     const memory = {
       role,
-      sourceIndex,
+      sourceID,
       roomName,
       isForward,
       counter,

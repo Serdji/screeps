@@ -1,24 +1,26 @@
 export const properties = {
   SIZE_NAME_CREEP: 10,
 
-  ROLE_HARVESTER: 'harvester',
-  ROLE_UPGRADER: 'upgrader',
-  ROLE_BUILDER: 'builder',
-  ROLE_MULTI_ROOM: 'multiRoom',
-  ROLE_ATTACK: 'attack',
-  ROLE_RANGED: 'ranged',
+  ROLE_HARVESTER: "harvester",
+  ROLE_UPGRADER: "upgrader",
+  ROLE_BUILDER: "builder",
+  ROLE_WORKING_ABROAD_UPGRADER: "workingAbroadUpgrader",
+  ROLE_WORKING_ABROAD_HARVESTER: "workingAbroadHarvester",
+  ROLE_ATTACK: "attack",
+  ROLE_RANGED: "ranged",
 
   LIMIT_HARVESTER_MAX: 4,
-  LIMIT_UPGRADER_MAX: 4,
+  LIMIT_UPGRADER_MAX: 2,
   LIMIT_BUILDER_MAX: 2,
-  LIMIT_MULTI_ROOM: 2,
+  LIMIT_WORKING_ABROAD_UPGRADER: 4,
+  LIMIT_WORKING_ABROAD_HARVESTER: 2,
 
   LIMIT_ATTACK_MAX: 3,
   LIMIT_RANGED_MAX: null,
 
   PATROLLING_COORDINATES: [[45, 20], [45, 30], [45, 38], [35, 39], [23, 47], [9, 47]],
 
-  LEVEL_CREEP: 3,
+  LEVEL_CREEP: 2,
 
   LEVEL_1: 1,
   LEVEL_2: 2,

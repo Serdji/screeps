@@ -19,7 +19,7 @@ module.exports = class Colony {
 
   /**
    * Метод возвращающей конфигурацию крипсов
-   * @returns {*&{ROOM_ENERGY_LIMIT_1300: number, FIT_RANGED_800: *[], ROOM_ENERGY_LIMIT_800: number, SIZE_NAME_CREEP: number, FIT_RANGED_300: *[], FIT_ATTACK_1300: *[], FIT_RANGED_550: *[], FIT_RANGED_1300: *[], ROLE_BUILDER: string, FIT_WORKING_1300: *[], ROLE_MULTI_ROOM: string, FIT_ATTACK_800: *[], ROLE_RANGED: string, FIT_WORKING_300: *[], FIT_ATTACK_300: *[], ROLE_HARVESTER: string, FIT_WORKING_550: *[], ROOM_ENERGY_LIMIT_300: number, FIT_ATTACK_550: *[], ROOM_ENERGY_LIMIT_550: number, ROLE_ATTACK: string, ROLE_UPGRADER: string, FIT_WORKING_800: *[]}}
+   * @returns {*&{ROOM_ENERGY_LIMIT_1300: number, FIT_RANGED_800: *[], ROOM_ENERGY_LIMIT_800: number, SIZE_NAME_CREEP: number, FIT_RANGED_300: *[], FIT_ATTACK_1300: *[], FIT_RANGED_550: *[], FIT_RANGED_1300: *[], ROLE_BUILDER: string, FIT_WORKING_1300: *[], ROLE_WORKING_ABROAD_UPGRADER: string, FIT_ATTACK_800: *[], ROLE_RANGED: string, FIT_WORKING_300: *[], FIT_ATTACK_300: *[], ROLE_HARVESTER: string, FIT_WORKING_550: *[], ROOM_ENERGY_LIMIT_300: number, FIT_ATTACK_550: *[], ROOM_ENERGY_LIMIT_550: number, ROLE_ATTACK: string, ROLE_UPGRADER: string, FIT_WORKING_800: *[]}}
    */
   public getProperties(): any {
     return {
@@ -29,7 +29,7 @@ module.exports = class Colony {
       ROLE_HARVESTER: "harvester",
       ROLE_UPGRADER: "upgrader",
       ROLE_BUILDER: "builder",
-      ROLE_MULTI_ROOM: "multiRoom",
+      ROLE_WORKING_ABROAD_UPGRADER: "multiRoom",
       ROLE_ATTACK: "attack",
       ROLE_RANGED: "ranged",
 

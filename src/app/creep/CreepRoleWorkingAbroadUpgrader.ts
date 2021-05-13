@@ -3,15 +3,15 @@
  * module.exports.thing = 'a thing';
  *
  * You can import it from another modules like this:
- * var mod = require('CreepRoleMultiRoom');
+ * var mod = require('CreepRoleWorkingAbroad');
  * mod.thing == 'a thing'; // true
  */
 import { CreepRole } from "./CreepRole";
 import { properties } from "../properties";
 
-const { ROLE_MULTI_ROOM, LIMIT_MULTI_ROOM } = properties;
+const { ROLE_WORKING_ABROAD_UPGRADER, LIMIT_WORKING_ABROAD_UPGRADER } = properties;
 
-export class CreepRoleMultiRoom extends CreepRole {
+export class CreepRoleWorkingAbroadUpgrader extends CreepRole {
   private roomName: string;
   public constructor(roomName: string) {
     super();
@@ -66,6 +66,6 @@ export class CreepRoleMultiRoom extends CreepRole {
   }
 
   public spawn(): void {
-    super.spawn(ROLE_MULTI_ROOM + this.roomName, LIMIT_MULTI_ROOM);
+    super.spawn(ROLE_WORKING_ABROAD_UPGRADER + this.roomName, LIMIT_WORKING_ABROAD_UPGRADER);
   }
 };

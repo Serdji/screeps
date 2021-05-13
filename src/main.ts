@@ -6,11 +6,12 @@ import { CreepRoleAttack } from "app/creep/CreepRoleAttack";
 import { CreepRoleBuilder } from "app/creep/CreepRoleBuilder";
 import { CreepRoleHarvester } from "app/creep/CreepRoleHarvester";
 import { CreepRoleUpgrader } from "app/creep/CreepRoleUpgrader";
-import { CreepRoleMultiRoom } from "app/creep/CreepRoleMultiRoom";
+import { CreepRoleWorkingAbroadUpgrader } from "app/creep/CreepRoleWorkingAbroadUpgrader";
 
 import { TowerControl } from "app/tower/TowerControl";
+import { CreepRoleWorkingAbroadHarvester } from "./app/creep/CreepRoleWorkingAbroadHarvester";
 
-const { ROLE_HARVESTER, ROLE_BUILDER, ROLE_UPGRADER, ROLE_ATTACK, ROLE_MULTI_ROOM } = properties;
+const { ROLE_HARVESTER, ROLE_BUILDER, ROLE_UPGRADER, ROLE_ATTACK, ROLE_WORKING_ABROAD_UPGRADER, ROLE_WORKING_ABROAD_HARVESTER } = properties;
 
 declare global {
   /**
@@ -34,7 +35,7 @@ declare global {
     role: string;
     room: string;
     working: boolean;
-    sourceIndex: number | null;
+    sourceID: Id<Source> | null;
     roomName: string;
     isForward: boolean;
     counter: number;
@@ -52,8 +53,6 @@ declare global {
 // When compiling TS to JS and bundling with rollup, the line numbers and file names in error messages change
 // This utility uses source maps to get the line numbers and file names of the original, TS source code
 export const loop = ErrorMapper.wrapLoop(() => {
-  console.log(`Current game tick is ${Game.time}`);
-
   // Automatically delete memory of missing creeps
   for (const name in Memory.creeps) {
     if (!(name in Game.creeps)) {
@@ -65,8 +64,12 @@ export const loop = ErrorMapper.wrapLoop(() => {
   const creepRoleHarvester = new CreepRoleHarvester();
   const creepRoleUpgrader = new CreepRoleUpgrader();
   const creepRoleBuilder = new CreepRoleBuilder();
-  const creepRoleMultiRoomW7N3 = new CreepRoleMultiRoom("W7N3");
-  const creepRoleMultiRoomW8N2 = new CreepRoleMultiRoom("W8N2");
+
+  const creepRoleWorkingAbroadUpgraderW7N3 = new CreepRoleWorkingAbroadUpgrader("W7N3");
+  const creepRoleWorkingAbroadUpgraderW8N2 = new CreepRoleWorkingAbroadUpgrader("W8N2");
+
+  const creepRoleWorkingAbroadHarvesterW7N3 = new CreepRoleWorkingAbroadHarvester("W7N3");
+  const creepRoleWorkingAbroadHarvesterW8N2 = new CreepRoleWorkingAbroadHarvester("W8N2");
 
   const creepRoleAttack = new CreepRoleAttack();
 
@@ -75,8 +78,12 @@ export const loop = ErrorMapper.wrapLoop(() => {
   creepRoleHarvester.spawn();
   creepRoleUpgrader.spawn();
   creepRoleBuilder.spawn();
-  creepRoleMultiRoomW7N3.spawn();
-  creepRoleMultiRoomW8N2.spawn();
+
+  creepRoleWorkingAbroadUpgraderW7N3.spawn();
+  creepRoleWorkingAbroadUpgraderW8N2.spawn();
+
+  creepRoleWorkingAbroadHarvesterW7N3.spawn();
+  creepRoleWorkingAbroadHarvesterW8N2.spawn();
 
   creepRoleAttack.spawn();
 
@@ -94,11 +101,17 @@ export const loop = ErrorMapper.wrapLoop(() => {
       case ROLE_BUILDER:
         creepRoleBuilder.run(creep);
         break;
-      case ROLE_MULTI_ROOM + "W7N3":
-        creepRoleMultiRoomW7N3.run(creep);
+      case ROLE_WORKING_ABROAD_UPGRADER + "W7N3":
+        creepRoleWorkingAbroadUpgraderW7N3.run(creep);
         break;
-      case ROLE_MULTI_ROOM + "W8N2":
-        creepRoleMultiRoomW8N2.run(creep);
+      case ROLE_WORKING_ABROAD_UPGRADER + "W8N2":
+        creepRoleWorkingAbroadUpgraderW8N2.run(creep);
+        break;
+      case ROLE_WORKING_ABROAD_HARVESTER + "W7N3":
+        creepRoleWorkingAbroadHarvesterW7N3.run(creep);
+        break;
+      case ROLE_WORKING_ABROAD_HARVESTER + "W8N2":
+        creepRoleWorkingAbroadHarvesterW8N2.run(creep);
         break;
       case ROLE_ATTACK:
         creepRoleAttack.run(creep);
