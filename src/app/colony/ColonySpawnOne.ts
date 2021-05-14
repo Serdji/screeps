@@ -3,37 +3,37 @@ import { CreepRoleWorkingAbroadUpgrader } from "../creep/CreepRoleWorkingAbroadU
 import { Colony } from "./Colony";
 
 export class ColonySpawnOne extends Colony {
-  public constructor(nameSpawn: string, configSpawn: { [ket: string]: any }) {
-    super(nameSpawn, configSpawn);
+  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+    super(nameSpawn, properties);
     this.run();
   }
 
   public run(): void {
     super.run();
 
-    const { ROLE_WORKING_ABROAD_UPGRADER, ROLE_WORKING_ABROAD_HARVESTER } = this.getProperties();
+    const { ROLE_WORKING_ABROAD_UPGRADER, ROLE_WORKING_ABROAD_HARVESTER } = this.properties;
 
     const creepRoleWorkingAbroadUpgraderW7N3 = new CreepRoleWorkingAbroadUpgrader(
       "W7N3",
       this.nameSpawn,
-      this.getProperties()
+      this.properties
     );
 
     const creepRoleWorkingAbroadUpgraderW8N2 = new CreepRoleWorkingAbroadUpgrader(
       "W8N2",
       this.nameSpawn,
-      this.getProperties()
+      this.properties
     );
 
     const creepRoleWorkingAbroadHarvesterW7N3 = new CreepRoleWorkingAbroadHarvester(
       "W7N3",
       this.nameSpawn,
-      this.getProperties()
+      this.properties
     );
     const creepRoleWorkingAbroadHarvesterW8N2 = new CreepRoleWorkingAbroadHarvester(
       "W8N2",
       this.nameSpawn,
-      this.getProperties()
+      this.properties
     );
 
     for (const name in Game.creeps) {

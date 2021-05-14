@@ -1,4 +1,5 @@
-export const properties = {
+export const properties = (config: { [key: string]: any }): { [key: string]: any } => ({
+  ...config,
   SIZE_NAME_CREEP: 10,
 
   ROLE_HARVESTER: "harvester",
@@ -8,19 +9,6 @@ export const properties = {
   ROLE_WORKING_ABROAD_HARVESTER: "workingAbroadHarvester",
   ROLE_ATTACK: "attack",
   ROLE_RANGED: "ranged",
-
-  LIMIT_HARVESTER_MAX: 4,
-  LIMIT_UPGRADER_MAX: 2,
-  LIMIT_BUILDER_MAX: 2,
-  LIMIT_WORKING_ABROAD_UPGRADER: 4,
-  LIMIT_WORKING_ABROAD_HARVESTER: 2,
-
-  LIMIT_ATTACK_MAX: 3,
-  LIMIT_RANGED_MAX: null,
-
-  PATROLLING_COORDINATES: [[45, 20], [45, 30], [45, 38], [35, 39], [23, 47], [9, 47]],
-
-  LEVEL_CREEP: 2,
 
   LEVEL_1: 1,
   LEVEL_2: 2,
@@ -46,4 +34,4 @@ export const properties = {
   FIT_RANGED_550: [MOVE, MOVE, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK],
   FIT_RANGED_800: [MOVE, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK],
   FIT_RANGED_1300: [MOVE, MOVE, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK ],
-};
+});

@@ -16,13 +16,20 @@ export class CreepRoleAttack extends CreepRole {
   }
   
   public run(creep: Creep): void {
-    const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-    if (target) {
-      if (creep.attack(target) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(target);
-      }
+    if ("W8N3" !== creep.room.name) {
+      const exitDir = Game.map.findExit(creep.room, "W8N3") as ExitConstant;
+      const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
+      creep.moveTo(exit);
+      // Если имена совпали, едем убгрейживать контролер
     } else {
-      this.patrolling(creep);
+      const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+      if (target) {
+        if (creep.attack(target) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(target);
+        }
+      } else {
+        this.patrolling(creep);
+      }
     }
   }
 
