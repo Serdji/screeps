@@ -7,7 +7,6 @@
  * mod.thing == 'a thing'; // true
  */
 
-import common from "mocha/lib/interfaces/common";
 import { CreepRole } from "./CreepRole";
 
 export class CreepRoleAttack extends CreepRole {
@@ -39,29 +38,13 @@ export class CreepRoleAttack extends CreepRole {
       // Иначи едем домой
     } else {
       // Проверяем, если имя домашней комнаты не совпадает с комнотой в которой находися крипс, едем в ту комнату
-      if (creep.memory.roomName !== creep.room.name && creep.memory.upgrading) {
+      if (creep.memory.roomName !== creep.room.name) {
         const exitDir = Game.map.findExit(creep.room, creep.memory.roomName) as ExitConstant;
         const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
         creep.moveTo(exit);
         // Если имена совпали, выполняем метод аттаки
       } else {
         this.toAttack(creep);
-      }
-    }
-
-    if (name !== creep.room.name) {
-      const exitDir = Game.map.findExit(creep.room, name) as ExitConstant;
-      const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
-      creep.moveTo(exit);
-      // Если имена совпали, едем убгрейживать контролер
-    } else {
-      const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-      if (target) {
-        if (creep.attack(target) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(target);
-        }
-      } else {
-        this.patrolling(creep);
       }
     }
   }
@@ -75,7 +58,7 @@ export class CreepRoleAttack extends CreepRole {
     // Ищим вражеских кпсов
     const hostileCreeps = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
     // Ищим вражеские страения
-    const structureInvaderCore = creep.room.find(FIND_HOSTILE_STRUCTURES, {
+    const structureInvaderCores = creep.room.find(FIND_HOSTILE_STRUCTURES, {
       filter: structure => structure.structureType === STRUCTURE_INVADER_CORE
     });
 
@@ -83,9 +66,10 @@ export class CreepRoleAttack extends CreepRole {
       if (creep.attack(hostileCreeps) === ERR_NOT_IN_RANGE) {
         creep.moveTo(hostileCreeps);
       }
-    } else if (structureInvaderCore) {
-      if (creep.attack(structureInvaderCore[0]) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(structureInvaderCore[0]);
+    } else if (structureInvaderCores.length) {
+      const structureInvaderCore = Game.getObjectById(structureInvaderCores[0].id) as StructureInvaderCore;
+      if (creep.attack(structureInvaderCore) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(structureInvaderCore);
       }
     } else {
       this.patrolling(creep);

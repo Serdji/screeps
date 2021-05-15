@@ -11,12 +11,12 @@ export class App {
       "Spawn1",
       properties({
         LIMIT_HARVESTER_MAX: 2,
-        LIMIT_UPGRADER_MAX: null,
-        LIMIT_BUILDER_MAX: null,
-        LIMIT_WORKING_ABROAD_UPGRADER: null,
-        LIMIT_WORKING_ABROAD_HARVESTER: null,
+        LIMIT_UPGRADER_MAX: 1,
+        LIMIT_BUILDER_MAX: 1,
+        LIMIT_WORKING_ABROAD_UPGRADER: 2,
+        LIMIT_WORKING_ABROAD_HARVESTER: 2,
 
-        LIMIT_ATTACK_MAX: 4,
+        LIMIT_ATTACK_MAX: 2,
         LIMIT_RANGED_MAX: null,
 
         LEVEL_CREEP: 3,

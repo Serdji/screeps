@@ -16,7 +16,7 @@ export class ColonySpawnOne extends Colony {
 
     const creepRoleAttack = new CreepRoleAttack(this.nameSpawn, this.properties, {
       name: "W7N3",
-      isAttack: true
+      isAttack: false
     });
 
     const creepRoleWorkingAbroadUpgraderW7N3 = new CreepRoleWorkingAbroadUpgrader(
