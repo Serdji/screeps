@@ -14,22 +14,15 @@ export class CreepRoleAttack extends CreepRole {
     super(nameSpawn, properties);
     this.spawn();
   }
-  
+
   public run(creep: Creep): void {
-    if ("W8N3" !== creep.room.name) {
-      const exitDir = Game.map.findExit(creep.room, "W8N3") as ExitConstant;
-      const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
-      creep.moveTo(exit);
-      // Если имена совпали, едем убгрейживать контролер
-    } else {
-      const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-      if (target) {
-        if (creep.attack(target) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(target);
-        }
-      } else {
-        this.patrolling(creep);
+    const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    if (target) {
+      if (creep.attack(target) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(target);
       }
+    } else {
+      this.patrolling(creep);
     }
   }
 
@@ -45,7 +38,8 @@ export class CreepRoleAttack extends CreepRole {
           if (creep.pos.x === x && creep.pos.y === y) creep.memory.counter++;
           creep.moveTo(x, y);
         }
-        if (creep.memory.counter >= (PATROLLING_COORDINATES as [[number, number]]).length - 1) creep.memory.isForward = false;
+        if (creep.memory.counter >= (PATROLLING_COORDINATES as [[number, number]]).length - 1)
+          creep.memory.isForward = false;
       } else {
         if (creep.memory.counter === i) {
           if (creep.pos.x === x && creep.pos.y === y) creep.memory.counter--;

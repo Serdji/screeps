@@ -66,6 +66,6 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepRole {
 
   public spawn(): void {
     const { ROLE_WORKING_ABROAD_UPGRADER, LIMIT_WORKING_ABROAD_UPGRADER } = this.properties;
-    super.spawn((ROLE_WORKING_ABROAD_UPGRADER as string) + this.roomName, LIMIT_WORKING_ABROAD_UPGRADER);
+    super.spawn(ROLE_WORKING_ABROAD_UPGRADER, LIMIT_WORKING_ABROAD_UPGRADER, this.roomName);
   }
 };

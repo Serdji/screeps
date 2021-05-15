@@ -12,14 +12,15 @@ export class App {
       properties({
         LIMIT_HARVESTER_MAX: 4,
         LIMIT_UPGRADER_MAX: 3,
-        LIMIT_BUILDER_MAX: null,
-        LIMIT_WORKING_ABROAD_UPGRADER: 2,
-        LIMIT_WORKING_ABROAD_HARVESTER: 2,
+        LIMIT_BUILDER_MAX: 3,
+        LIMIT_WORKING_ABROAD_UPGRADER: null,
+        LIMIT_WORKING_ABROAD_HARVESTER: null,
+        LIMIT_WORKING_ABROAD_ATTACK: 2,
 
         LIMIT_ATTACK_MAX: null,
         LIMIT_RANGED_MAX: null,
 
-        LEVEL_CREEP: 1,
+        LEVEL_CREEP: 2,
 
         PATROLLING_COORDINATES: [
           [45, 20],

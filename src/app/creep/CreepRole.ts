@@ -14,9 +14,11 @@ export class CreepRole {
    * @param role Роль крипса
    * @param sizeCreeps Колличество крипсов
    */
-  public spawn(role: string, sizeCreeps: number): void {
+  public spawn(role: string, sizeCreeps: number, sendRoomName: string = ''): void {
     const {
       ROLE_ATTACK,
+      ROLE_RANGED,
+      ROLE_WORKING_ABROAD_ATTACK,
 
       ROOM_ENERGY_LIMIT_300,
       ROOM_ENERGY_LIMIT_550,
@@ -36,7 +38,17 @@ export class CreepRole {
       FIT_ATTACK_300,
       FIT_ATTACK_550,
       FIT_ATTACK_800,
-      FIT_ATTACK_1300
+      FIT_ATTACK_1300,
+
+      FIT_RANGED_300,
+      FIT_RANGED_550,
+      FIT_RANGED_800,
+      FIT_RANGED_1300,
+
+      FIT_WORKING_ABROAD_ATTACK_300,
+      FIT_WORKING_ABROAD_ATTACK_550,
+      FIT_WORKING_ABROAD_ATTACK_800,
+      FIT_WORKING_ABROAD_ATTACK_1300,
     } = this.properties;
 
     const creepRole = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === role);
@@ -53,10 +65,16 @@ export class CreepRole {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_300) {
               switch (role) {
                 case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_300, role, sourceID, roomName, LEVEL_1);
+                  this.spawnFit(FIT_ATTACK_300, role, sourceID, roomName, LEVEL_1, sendRoomName);
+                  break;
+                case ROLE_RANGED:
+                  this.spawnFit(FIT_RANGED_300, role, sourceID, roomName, LEVEL_1, sendRoomName);
+                  break;
+                case ROLE_WORKING_ABROAD_ATTACK:
+                  this.spawnFit(FIT_WORKING_ABROAD_ATTACK_300, role, sourceID, roomName, LEVEL_1, sendRoomName);
                   break;
                 default:
-                  this.spawnFit(FIT_WORKING_300, role, sourceID, roomName, LEVEL_1);
+                  this.spawnFit(FIT_WORKING_300, role, sourceID, roomName, LEVEL_1, sendRoomName);
                   break;
               }
             }
@@ -69,10 +87,16 @@ export class CreepRole {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_550) {
               switch (role) {
                 case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_550, role, sourceID, roomName, LEVEL_2);
+                  this.spawnFit(FIT_ATTACK_550, role, sourceID, roomName, LEVEL_2, sendRoomName);
+                  break;
+                case ROLE_RANGED:
+                  this.spawnFit(FIT_RANGED_550, role, sourceID, roomName, LEVEL_2, sendRoomName);
+                  break;
+                case ROLE_WORKING_ABROAD_ATTACK:
+                  this.spawnFit(FIT_WORKING_ABROAD_ATTACK_550, role, sourceID, roomName, LEVEL_2, sendRoomName);
                   break;
                 default:
-                  this.spawnFit(FIT_WORKING_550, role, sourceID, roomName, LEVEL_2);
+                  this.spawnFit(FIT_WORKING_550, role, sourceID, roomName, LEVEL_2, sendRoomName);
                   break;
               }
             }
@@ -85,10 +109,16 @@ export class CreepRole {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_800) {
               switch (role) {
                 case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_800, role, sourceID, roomName, LEVEL_3);
+                  this.spawnFit(FIT_ATTACK_800, role, sourceID, roomName, LEVEL_3, sendRoomName);
+                  break;
+                case ROLE_RANGED:
+                  this.spawnFit(FIT_RANGED_800, role, sourceID, roomName, LEVEL_3, sendRoomName);
+                  break;
+                case ROLE_WORKING_ABROAD_ATTACK:
+                  this.spawnFit(FIT_WORKING_ABROAD_ATTACK_800, role, sourceID, roomName, LEVEL_3, sendRoomName);
                   break;
                 default:
-                  this.spawnFit(FIT_WORKING_800, role, sourceID, roomName, LEVEL_3);
+                  this.spawnFit(FIT_WORKING_800, role, sourceID, roomName, LEVEL_3, sendRoomName);
                   break;
               }
             }
@@ -100,10 +130,16 @@ export class CreepRole {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_1300) {
               switch (role) {
                 case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_1300, role, sourceID, roomName, LEVEL_4);
+                  this.spawnFit(FIT_ATTACK_1300, role, sourceID, roomName, LEVEL_4, sendRoomName);
+                  break;
+                case ROLE_RANGED:
+                  this.spawnFit(FIT_RANGED_1300, role, sourceID, roomName, LEVEL_4, sendRoomName);
+                  break;
+                case ROLE_WORKING_ABROAD_ATTACK:
+                  this.spawnFit(FIT_WORKING_ABROAD_ATTACK_1300, role, sourceID, roomName, LEVEL_4, sendRoomName);
                   break;
                 default:
-                  this.spawnFit(FIT_WORKING_1300, role, sourceID, roomName, LEVEL_4);
+                  this.spawnFit(FIT_WORKING_1300, role, sourceID, roomName, LEVEL_4, sendRoomName);
                   break;
               }
             }
@@ -157,10 +193,11 @@ export class CreepRole {
     sourceID: CreepMemory["sourceID"],
     roomName: CreepMemory["roomName"],
     level: CreepMemory["level"],
+    sendRoomName: string,
     isForward: CreepMemory["isForward"] = true,
     counter: CreepMemory["counter"] = 0
   ): void {
-    const nameCreep = `${this.makeId()}${Game.time}${role}${level}`;
+    const nameCreep = `${this.makeId()}${Game.time}${role}${sendRoomName}${level}`;
     const memory = {
       role,
       sourceID,
