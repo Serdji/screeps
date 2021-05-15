@@ -7,17 +7,46 @@
  * mod.thing == 'a thing'; // true
  */
 
+import common from "mocha/lib/interfaces/common";
 import { CreepRole } from "./CreepRole";
 
 export class CreepRoleAttack extends CreepRole {
-  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+  private roomNameAttack: { name: string; isAttack: boolean; };
+  public constructor(
+    nameSpawn: string,
+    properties: { [ket: string]: any },
+    roomNameAttack: { name: string; isAttack: boolean }
+  ) {
     super(nameSpawn, properties);
+    this.roomNameAttack = roomNameAttack;
     this.spawn();
   }
   
   public run(creep: Creep): void {
-    if ("W8N3" !== creep.room.name) {
-      const exitDir = Game.map.findExit(creep.room, "W8N3") as ExitConstant;
+    const { name, isAttack } = this.roomNameAttack;
+
+    // Если стоит флаг аттаки
+    if( isAttack ) {
+      // Проверяем в той ли комнате находиться крипс, если нет кедем нее
+      if (name !== creep.room.name) {
+        const exitDir = Game.map.findExit(creep.room, name) as ExitConstant;
+        const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
+        creep.moveTo(exit);
+        // Если имена совпали, едем проверяем, есть ли кого такавать
+      } else {
+        const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        if (target) {
+          if (creep.attack(target) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(target);
+          }
+        } else {
+          this.patrolling(creep);
+        }
+      }
+    }
+
+    if (name !== creep.room.name) {
+      const exitDir = Game.map.findExit(creep.room, name) as ExitConstant;
       const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
       creep.moveTo(exit);
       // Если имена совпали, едем убгрейживать контролер
