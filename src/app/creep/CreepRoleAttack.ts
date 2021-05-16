@@ -10,25 +10,18 @@
 import { CreepRole } from "./CreepRole";
 
 export class CreepRoleAttack extends CreepRole {
-  private roomNameAttack: { name: string; isAttack: boolean };
-  public constructor(
-    nameSpawn: string,
-    properties: { [ket: string]: any },
-    roomNameAttack: { name: string; isAttack: boolean }
-  ) {
+  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
     super(nameSpawn, properties);
-    this.roomNameAttack = roomNameAttack;
     this.spawn();
   }
 
   public run(creep: Creep): void {
-    const { name, isAttack } = this.roomNameAttack;
-
+    const { ROOM_MANE, ROOM_IS_ATTACK } = this.properties;
     // Если стоит флаг аттаки
-    if (isAttack) {
+    if (ROOM_IS_ATTACK) {
       // Проверяем в той ли комнате находиться крипс, если нет кедем нее
-      if (name !== creep.room.name) {
-        const exitDir = Game.map.findExit(creep.room, name) as ExitConstant;
+      if (ROOM_MANE !== creep.room.name) {
+        const exitDir = Game.map.findExit(creep.room, ROOM_MANE) as ExitConstant;
         const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
         creep.moveTo(exit);
         // Если имена совпали, едем проверяем, есть ли кого такавать

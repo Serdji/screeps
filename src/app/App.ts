@@ -16,11 +16,13 @@ export class App {
         LIMIT_WORKING_ABROAD_UPGRADER: 2,
         LIMIT_WORKING_ABROAD_HARVESTER: 2,
 
-        LIMIT_ATTACK_MAX: 2,
+        LIMIT_ATTACK_MAX: 3,
         LIMIT_RANGED_MAX: null,
 
-        LEVEL_CREEP: 3,
+        LEVEL_CREEP: 2,
 
+        ROOM_MANE: "W7N3",
+        ROOM_IS_ATTACK: true,
         PATROLLING_COORDINATES: [
           [45, 20],
           [45, 30],

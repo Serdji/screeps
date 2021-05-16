@@ -23,11 +23,12 @@ export class Colony {
   }
 
   public run(): void {
-    const { ROLE_HARVESTER, ROLE_UPGRADER, ROLE_BUILDER } = this.properties;
+    const { ROLE_HARVESTER, ROLE_UPGRADER, ROLE_BUILDER, ROLE_ATTACK } = this.properties;
 
     const creepRoleHarvester = new CreepRoleHarvester(this.nameSpawn, this.properties);
     const creepRoleUpgrader = new CreepRoleUpgrader(this.nameSpawn, this.properties);
     const creepRoleBuilder = new CreepRoleBuilder(this.nameSpawn, this.properties);
+    const creepRoleAttack = new CreepRoleAttack(this.nameSpawn, this.properties);
 
     const towerControl = new TowerControl();
     towerControl.run();
@@ -43,6 +44,9 @@ export class Colony {
           break;
         case ROLE_BUILDER:
           creepRoleBuilder.run(creep);
+          break;
+        case ROLE_ATTACK:
+          creepRoleAttack.run(creep);
           break;
       }
     }

@@ -1,4 +1,3 @@
-import { CreepRoleAttack } from "../creep/CreepRoleAttack";
 import { CreepRoleWorkingAbroadHarvester } from "../creep/CreepRoleWorkingAbroadHarvester";
 import { CreepRoleWorkingAbroadUpgrader } from "../creep/CreepRoleWorkingAbroadUpgrader";
 import { Colony } from "./Colony";
@@ -12,12 +11,7 @@ export class ColonySpawnOne extends Colony {
   public run(): void {
     super.run();
 
-    const { ROLE_WORKING_ABROAD_UPGRADER, ROLE_WORKING_ABROAD_HARVESTER, ROLE_ATTACK } = this.properties;
-
-    const creepRoleAttack = new CreepRoleAttack(this.nameSpawn, this.properties, {
-      name: "W7N3",
-      isAttack: false
-    });
+    const { ROLE_WORKING_ABROAD_UPGRADER, ROLE_WORKING_ABROAD_HARVESTER } = this.properties;
 
     const creepRoleWorkingAbroadUpgraderW7N3 = new CreepRoleWorkingAbroadUpgrader(
       "W7N3",
@@ -45,9 +39,6 @@ export class ColonySpawnOne extends Colony {
     for (const name in Game.creeps) {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
-        case ROLE_ATTACK:
-          creepRoleAttack.run(creep);
-          break;
         case (ROLE_WORKING_ABROAD_UPGRADER as string) + "W7N3":
           creepRoleWorkingAbroadUpgraderW7N3.run(creep);
           break;
