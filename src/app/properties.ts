@@ -1,4 +1,4 @@
-export const properties = (config: { [key: string]: any }): { [key: string]: any } => ({
+export const properties = (config: IPrivateConfig): IProperties => ({
   ...config,
   SIZE_NAME_CREEP: 10,
 

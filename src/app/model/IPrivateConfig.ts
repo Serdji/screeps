@@ -1,0 +1,12 @@
+interface IPrivateConfig {
+  LIMIT_HARVESTER_MAX: ILimitCreep;
+  LIMIT_UPGRADER_MAX: ILimitCreep;
+  LIMIT_BUILDER_MAX: ILimitCreep;
+  LIMIT_WORKING_ABROAD_UPGRADER: ILimitCreep;
+  LIMIT_WORKING_ABROAD_HARVESTER: ILimitCreep;
+
+  LIMIT_ATTACK_MAX: ILimitCreep;
+  LIMIT_RANGED_MAX: ILimitCreep;
+
+  PATROLLING_COORDINATES: [number, number][];
+}

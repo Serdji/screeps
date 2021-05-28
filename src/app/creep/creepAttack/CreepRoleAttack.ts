@@ -6,48 +6,15 @@
  * var mod = require('CreepRoleAttack');
  * mod.thing == 'a thing'; // true
  */
+import { CreepAttack } from "./CreepAttack";
 
-import { CreepRole } from "./CreepRole";
-
-export class CreepRoleAttack extends CreepRole {
-  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+export class CreepRoleAttack extends CreepAttack {
+  public constructor(nameSpawn: string, properties: IProperties) {
     super(nameSpawn, properties);
     this.spawn();
   }
 
   public run(creep: Creep): void {
-    const { ROOM_MANE, ROOM_IS_ATTACK } = this.properties;
-    // Если стоит флаг аттаки
-    if (ROOM_IS_ATTACK) {
-      // Проверяем в той ли комнате находиться крипс, если нет кедем нее
-      if (ROOM_MANE !== creep.room.name) {
-        const exitDir = Game.map.findExit(creep.room, ROOM_MANE) as ExitConstant;
-        const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
-        creep.moveTo(exit);
-        // Если имена совпали, едем проверяем, есть ли кого такавать
-      } else {
-        this.toAttack(creep);
-      }
-      // Иначи едем домой
-    } else {
-      // Проверяем, если имя домашней комнаты не совпадает с комнотой в которой находися крипс, едем в ту комнату
-      if (creep.memory.roomName !== creep.room.name) {
-        const exitDir = Game.map.findExit(creep.room, creep.memory.roomName) as ExitConstant;
-        const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
-        creep.moveTo(exit);
-        // Если имена совпали, выполняем метод аттаки
-      } else {
-        this.toAttack(creep);
-      }
-    }
-  }
-
-  /**
-   * Метод аттаки
-   * @param creep
-   * @private
-   */
-  private toAttack(creep: Creep): void {
     // Ищим вражеских кпсов
     const hostileCreeps = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
     // Ищим вражеские страения

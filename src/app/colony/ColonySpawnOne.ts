@@ -1,9 +1,9 @@
-import { CreepRoleWorkingAbroadHarvester } from "../creep/CreepRoleWorkingAbroadHarvester";
-import { CreepRoleWorkingAbroadUpgrader } from "../creep/CreepRoleWorkingAbroadUpgrader";
+import { CreepRoleWorkingAbroadHarvester } from "../creep/creepWorking/CreepRoleWorkingAbroadHarvester";
+import { CreepRoleWorkingAbroadUpgrader } from "../creep/creepWorking/CreepRoleWorkingAbroadUpgrader";
 import { Colony } from "./Colony";
 
 export class ColonySpawnOne extends Colony {
-  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+  public constructor(nameSpawn: string, properties: IProperties) {
     super(nameSpawn, properties);
     this.run();
   }

@@ -10,19 +10,14 @@ export class App {
     new ColonySpawnOne(
       "Spawn1",
       properties({
-        LIMIT_HARVESTER_MAX: 2,
-        LIMIT_UPGRADER_MAX: 1,
-        LIMIT_BUILDER_MAX: 1,
-        LIMIT_WORKING_ABROAD_UPGRADER: 2,
-        LIMIT_WORKING_ABROAD_HARVESTER: 2,
+        LIMIT_HARVESTER_MAX: { size: 3, level: 1 },
+        LIMIT_UPGRADER_MAX: { size: 3, level: 1 },
+        LIMIT_BUILDER_MAX: { size: 3, level: 1 },
+        LIMIT_WORKING_ABROAD_UPGRADER: { size: null, level: 1 },
+        LIMIT_WORKING_ABROAD_HARVESTER: { size: null, level: 1 },
 
-        LIMIT_ATTACK_MAX: 3,
-        LIMIT_RANGED_MAX: null,
-
-        LEVEL_CREEP: 2,
-
-        ROOM_MANE: "W7N3",
-        ROOM_IS_ATTACK: true,
+        LIMIT_ATTACK_MAX: { size: null, level: 1 },
+        LIMIT_RANGED_MAX: { size: null, level: 1 },
         PATROLLING_COORDINATES: [
           [45, 20],
           [45, 30],

@@ -7,10 +7,10 @@
  * mod.thing == 'a thing'; // true
  */
 
-import { CreepRole } from "./CreepRole";
+import { CreepWorking } from "./CreepWorking";
 
-export class CreepRoleBuilder extends CreepRole {
-  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+export class CreepRoleBuilder extends CreepWorking {
+  public constructor(nameSpawn: string, properties: IProperties) {
     super(nameSpawn, properties);
     this.spawn();
   }

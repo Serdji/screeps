@@ -7,17 +7,17 @@
  * mod.thing == 'a thing'; // true
  */
 
-import { CreepRoleAttack } from "../creep/CreepRoleAttack";
-import { CreepRoleBuilder } from "../creep/CreepRoleBuilder";
-import { CreepRoleHarvester } from "../creep/CreepRoleHarvester";
-import { CreepRoleUpgrader } from "../creep/CreepRoleUpgrader";
+import { CreepRoleAttack } from "../creep/creepAttack/CreepRoleAttack";
+import { CreepRoleBuilder } from "../creep/creepWorking/CreepRoleBuilder";
+import { CreepRoleHarvester } from "../creep/creepWorking/CreepRoleHarvester";
+import { CreepRoleUpgrader } from "../creep/creepWorking/CreepRoleUpgrader";
 import { TowerControl } from "../tower/TowerControl";
 
 export class Colony {
   public nameSpawn: string;
-  public properties: { [ket: string]: any };
+  public properties: IProperties;
 
-  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+  public constructor(nameSpawn: string, properties: IProperties) {
     this.nameSpawn = nameSpawn;
     this.properties = properties;
   }

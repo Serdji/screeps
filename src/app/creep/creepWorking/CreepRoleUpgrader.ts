@@ -6,11 +6,10 @@
  * var mod = require('CreepRoleUpgrader');
  * mod.thing == 'a thing'; // true
  */
+import { CreepWorking } from "./CreepWorking";
 
-import { CreepRole } from "./CreepRole";
-
-export class CreepRoleUpgrader extends CreepRole {
-  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+export class CreepRoleUpgrader extends CreepWorking {
+  public constructor(nameSpawn: string, properties: IProperties) {
     super(nameSpawn, properties);
     this.spawn();
   }

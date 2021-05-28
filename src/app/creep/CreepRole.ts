@@ -1,117 +1,13 @@
 export class CreepRole {
   public nameSpawn: string;
-  public properties: { [ket: string]: any };
+  public properties: IProperties;
 
-  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+  public constructor(nameSpawn: string, properties: IProperties) {
     this.nameSpawn = nameSpawn;
     this.properties = properties;
   }
 
   public run(creep: Creep): void {}
-
-  /**
-   * Авотоматическое создание крипс
-   * @param role Роль крипса
-   * @param sizeCreeps Колличество крипсов
-   */
-  public spawn(role: string, sizeCreeps: number): void {
-    const {
-      ROLE_ATTACK,
-
-      ROOM_ENERGY_LIMIT_300,
-      ROOM_ENERGY_LIMIT_550,
-      ROOM_ENERGY_LIMIT_800,
-      ROOM_ENERGY_LIMIT_1300,
-
-      LEVEL_CREEP,
-      LEVEL_1,
-      LEVEL_2,
-      LEVEL_3,
-      LEVEL_4,
-      FIT_WORKING_300,
-      FIT_WORKING_550,
-      FIT_WORKING_800,
-      FIT_WORKING_1300,
-
-      FIT_ATTACK_300,
-      FIT_ATTACK_550,
-      FIT_ATTACK_800,
-      FIT_ATTACK_1300
-    } = this.properties;
-
-    const creepRole = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === role);
-    const sourceID = null;
-    if (sizeCreeps) {
-      if (creepRole.length < sizeCreeps) {
-        for (const roomName in Game.rooms) {
-          // Крипсы за 300
-          if (
-            LEVEL_CREEP === LEVEL_1 ||
-            (Game.rooms[roomName].energyCapacityAvailable >= ROOM_ENERGY_LIMIT_300 &&
-              Game.rooms[roomName].energyCapacityAvailable < ROOM_ENERGY_LIMIT_550)
-          ) {
-            if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_300) {
-              switch (role) {
-                case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_300, role, sourceID, roomName, LEVEL_1);
-                  break;
-                default:
-                  this.spawnFit(FIT_WORKING_300, role, sourceID, roomName, LEVEL_1);
-                  break;
-              }
-            }
-            // Крипсы за 550
-          } else if (
-            LEVEL_CREEP === LEVEL_2 ||
-            (Game.rooms[roomName].energyCapacityAvailable >= ROOM_ENERGY_LIMIT_550 &&
-              Game.rooms[roomName].energyCapacityAvailable < ROOM_ENERGY_LIMIT_800)
-          ) {
-            if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_550) {
-              switch (role) {
-                case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_550, role, sourceID, roomName, LEVEL_2);
-                  break;
-                default:
-                  this.spawnFit(FIT_WORKING_550, role, sourceID, roomName, LEVEL_2);
-                  break;
-              }
-            }
-            // Крипсы за 800
-          } else if (
-            LEVEL_CREEP === LEVEL_3 ||
-            (Game.rooms[roomName].energyCapacityAvailable >= ROOM_ENERGY_LIMIT_800 &&
-              Game.rooms[roomName].energyCapacityAvailable < ROOM_ENERGY_LIMIT_1300)
-          ) {
-            if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_800) {
-              switch (role) {
-                case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_800, role, sourceID, roomName, LEVEL_3);
-                  break;
-                default:
-                  this.spawnFit(FIT_WORKING_800, role, sourceID, roomName, LEVEL_3);
-                  break;
-              }
-            }
-            // Крипсы за 1500
-          } else if (
-            LEVEL_CREEP === LEVEL_4 ||
-            Game.rooms[roomName].energyCapacityAvailable >= ROOM_ENERGY_LIMIT_1300
-          ) {
-            if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_1300) {
-              switch (role) {
-                case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_1300, role, sourceID, roomName, LEVEL_4);
-                  break;
-                default:
-                  this.spawnFit(FIT_WORKING_1300, role, sourceID, roomName, LEVEL_4);
-                  break;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 
   /**
    * Рандомное распределение крисаов на майниг ресурсов
@@ -151,7 +47,7 @@ export class CreepRole {
    * @param roomName Имя комноты в которой был создан крипс
    * @param level Уровень крипса
    */
-  private spawnFit(
+  public spawnFit(
     fit: BodyPartConstant[],
     role: CreepMemory["role"],
     sourceID: CreepMemory["sourceID"],
