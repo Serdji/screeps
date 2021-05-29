@@ -15,23 +15,11 @@ export class CreepRoleUpgrader extends CreepWorking {
   }
 
   public run(creep: Creep): void {
-    if (creep.memory.upgrading && creep.store[RESOURCE_ENERGY] === 0) {
-      creep.memory.upgrading = false;
-      creep.say("🔄 Копать");
-    }
-    if (!creep.memory.upgrading && creep.store.getFreeCapacity() === 0) {
-      creep.memory.upgrading = true;
-      creep.say("⚡ Упгрейдить");
-    }
+    this.toUpgrader(creep);
+  }
 
-    // Едем упгрейдить контролер
-    if (creep.memory.upgrading) {
-      if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#ffffff" } });
-      }
-    } else {
-      super.mining(creep);
-    }
+  public toUpgrader(creep: Creep) {
+    super.toUpgrader(creep);
   }
 
   public spawn(): void {
