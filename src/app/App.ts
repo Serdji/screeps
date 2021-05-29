@@ -16,7 +16,7 @@ export class App {
         LIMIT_WORKING_ABROAD_UPGRADER: { size: null, level: 1 },
         LIMIT_WORKING_ABROAD_HARVESTER: { size: null, level: 1 },
 
-        LIMIT_ATTACK_MAX: { size: null, level: 1 },
+        LIMIT_ATTACK_MAX: { size: 3, level: 1 },
         LIMIT_RANGED_MAX: { size: null, level: 1 },
         PATROLLING_COORDINATES: [
           [45, 20],

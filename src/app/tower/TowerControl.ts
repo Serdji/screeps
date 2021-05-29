@@ -18,49 +18,31 @@ export class TowerControl {
         for (const index in towers) {
           const tower = Game.getObjectById(towers[index].id);
           if (tower) {
-            this.attack(tower);
-            this.heal(tower);
-            this.repair(tower);
+            const closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+            const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
+              filter: structure => structure.hits < structure.hitsMax
+            });
+            const hilCreeps = tower.pos.findClosestByRange(FIND_CREEPS, {
+              filter: structure => structure.hits < structure.hitsMax
+            });
+            // Если есть кого атаковать, атакуем в первую очередь
+            if (closestHostile) {
+              tower.attack(closestHostile);
+            } else {
+              // Есле нет кого атаковать, занимаемся ремонтом
+              if (closestDamagedStructure) {
+                tower.repair(closestDamagedStructure);
+                // И только в последнюю очередь зиллим
+              } else {
+                if (closestDamagedStructure) {
+                  tower.heal(closestDamagedStructure);
+                }
+              }
+            }
+
           }
         }
       }
-    }
-  }
-
-  /**
-   * Если есть кого атаковать АТАКУЕМ
-   * @param tower
-   */
-  private attack(tower: StructureTower): void {
-    const closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-    if (closestHostile) {
-      tower.attack(closestHostile);
-    }
-  }
-
-  /**
-   * Если есть что чинить ЧИНЕМ
-   * @param tower
-   */
-  private repair(tower: StructureTower): void {
-    const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-      filter: structure => structure.hits < structure.hitsMax
-    });
-    if (closestDamagedStructure) {
-      tower.repair(closestDamagedStructure);
-    }
-  }
-
-  /**
-   * Если есть кого лечить ЛЕЧИМ
-   * @param tower
-   */
-  private heal(tower: StructureTower): void {
-    const closestDamagedStructure = tower.pos.findClosestByRange(FIND_CREEPS, {
-      filter: structure => structure.hits < structure.hitsMax
-    });
-    if (closestDamagedStructure) {
-      tower.heal(closestDamagedStructure);
     }
   }
 }
