@@ -273,4 +273,16 @@ export class CreepRole {
       }
     });
   }
+
+  public toRanged(creep: Creep) {
+    const targets = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 3);
+    if (targets.length > 0) {
+      creep.rangedAttack(targets[0]);
+    }
+  }
+
+  public parking(creep: Creep, parkingCoordinates: [number, number]): boolean {
+    const [x, y] = parkingCoordinates;
+    return creep.moveTo(x, y) === OK;
+  }
 }
