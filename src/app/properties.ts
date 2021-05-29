@@ -5,6 +5,7 @@ export const properties = (config: IPrivateConfig): IProperties => ({
   ROLE_HARVESTER: "harvester",
   ROLE_UPGRADER: "upgrader",
   ROLE_BUILDER: "builder",
+  ROLE_REFUELLER: "refueller",
   ROLE_WORKING_ABROAD_UPGRADER: "workingAbroadUpgrader",
   ROLE_WORKING_ABROAD_HARVESTER: "workingAbroadHarvester",
   ROLE_ATTACK: "attack",

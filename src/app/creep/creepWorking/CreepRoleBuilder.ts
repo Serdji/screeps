@@ -28,11 +28,6 @@ export class CreepRoleBuilder extends CreepWorking {
     if (creep.memory.building) {
       const constructions = creep.room.find(FIND_CONSTRUCTION_SITES);
 
-      const structureTowers = creep.room.find(FIND_STRUCTURES, {
-        filter: structure =>
-          structure.structureType === STRUCTURE_TOWER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-      });
-
       const structureRepairs = creep.room.find(FIND_STRUCTURES, {
         filter: object => object.hits < object.hitsMax
       });
@@ -43,12 +38,6 @@ export class CreepRoleBuilder extends CreepWorking {
         const construction = Game.getObjectById(constructions[0].id) as ConstructionSite;
         if (creep.build(construction) === ERR_NOT_IN_RANGE) {
           creep.moveTo(construction, { visualizePathStyle: { stroke: "#ffffff" } });
-        }
-        // Заправить пушку, если нечего сторить
-      } else if (structureTowers.length) {
-        const structureTower = Game.getObjectById(structureTowers[0].id) as StructureTower;
-        if (creep.transfer(structureTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(structureTower, { visualizePathStyle: { stroke: "#ffffff" } });
         }
         // Пока нет пушки, заниматься ремонтом
       } else if (structureRepairs.length) {
