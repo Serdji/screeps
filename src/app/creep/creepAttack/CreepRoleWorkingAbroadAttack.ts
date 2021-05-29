@@ -24,18 +24,15 @@ export class CreepRoleWorkingAbroadAttack extends CreepAttack {
   }
 
   public run(creep: Creep): void {
-    // Проверяем, совпадает ли имя комнаты в которой находиться крипс с именем куда ехеть
-    // елси нет, едем в ту комнату
-    if (creep.room.name !== this.roomName) {
-      const exitDir = Game.map.findExit(creep.room, this.roomName) as ExitConstant;
-      const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
-      creep.moveTo(exit);
-      // Как приехали в нужную комнату, начинаем работать
-    } else {
+    if (!this.toRoom(creep, this.roomName)) {
       if (!this.toAttack(creep)) {
         this.patrolling(creep, this.patrollingCoordinates);
       }
     }
+  }
+
+  public toRoom( creep: Creep, roomName: string ): boolean {
+    return super.toRoom( creep, roomName );
   }
 
   public toAttack(creep: Creep): boolean {
@@ -46,9 +43,8 @@ export class CreepRoleWorkingAbroadAttack extends CreepAttack {
     super.patrolling(creep, patrollingCoordinates);
   }
 
-
   public spawn(): void {
     const { ROLE_WORKING_ABROAD_ATTACK, LIMIT_WORKING_ABROAD_ATTACK } = this.properties;
-    super.spawn(ROLE_WORKING_ABROAD_ATTACK + this.roomName, LIMIT_WORKING_ABROAD_ATTACK as ILimitCreep);
+    super.spawn(ROLE_WORKING_ABROAD_ATTACK + this.roomName, (LIMIT_WORKING_ABROAD_ATTACK as ILimitCreep));
   }
 }
