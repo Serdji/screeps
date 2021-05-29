@@ -65,6 +65,6 @@ export class CreepRoleWorkingAbroadHarvester extends CreepWorking {
 
   public spawn(): void {
     const { ROLE_WORKING_ABROAD_HARVESTER, LIMIT_WORKING_ABROAD_HARVESTER } = this.properties;
-    super.spawn((ROLE_WORKING_ABROAD_HARVESTER as string) + this.roomName, LIMIT_WORKING_ABROAD_HARVESTER);
+    super.spawn(ROLE_WORKING_ABROAD_HARVESTER + this.roomName, LIMIT_WORKING_ABROAD_HARVESTER);
   }
 }

@@ -21,7 +21,7 @@ export class CreepAttack extends CreepRole {
       FIT_ATTACK_300,
       FIT_ATTACK_550,
       FIT_ATTACK_800,
-      FIT_ATTACK_1300
+      FIT_ATTACK_1300,
     } = this.properties;
 
     const creepRole = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === role);
@@ -80,5 +80,54 @@ export class CreepAttack extends CreepRole {
     counter: CreepMemory["counter"] = 0
   ) {
     super.spawnFit(fit, role, sourceID, roomName, level, isForward, counter);
+  }
+
+  /**
+   * Метод для аттаки
+   * @param creep
+   */
+  public toAttack(creep: Creep): boolean {
+    // Ищим вражеских кпсов
+    const hostileCreeps = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    // Ищим вражеские страения
+    const structureInvaderCores = creep.room.find(FIND_HOSTILE_STRUCTURES, {
+      filter: structure => structure.structureType === STRUCTURE_INVADER_CORE
+    });
+
+    if (hostileCreeps) {
+      if (creep.attack(hostileCreeps) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(hostileCreeps);
+      }
+      return true;
+    } else if (structureInvaderCores.length) {
+      const structureInvaderCore = Game.getObjectById(structureInvaderCores[0].id) as StructureInvaderCore;
+      if (creep.attack(structureInvaderCore) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(structureInvaderCore);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Метод для потрулирование атакующих крипсов
+   * @param creep
+   */
+  public patrolling(creep: Creep, patrollingCoordinates: IProperties["PATROLLING_COORDINATES"]) {
+    patrollingCoordinates.forEach(([x, y], i) => {
+      if (creep.memory.isForward) {
+        if (creep.memory.counter === i) {
+          if (creep.pos.x === x && creep.pos.y === y) creep.memory.counter++;
+          creep.moveTo(x, y);
+        }
+        if (creep.memory.counter >= patrollingCoordinates.length - 1) creep.memory.isForward = false;
+      } else {
+        if (creep.memory.counter === i) {
+          if (creep.pos.x === x && creep.pos.y === y) creep.memory.counter--;
+          creep.moveTo(x, y);
+          if (creep.memory.counter <= 0) creep.memory.isForward = true;
+        }
+      }
+    });
   }
 }

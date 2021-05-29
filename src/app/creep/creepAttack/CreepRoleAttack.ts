@@ -15,49 +15,18 @@ export class CreepRoleAttack extends CreepAttack {
   }
 
   public run(creep: Creep): void {
-    // Ищим вражеских кпсов
-    const hostileCreeps = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-    // Ищим вражеские страения
-    const structureInvaderCores = creep.room.find(FIND_HOSTILE_STRUCTURES, {
-      filter: structure => structure.structureType === STRUCTURE_INVADER_CORE
-    });
-
-    if (hostileCreeps) {
-      if (creep.attack(hostileCreeps) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(hostileCreeps);
-      }
-    } else if (structureInvaderCores.length) {
-      const structureInvaderCore = Game.getObjectById(structureInvaderCores[0].id) as StructureInvaderCore;
-      if (creep.attack(structureInvaderCore) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(structureInvaderCore);
-      }
-    } else {
-      this.patrolling(creep);
+    if (!this.toAttack(creep)) {
+      const { PATROLLING_COORDINATES } = this.properties;
+      this.patrolling(creep, PATROLLING_COORDINATES);
     }
   }
 
-  /**
-   * Метод для потрулирование атакующих крипсов
-   * @param creep
-   */
-  private patrolling(creep: Creep) {
-    const { PATROLLING_COORDINATES } = this.properties;
-    (PATROLLING_COORDINATES as [[number, number]]).forEach(([x, y], i) => {
-      if (creep.memory.isForward) {
-        if (creep.memory.counter === i) {
-          if (creep.pos.x === x && creep.pos.y === y) creep.memory.counter++;
-          creep.moveTo(x, y);
-        }
-        if (creep.memory.counter >= (PATROLLING_COORDINATES as [[number, number]]).length - 1)
-          creep.memory.isForward = false;
-      } else {
-        if (creep.memory.counter === i) {
-          if (creep.pos.x === x && creep.pos.y === y) creep.memory.counter--;
-          creep.moveTo(x, y);
-          if (creep.memory.counter <= 0) creep.memory.isForward = true;
-        }
-      }
-    });
+  public toAttack(creep: Creep): boolean {
+    return super.toAttack(creep);
+  }
+
+  public patrolling(creep: Creep, patrollingCoordinates: IProperties["PATROLLING_COORDINATES"]) {
+    super.patrolling(creep, patrollingCoordinates);
   }
 
   public spawn() {

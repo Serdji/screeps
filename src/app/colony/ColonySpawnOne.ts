@@ -1,3 +1,4 @@
+import { CreepRoleWorkingAbroadAttack } from "../creep/creepAttack/CreepRoleWorkingAbroadAttack";
 import { CreepRoleWorkingAbroadHarvester } from "../creep/creepWorking/CreepRoleWorkingAbroadHarvester";
 import { CreepRoleWorkingAbroadUpgrader } from "../creep/creepWorking/CreepRoleWorkingAbroadUpgrader";
 import { Colony } from "./Colony";
@@ -11,7 +12,7 @@ export class ColonySpawnOne extends Colony {
   public run(): void {
     super.run();
 
-    const { ROLE_WORKING_ABROAD_UPGRADER, ROLE_WORKING_ABROAD_HARVESTER } = this.properties;
+    const { ROLE_WORKING_ABROAD_UPGRADER, ROLE_WORKING_ABROAD_HARVESTER, ROLE_WORKING_ABROAD_ATTACK } = this.properties;
 
     const creepRoleWorkingAbroadUpgraderW7N3 = new CreepRoleWorkingAbroadUpgrader(
       "W7N3",
@@ -36,20 +37,29 @@ export class ColonySpawnOne extends Colony {
       this.properties
     );
 
+    const creepRoleWorkingAbroadAttackW7N3 = new CreepRoleWorkingAbroadAttack("W7N3", this.nameSpawn, this.properties, [
+      [38, 10],
+      [32, 15],
+      [35, 22]
+    ]);
+
     for (const name in Game.creeps) {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
-        case (ROLE_WORKING_ABROAD_UPGRADER as string) + "W7N3":
+        case ROLE_WORKING_ABROAD_UPGRADER + "W7N3":
           creepRoleWorkingAbroadUpgraderW7N3.run(creep);
           break;
-        case (ROLE_WORKING_ABROAD_UPGRADER as string) + "W8N2":
+        case ROLE_WORKING_ABROAD_UPGRADER + "W8N2":
           creepRoleWorkingAbroadUpgraderW8N2.run(creep);
           break;
-        case (ROLE_WORKING_ABROAD_HARVESTER as string) + "W7N3":
+        case ROLE_WORKING_ABROAD_HARVESTER + "W7N3":
           creepRoleWorkingAbroadHarvesterW7N3.run(creep);
           break;
-        case (ROLE_WORKING_ABROAD_HARVESTER as string) + "W8N2":
+        case ROLE_WORKING_ABROAD_HARVESTER + "W8N2":
           creepRoleWorkingAbroadHarvesterW8N2.run(creep);
+          break;
+        case ROLE_WORKING_ABROAD_ATTACK + "W7N3":
+          creepRoleWorkingAbroadAttackW7N3.run(creep);
           break;
       }
     }
