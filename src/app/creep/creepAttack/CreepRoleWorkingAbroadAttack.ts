@@ -49,6 +49,6 @@ export class CreepRoleWorkingAbroadAttack extends CreepAttack {
 
   public spawn(): void {
     const { ROLE_WORKING_ABROAD_ATTACK, LIMIT_WORKING_ABROAD_ATTACK } = this.properties;
-    super.spawn(ROLE_WORKING_ABROAD_ATTACK + this.roomName, LIMIT_WORKING_ABROAD_ATTACK);
+    super.spawn(ROLE_WORKING_ABROAD_ATTACK + this.roomName, LIMIT_WORKING_ABROAD_ATTACK as ILimitCreep);
   }
 }
