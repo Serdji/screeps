@@ -6,12 +6,11 @@
  * var mod = require('CreepRoleWorkingAbroad');
  * mod.thing == 'a thing'; // true
  */
-import { CreepRole } from "./CreepRole";
-import { properties } from "../properties";
+import { CreepWorking } from "./CreepWorking";
 
-export class CreepRoleWorkingAbroadUpgrader extends CreepRole {
+export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
   private roomName: string;
-  public constructor(roomName: string, nameSpawn: string, properties: { [ket: string]: any }) {
+  public constructor(roomName: string, nameSpawn: string, properties: IProperties) {
     super(nameSpawn, properties);
     this.roomName = roomName; // Имя комнаты, куда отправляем крипса
     this.spawn();
@@ -66,6 +65,6 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepRole {
 
   public spawn(): void {
     const { ROLE_WORKING_ABROAD_UPGRADER, LIMIT_WORKING_ABROAD_UPGRADER } = this.properties;
-    super.spawn((ROLE_WORKING_ABROAD_UPGRADER as string) + this.roomName, LIMIT_WORKING_ABROAD_UPGRADER);
+    super.spawn(ROLE_WORKING_ABROAD_UPGRADER + this.roomName, LIMIT_WORKING_ABROAD_UPGRADER as ILimitCreep);
   }
-};
+}

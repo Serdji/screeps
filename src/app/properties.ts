@@ -1,12 +1,14 @@
-export const properties = (config: { [key: string]: any }): { [key: string]: any } => ({
+export const properties = (config: IPrivateConfig): IProperties => ({
   ...config,
   SIZE_NAME_CREEP: 10,
 
   ROLE_HARVESTER: "harvester",
   ROLE_UPGRADER: "upgrader",
   ROLE_BUILDER: "builder",
+  ROLE_REFUELLER: "refueller",
   ROLE_WORKING_ABROAD_UPGRADER: "workingAbroadUpgrader",
   ROLE_WORKING_ABROAD_HARVESTER: "workingAbroadHarvester",
+  ROLE_WORKING_ABROAD_ATTACK: "workingAbroadAttack",
   ROLE_ATTACK: "attack",
   ROLE_RANGED: "ranged",
 

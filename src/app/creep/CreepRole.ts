@@ -1,117 +1,13 @@
 export class CreepRole {
   public nameSpawn: string;
-  public properties: { [ket: string]: any };
+  public properties: IProperties;
 
-  public constructor(nameSpawn: string, properties: { [ket: string]: any }) {
+  public constructor(nameSpawn: string, properties: IProperties) {
     this.nameSpawn = nameSpawn;
     this.properties = properties;
   }
 
   public run(creep: Creep): void {}
-
-  /**
-   * Авотоматическое создание крипс
-   * @param role Роль крипса
-   * @param sizeCreeps Колличество крипсов
-   */
-  public spawn(role: string, sizeCreeps: number): void {
-    const {
-      ROLE_ATTACK,
-
-      ROOM_ENERGY_LIMIT_300,
-      ROOM_ENERGY_LIMIT_550,
-      ROOM_ENERGY_LIMIT_800,
-      ROOM_ENERGY_LIMIT_1300,
-
-      LEVEL_CREEP,
-      LEVEL_1,
-      LEVEL_2,
-      LEVEL_3,
-      LEVEL_4,
-      FIT_WORKING_300,
-      FIT_WORKING_550,
-      FIT_WORKING_800,
-      FIT_WORKING_1300,
-
-      FIT_ATTACK_300,
-      FIT_ATTACK_550,
-      FIT_ATTACK_800,
-      FIT_ATTACK_1300
-    } = this.properties;
-
-    const creepRole = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === role);
-    const sourceID = null;
-    if (sizeCreeps) {
-      if (creepRole.length < sizeCreeps) {
-        for (const roomName in Game.rooms) {
-          // Крипсы за 300
-          if (
-            LEVEL_CREEP === LEVEL_1 ||
-            (Game.rooms[roomName].energyCapacityAvailable >= ROOM_ENERGY_LIMIT_300 &&
-              Game.rooms[roomName].energyCapacityAvailable < ROOM_ENERGY_LIMIT_550)
-          ) {
-            if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_300) {
-              switch (role) {
-                case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_300, role, sourceID, roomName, LEVEL_1);
-                  break;
-                default:
-                  this.spawnFit(FIT_WORKING_300, role, sourceID, roomName, LEVEL_1);
-                  break;
-              }
-            }
-            // Крипсы за 550
-          } else if (
-            LEVEL_CREEP === LEVEL_2 ||
-            (Game.rooms[roomName].energyCapacityAvailable >= ROOM_ENERGY_LIMIT_550 &&
-              Game.rooms[roomName].energyCapacityAvailable < ROOM_ENERGY_LIMIT_800)
-          ) {
-            if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_550) {
-              switch (role) {
-                case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_550, role, sourceID, roomName, LEVEL_2);
-                  break;
-                default:
-                  this.spawnFit(FIT_WORKING_550, role, sourceID, roomName, LEVEL_2);
-                  break;
-              }
-            }
-            // Крипсы за 800
-          } else if (
-            LEVEL_CREEP === LEVEL_3 ||
-            (Game.rooms[roomName].energyCapacityAvailable >= ROOM_ENERGY_LIMIT_800 &&
-              Game.rooms[roomName].energyCapacityAvailable < ROOM_ENERGY_LIMIT_1300)
-          ) {
-            if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_800) {
-              switch (role) {
-                case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_800, role, sourceID, roomName, LEVEL_3);
-                  break;
-                default:
-                  this.spawnFit(FIT_WORKING_800, role, sourceID, roomName, LEVEL_3);
-                  break;
-              }
-            }
-            // Крипсы за 1500
-          } else if (
-            LEVEL_CREEP === LEVEL_4 ||
-            Game.rooms[roomName].energyCapacityAvailable >= ROOM_ENERGY_LIMIT_1300
-          ) {
-            if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_1300) {
-              switch (role) {
-                case ROLE_ATTACK:
-                  this.spawnFit(FIT_ATTACK_1300, role, sourceID, roomName, LEVEL_4);
-                  break;
-                default:
-                  this.spawnFit(FIT_WORKING_1300, role, sourceID, roomName, LEVEL_4);
-                  break;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
 
   /**
    * Рандомное распределение крисаов на майниг ресурсов
@@ -151,7 +47,7 @@ export class CreepRole {
    * @param roomName Имя комноты в которой был создан крипс
    * @param level Уровень крипса
    */
-  private spawnFit(
+  public spawnFit(
     fit: BodyPartConstant[],
     role: CreepMemory["role"],
     sourceID: CreepMemory["sourceID"],
@@ -187,5 +83,206 @@ export class CreepRole {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+  }
+
+  /**
+   * Строить
+   * @param creep
+   */
+  public toBuilder(creep: Creep) {
+    if (creep.memory.building && creep.store[RESOURCE_ENERGY] === 0) {
+      creep.memory.building = false;
+      creep.say("🔄 Копать");
+    }
+    if (!creep.memory.building && creep.store.getFreeCapacity() === 0) {
+      creep.memory.building = true;
+      creep.say("🚧 Строить");
+    }
+
+    if (creep.memory.building) {
+      const constructions = creep.room.find(FIND_CONSTRUCTION_SITES);
+
+      const structureRepairs = creep.room.find(FIND_STRUCTURES, {
+        filter: object => object.hits < object.hitsMax
+      });
+      structureRepairs.sort((a, b) => a.hits - b.hits);
+
+      // Если есть что сторить, крипс идет строить
+      if (constructions.length) {
+        const construction = Game.getObjectById(constructions[0].id) as ConstructionSite;
+        if (creep.build(construction) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(construction, { visualizePathStyle: { stroke: "#ffffff" } });
+        }
+        // Пока нет пушки, заниматься ремонтом
+      } else if (structureRepairs.length) {
+        const structureRepair = Game.getObjectById(structureRepairs[0].id) as Structure;
+        // if (creep.repair(structureRepair) === ERR_NOT_IN_RANGE) {
+        //   creep.moveTo(structureRepair);
+        // }
+      } else {
+        this.toSpawn(creep);
+      }
+    } else {
+      this.mining(creep);
+    }
+  }
+
+  /**
+   * Сбор энергии
+   * @param creep
+   */
+  public toHarvester(creep: Creep) {
+    if (creep.memory.harvester && creep.store[RESOURCE_ENERGY] === 0) {
+      creep.memory.harvester = false;
+      creep.say("🔄 Копать");
+    }
+    if (!creep.memory.harvester && creep.store.getFreeCapacity() === 0) {
+      creep.memory.harvester = true;
+      creep.say("⛽ Заправлять");
+    }
+
+    if (creep.memory.harvester) {
+      const targets = creep.room.find(FIND_STRUCTURES, {
+        filter: structure =>
+          (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN) &&
+          structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+      });
+      // Если есть куда носить ресурсы, несем туда
+      if (targets.length) {
+        const target = Game.getObjectById(targets[0].id) as Structure;
+        if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(target, { visualizePathStyle: { stroke: "#ffffff" } });
+        }
+      } else {
+        this.toSpawn(creep);
+      }
+    } else {
+      this.mining(creep);
+    }
+  }
+
+  /**
+   * Зарядка пушки
+   * @param creep
+   */
+  public toRefueller(creep: Creep) {
+    if (creep.memory.building && creep.store[RESOURCE_ENERGY] === 0) {
+      creep.memory.building = false;
+      creep.say("🔄 Копать");
+    }
+    if (!creep.memory.building && creep.store.getFreeCapacity() === 0) {
+      creep.memory.building = true;
+      creep.say("⛽ Заправлять");
+    }
+
+    if (creep.memory.building) {
+      const structureTowers = creep.room.find(FIND_STRUCTURES, {
+        filter: structure =>
+          structure.structureType === STRUCTURE_TOWER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+      });
+
+      const structureRepairs = creep.room.find(FIND_STRUCTURES, {
+        filter: object => object.hits < object.hitsMax
+      });
+      structureRepairs.sort((a, b) => a.hits - b.hits);
+
+      // Заправить пушку, если нечего сторить
+      if (structureTowers.length) {
+        const structureTower = Game.getObjectById(structureTowers[0].id) as StructureTower;
+        if (creep.transfer(structureTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(structureTower, { visualizePathStyle: { stroke: "#ffffff" } });
+        }
+        // Пока нет пушки, заниматься ремонтом
+      } else {
+        this.toSpawn(creep);
+      }
+    } else {
+      this.mining(creep);
+    }
+  }
+
+  /**
+   * Упгрейд контроллера
+   * @param creep
+   */
+  public toUpgrader(creep: Creep) {
+    if (creep.memory.upgrading && creep.store[RESOURCE_ENERGY] === 0) {
+      creep.memory.upgrading = false;
+      creep.say("🔄 Копать");
+    }
+    if (!creep.memory.upgrading && creep.store.getFreeCapacity() === 0) {
+      creep.memory.upgrading = true;
+      creep.say("⚡ Упгрейдить");
+    }
+
+    // Едем упгрейдить контролер
+    if (creep.memory.upgrading) {
+      if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#ffffff" } });
+      }
+    } else {
+      this.mining(creep);
+    }
+  }
+
+  /**
+   * Аттака
+   * @param creep
+   */
+  public toAttack(creep: Creep): boolean {
+    // Ищим вражеских кпсов
+    const hostileCreeps = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    // Ищим вражеские страения
+    const structureInvaderCores = creep.room.find(FIND_HOSTILE_STRUCTURES, {
+      filter: structure => structure.structureType === STRUCTURE_INVADER_CORE
+    });
+
+    if (hostileCreeps) {
+      if (creep.attack(hostileCreeps) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(hostileCreeps);
+      }
+      return true;
+    } else if (structureInvaderCores.length) {
+      const structureInvaderCore = Game.getObjectById(structureInvaderCores[0].id) as StructureInvaderCore;
+      if (creep.attack(structureInvaderCore) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(structureInvaderCore);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Метод для потрулирование атакующих крипсов
+   * @param creep
+   */
+  public patrolling(creep: Creep, patrollingCoordinates: IProperties["PATROLLING_COORDINATES"]) {
+    patrollingCoordinates.forEach(([x, y], i) => {
+      if (creep.memory.isForward) {
+        if (creep.memory.counter === i) {
+          if (creep.pos.x === x && creep.pos.y === y) creep.memory.counter++;
+          creep.moveTo(x, y);
+        }
+        if (creep.memory.counter >= patrollingCoordinates.length - 1) creep.memory.isForward = false;
+      } else {
+        if (creep.memory.counter === i) {
+          if (creep.pos.x === x && creep.pos.y === y) creep.memory.counter--;
+          creep.moveTo(x, y);
+          if (creep.memory.counter <= 0) creep.memory.isForward = true;
+        }
+      }
+    });
+  }
+
+  public toRanged(creep: Creep) {
+    const targets = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 3);
+    if (targets.length > 0) {
+      creep.rangedAttack(targets[0]);
+    }
+  }
+
+  public parking(creep: Creep, parkingCoordinates: [number, number]): boolean {
+    const [x, y] = parkingCoordinates;
+    return creep.moveTo(x, y) === OK;
   }
 }
