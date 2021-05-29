@@ -23,7 +23,7 @@ export class CreepRoleHarvester extends CreepWorking {
   }
 
   public spawn() {
-    const { ROLE_HARVESTER, LIMIT_HARVESTER_MAX } = this.properties;
-    super.spawn(ROLE_HARVESTER, LIMIT_HARVESTER_MAX);
+    const { ROLE_HARVESTER, LIMIT_HARVESTER } = this.properties;
+    super.spawn(ROLE_HARVESTER, LIMIT_HARVESTER);
   }
 }

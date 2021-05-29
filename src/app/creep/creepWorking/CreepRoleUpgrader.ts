@@ -23,7 +23,7 @@ export class CreepRoleUpgrader extends CreepWorking {
   }
 
   public spawn(): void {
-    const { ROLE_UPGRADER, LIMIT_UPGRADER_MAX } = this.properties;
-    super.spawn(ROLE_UPGRADER, LIMIT_UPGRADER_MAX);
+    const { ROLE_UPGRADER, LIMIT_UPGRADER } = this.properties;
+    super.spawn(ROLE_UPGRADER, LIMIT_UPGRADER);
   }
 }

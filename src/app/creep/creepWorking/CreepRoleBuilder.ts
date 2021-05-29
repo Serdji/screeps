@@ -24,7 +24,7 @@ export class CreepRoleBuilder extends CreepWorking {
   }
 
   public spawn(): void {
-    const { ROLE_BUILDER, LIMIT_BUILDER_MAX } = this.properties;
-    super.spawn(ROLE_BUILDER, LIMIT_BUILDER_MAX);
+    const { ROLE_BUILDER, LIMIT_BUILDER } = this.properties;
+    super.spawn(ROLE_BUILDER, LIMIT_BUILDER);
   }
 }

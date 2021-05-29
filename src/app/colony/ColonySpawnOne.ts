@@ -23,13 +23,13 @@ export class ColonySpawnOne extends Colony {
     const creepRoleWorkingAbroadUpgraderW8N2 = new CreepRoleWorkingAbroadUpgrader(
       "W8N2",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: null, level: 1 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
     );
 
     const creepRoleWorkingAbroadHarvesterW7N3 = new CreepRoleWorkingAbroadHarvester(
       "W7N3",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 1, level: 1 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
     );
     const creepRoleWorkingAbroadHarvesterW8N2 = new CreepRoleWorkingAbroadHarvester(
       "W8N2",

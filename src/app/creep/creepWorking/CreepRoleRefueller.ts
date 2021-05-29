@@ -15,7 +15,7 @@ export class CreepRoleRefueller extends CreepWorking {
   }
 
   public spawn(): void {
-    const { ROLE_REFUELLER, LIMIT_REFUELLER_MAX } = this.properties;
-    super.spawn(ROLE_REFUELLER, LIMIT_REFUELLER_MAX);
+    const { ROLE_REFUELLER, LIMIT_REFUELLER } = this.properties;
+    super.spawn(ROLE_REFUELLER, LIMIT_REFUELLER);
   }
 }

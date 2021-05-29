@@ -30,7 +30,7 @@ export class CreepRoleAttack extends CreepAttack {
   }
 
   public spawn() {
-    const { ROLE_ATTACK, LIMIT_ATTACK_MAX } = this.properties;
-    super.spawn(ROLE_ATTACK, LIMIT_ATTACK_MAX);
+    const { ROLE_ATTACK, LIMIT_ATTACK } = this.properties;
+    super.spawn(ROLE_ATTACK, LIMIT_ATTACK);
   }
 }
