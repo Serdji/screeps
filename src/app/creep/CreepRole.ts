@@ -274,6 +274,10 @@ export class CreepRole {
     });
   }
 
+  /**
+   * Стрельба по цели
+   * @param creep
+   */
   public toRanged(creep: Creep) {
     const targets = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 3);
     if (targets.length > 0) {
@@ -281,6 +285,11 @@ export class CreepRole {
     }
   }
 
+  /**
+   * Позиция для стоянке
+   * @param creep
+   * @param parkingCoordinates
+   */
   public parking(creep: Creep, parkingCoordinates: [number, number]): boolean {
     const [x, y] = parkingCoordinates;
     return creep.moveTo(x, y) === OK;
