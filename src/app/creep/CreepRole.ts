@@ -56,7 +56,7 @@ export class CreepRole {
     isForward: CreepMemory["isForward"] = true,
     counter: CreepMemory["counter"] = 0
   ): void {
-    const nameCreep = `${this.makeId()}${Game.time}${role}${level}`;
+    const nameCreep = `${this.makeId()}#${Game.time}#${role}#${level}`;
     const memory = {
       role,
       sourceID,
@@ -96,7 +96,7 @@ export class CreepRole {
     }
     if (!creep.memory.building && creep.store.getFreeCapacity() === 0) {
       creep.memory.building = true;
-      creep.say("🚧 Строить");
+      creep.say("🏗 Строить");
     }
 
     if (creep.memory.building) {
@@ -111,14 +111,42 @@ export class CreepRole {
       if (constructions.length) {
         const construction = Game.getObjectById(constructions[0].id) as ConstructionSite;
         if (creep.build(construction) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(construction, { visualizePathStyle: { stroke: "#ffffff" } });
+          creep.moveTo(construction, { visualizePathStyle: { stroke: "#26e815" } });
         }
-        // Пока нет пушки, заниматься ремонтом
-      } else if (structureRepairs.length) {
+      } else {
+        this.toSpawn(creep);
+      }
+    } else {
+      this.mining(creep);
+    }
+  }
+
+  /**
+   * Ремонт
+   * @param creep
+   */
+  public toRepair(creep: Creep) {
+    if (creep.memory.repair && creep.store[RESOURCE_ENERGY] === 0) {
+      creep.memory.repair = false;
+      creep.say("🔄 Копать");
+    }
+    if (!creep.memory.repair && creep.store.getFreeCapacity() === 0) {
+      creep.memory.repair = true;
+      creep.say("🚧 Ремонтировать");
+    }
+
+    if (creep.memory.repair) {
+      const structureRepairs = creep.room.find(FIND_STRUCTURES, {
+        filter: object => object.hits < object.hitsMax
+      });
+      structureRepairs.sort((a, b) => a.hits - b.hits);
+
+      // Если есть что ремонтировать, крипс идет ремонтировать
+      if (structureRepairs.length) {
         const structureRepair = Game.getObjectById(structureRepairs[0].id) as Structure;
-        // if (creep.repair(structureRepair) === ERR_NOT_IN_RANGE) {
-        //   creep.moveTo(structureRepair);
-        // }
+        if (creep.repair(structureRepair) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(structureRepair);
+        }
       } else {
         this.toSpawn(creep);
       }
@@ -151,7 +179,7 @@ export class CreepRole {
       if (targets.length) {
         const target = Game.getObjectById(targets[0].id) as Structure;
         if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(target, { visualizePathStyle: { stroke: "#ffffff" } });
+          creep.moveTo(target, { visualizePathStyle: { stroke: "#d6e815" } });
         }
       } else {
         this.toSpawn(creep);
@@ -190,7 +218,7 @@ export class CreepRole {
       if (structureTowers.length) {
         const structureTower = Game.getObjectById(structureTowers[0].id) as StructureTower;
         if (creep.transfer(structureTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(structureTower, { visualizePathStyle: { stroke: "#ffffff" } });
+          creep.moveTo(structureTower, { visualizePathStyle: { stroke: "#15e8cf" } });
         }
         // Пока нет пушки, заниматься ремонтом
       } else {
@@ -218,7 +246,7 @@ export class CreepRole {
     // Едем упгрейдить контролер
     if (creep.memory.upgrading) {
       if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#ffffff" } });
+        creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#e87b15" } });
       }
     } else {
       this.mining(creep);
@@ -245,7 +273,7 @@ export class CreepRole {
     } else if (structureInvaderCores.length) {
       const structureInvaderCore = Game.getObjectById(structureInvaderCores[0].id) as StructureInvaderCore;
       if (creep.attack(structureInvaderCore) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(structureInvaderCore);
+        creep.moveTo(structureInvaderCore, { visualizePathStyle: { stroke: "#e82315" } });
       }
       return true;
     }
