@@ -1,11 +1,12 @@
 export const properties = (config: IPrivateConfig): IProperties => ({
   ...config,
-  SIZE_NAME_CREEP: 10,
+  SIZE_NAME_CREEP: 5,
 
   ROLE_HARVESTER: "harvester",
   ROLE_UPGRADER: "upgrader",
   ROLE_BUILDER: "builder",
   ROLE_REFUELLER: "refueller",
+  ROLE_REPAIR: "repair",
   ROLE_WORKING_ABROAD_UPGRADER: "workingAbroadUpgrader",
   ROLE_WORKING_ABROAD_HARVESTER: "workingAbroadHarvester",
   ROLE_WORKING_ABROAD_ATTACK: "workingAbroadAttack",

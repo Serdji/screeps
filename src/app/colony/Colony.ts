@@ -11,6 +11,7 @@ import { CreepRoleAttack } from "../creep/creepAttack/CreepRoleAttack";
 import { CreepRoleBuilder } from "../creep/creepWorking/CreepRoleBuilder";
 import { CreepRoleHarvester } from "../creep/creepWorking/CreepRoleHarvester";
 import { CreepRoleRefueller } from "../creep/creepWorking/CreepRoleRefueller";
+import { CreepRoleRepair } from "../creep/creepWorking/CreepRoleRepair";
 import { CreepRoleUpgrader } from "../creep/creepWorking/CreepRoleUpgrader";
 import { TowerControl } from "../tower/TowerControl";
 
@@ -24,12 +25,13 @@ export class Colony {
   }
 
   public run(): void {
-    const { ROLE_HARVESTER, ROLE_UPGRADER, ROLE_BUILDER, ROLE_REFUELLER, ROLE_ATTACK } = this.properties;
+    const { ROLE_HARVESTER, ROLE_UPGRADER, ROLE_BUILDER, ROLE_REFUELLER, ROLE_REPAIR, ROLE_ATTACK } = this.properties;
 
     const creepRoleHarvester = new CreepRoleHarvester(this.nameSpawn, this.properties);
     const creepRoleUpgrader = new CreepRoleUpgrader(this.nameSpawn, this.properties);
     const creepRoleBuilder = new CreepRoleBuilder(this.nameSpawn, this.properties);
     const creepRoleRefueller = new CreepRoleRefueller(this.nameSpawn, this.properties);
+    const creepRoleRepair = new CreepRoleRepair(this.nameSpawn, this.properties);
     const creepRoleAttack = new CreepRoleAttack(this.nameSpawn, this.properties);
 
     const towerControl = new TowerControl();
@@ -49,6 +51,9 @@ export class Colony {
           break;
         case ROLE_REFUELLER:
           creepRoleRefueller.run(creep);
+          break;
+        case ROLE_REPAIR:
+          creepRoleRepair.run(creep);
           break;
         case ROLE_ATTACK:
           creepRoleAttack.run(creep);
