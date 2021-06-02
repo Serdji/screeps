@@ -145,7 +145,7 @@ export class CreepRole {
       if (structureRepairs.length) {
         const structureRepair = Game.getObjectById(structureRepairs[0].id) as Structure;
         if (creep.repair(structureRepair) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(structureRepair);
+          creep.moveTo(structureRepair, { visualizePathStyle: { stroke: "#26e815" } });
         }
       } else {
         this.toSpawn(creep);
@@ -218,7 +218,7 @@ export class CreepRole {
       if (structureTowers.length) {
         const structureTower = Game.getObjectById(structureTowers[0].id) as StructureTower;
         if (creep.transfer(structureTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(structureTower, { visualizePathStyle: { stroke: "#15e8cf" } });
+          creep.moveTo(structureTower, { visualizePathStyle: { stroke: "#d6e815" } });
         }
         // Пока нет пушки, заниматься ремонтом
       } else {

@@ -26,6 +26,11 @@ export class ColonySpawnOne extends Colony {
       this.nameSpawn,
       _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
     );
+    const creepRoleWorkingAbroadUpgraderW37S56 = new CreepRoleWorkingAbroadUpgrader(
+      "W37S56",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
+    );
 
     const creepRoleWorkingAbroadHarvesterW38S57 = new CreepRoleWorkingAbroadHarvester(
       "W38S57",
@@ -37,6 +42,11 @@ export class ColonySpawnOne extends Colony {
       this.nameSpawn,
       _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 2 })
     );
+    const creepRoleWorkingAbroadHarvesterW37S56 = new CreepRoleWorkingAbroadHarvester(
+      "W37S56",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 2 })
+    );
 
     //
     //   const creepRoleWorkingAbroadAttackW38S57 = new CreepRoleWorkingAbroadAttack(
@@ -44,9 +54,30 @@ export class ColonySpawnOne extends Colony {
     //     this.nameSpawn,
     //     _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 2, level: 2 }),
     //     [
-    //       [38, 10],
-    //       [32, 15],
-    //       [35, 22]
+    //       [10, 40],
+    //       [4, 34],
+    //     ]
+    //   );
+    //
+    //   const creepRoleWorkingAbroadAttackW37S58 = new CreepRoleWorkingAbroadAttack(
+    //     "W37S58",
+    //     this.nameSpawn,
+    //     _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 2, level: 2 }),
+    //     [
+    //       [34, 22],
+    //       [32, 25],
+    //       [31, 26],
+    //       [33, 31],
+    //     ]
+    //   );
+    //
+    //   const creepRoleWorkingAbroadAttackW37S56 = new CreepRoleWorkingAbroadAttack(
+    //     "W37S56",
+    //     this.nameSpawn,
+    //     _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 2, level: 2 }),
+    //     [
+    //       [35, 26],
+    //       [41, 33],
     //     ]
     //   );
     //
@@ -62,14 +93,26 @@ export class ColonySpawnOne extends Colony {
         case ROLE_WORKING_ABROAD_UPGRADER + "W37S58":
           creepRoleWorkingAbroadUpgraderW37S58.run(creep);
           break;
+        case ROLE_WORKING_ABROAD_UPGRADER + "W37S56":
+          creepRoleWorkingAbroadUpgraderW37S56.run(creep);
+          break;
         case ROLE_WORKING_ABROAD_HARVESTER + "W38S57":
           creepRoleWorkingAbroadHarvesterW38S57.run(creep);
           break;
         case ROLE_WORKING_ABROAD_HARVESTER + "W37S58":
           creepRoleWorkingAbroadHarvesterW37S58.run(creep);
           break;
+        case ROLE_WORKING_ABROAD_HARVESTER + "W37S56":
+          creepRoleWorkingAbroadHarvesterW37S56.run(creep);
+          break;
         // case ROLE_WORKING_ABROAD_ATTACK + "W38S57":
         //   creepRoleWorkingAbroadAttackW38S57.run(creep);
+        //   break;
+        // case ROLE_WORKING_ABROAD_ATTACK + "W37S58":
+        //   creepRoleWorkingAbroadAttackW37S58.run(creep);
+        //   break;
+        // case ROLE_WORKING_ABROAD_ATTACK + "W37S56":
+        //   creepRoleWorkingAbroadAttackW37S56.run(creep);
         //   break;
         // case ROLE_RANGED + "1":
         //   creepRoleRanged1.run(creep);
