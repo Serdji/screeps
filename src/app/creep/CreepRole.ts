@@ -34,7 +34,7 @@ export class CreepRole {
     const spawn = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: structure => structure.structureType === STRUCTURE_SPAWN
     }) as StructureSpawn;
-    if (creep.transfer(spawn, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+    if (creep.moveTo(spawn) === ERR_TIRED) {
       creep.moveTo(spawn);
     }
   }
@@ -209,18 +209,13 @@ export class CreepRole {
           structure.structureType === STRUCTURE_TOWER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
       });
 
-      const structureRepairs = creep.room.find(FIND_STRUCTURES, {
-        filter: object => object.hits < object.hitsMax
-      });
-      structureRepairs.sort((a, b) => a.hits - b.hits);
-
-      // Заправить пушку, если нечего сторить
+      // Заправить пушку
       if (structureTowers.length) {
         const structureTower = Game.getObjectById(structureTowers[0].id) as StructureTower;
         if (creep.transfer(structureTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.moveTo(structureTower, { visualizePathStyle: { stroke: "#d6e815" } });
         }
-        // Пока нет пушки, заниматься ремонтом
+        // Если пушка заряжана, отдать энергию спавну
       } else {
         this.toSpawn(creep);
       }
