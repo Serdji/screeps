@@ -26,27 +26,27 @@ export class ColonySpawnOne extends Colony {
     //   this.nameSpawn,
     //   _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
     // );
-    // const creepRoleWorkingAbroadUpgraderW37S56 = new CreepRoleWorkingAbroadUpgrader(
-    //   "W37S56",
-    //   this.nameSpawn,
-    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 1, level: 1 })
-    // );
+    const creepRoleWorkingAbroadUpgraderW37S56 = new CreepRoleWorkingAbroadUpgrader(
+      "W37S56",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 2 })
+    );
 
     const creepRoleWorkingAbroadHarvesterW38S57 = new CreepRoleWorkingAbroadHarvester(
       "W38S57",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 2 })
     );
     // const creepRoleWorkingAbroadHarvesterW37S58 = new CreepRoleWorkingAbroadHarvester(
     //   "W37S58",
     //   this.nameSpawn,
     //   _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
     // );
-    // const creepRoleWorkingAbroadHarvesterW37S56 = new CreepRoleWorkingAbroadHarvester(
-    //   "W37S56",
-    //   this.nameSpawn,
-    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 1, level: 1 })
-    // );
+    const creepRoleWorkingAbroadHarvesterW37S56 = new CreepRoleWorkingAbroadHarvester(
+      "W37S56",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 2 })
+    );
 
     //
     //   const creepRoleWorkingAbroadAttackW38S57 = new CreepRoleWorkingAbroadAttack(
@@ -93,18 +93,18 @@ export class ColonySpawnOne extends Colony {
         // case ROLE_WORKING_ABROAD_UPGRADER + "W37S58":
         //   creepRoleWorkingAbroadUpgraderW37S58.run(creep);
         //   break;
-        // case ROLE_WORKING_ABROAD_UPGRADER + "W37S56":
-        //   creepRoleWorkingAbroadUpgraderW37S56.run(creep);
-        //   break;
+        case ROLE_WORKING_ABROAD_UPGRADER + "W37S56":
+          creepRoleWorkingAbroadUpgraderW37S56.run(creep);
+          break;
         case ROLE_WORKING_ABROAD_HARVESTER + "W38S57":
           creepRoleWorkingAbroadHarvesterW38S57.run(creep);
           break;
         // case ROLE_WORKING_ABROAD_HARVESTER + "W37S58":
         //   creepRoleWorkingAbroadHarvesterW37S58.run(creep);
         //   break;
-        // case ROLE_WORKING_ABROAD_HARVESTER + "W37S56":
-        //   creepRoleWorkingAbroadHarvesterW37S56.run(creep);
-        //   break;
+        case ROLE_WORKING_ABROAD_HARVESTER + "W37S56":
+          creepRoleWorkingAbroadHarvesterW37S56.run(creep);
+          break;
         // case ROLE_WORKING_ABROAD_ATTACK + "W38S57":
         //   creepRoleWorkingAbroadAttackW38S57.run(creep);
         //   break;

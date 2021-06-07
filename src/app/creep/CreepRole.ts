@@ -40,6 +40,26 @@ export class CreepRole {
   }
 
   /**
+   * Заполненеие энергией обещго хранилеща
+   * @param creep
+   */
+  public toStorage(creep: Creep): void {
+    const storage = creep.room.find(FIND_STRUCTURES, {
+      filter: structure =>
+        structure.structureType === STRUCTURE_STORAGE && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+    });
+    // Если есть куда носить ресурсы, несем в общее хранилище
+    if (storage.length) {
+      const target = Game.getObjectById(storage[0].id) as Structure;
+      if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(target, { visualizePathStyle: { stroke: "#d6e815" } });
+      }
+    } else {
+      this.toSpawn(creep);
+    }
+  }
+
+  /**
    * Собираем фит для крипса
    * @param fit Массив с телом крипса
    * @param role Роль
@@ -114,7 +134,7 @@ export class CreepRole {
           creep.moveTo(construction, { visualizePathStyle: { stroke: "#26e815" } });
         }
       } else {
-        this.toSpawn(creep);
+        this.toStorage(creep);
       }
     } else {
       this.mining(creep);
@@ -148,7 +168,7 @@ export class CreepRole {
           creep.moveTo(structureRepair, { visualizePathStyle: { stroke: "#26e815" } });
         }
       } else {
-        this.toSpawn(creep);
+        this.toStorage(creep);
       }
     } else {
       this.mining(creep);
@@ -182,7 +202,7 @@ export class CreepRole {
           creep.moveTo(target, { visualizePathStyle: { stroke: "#d6e815" } });
         }
       } else {
-        this.toSpawn(creep);
+        this.toStorage(creep);
       }
     } else {
       this.mining(creep);
@@ -217,7 +237,7 @@ export class CreepRole {
         }
         // Если пушка заряжана, отдать энергию спавну
       } else {
-        this.toSpawn(creep);
+        this.toStorage(creep);
       }
     } else {
       this.mining(creep);
