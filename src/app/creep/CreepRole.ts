@@ -10,6 +10,28 @@ export class CreepRole {
   public run(creep: Creep): void {}
 
   /**
+   * Отображение загрузки энергии
+   * @param creep
+   */
+  public toLouder(creep: Creep) {
+    const percent: number = (creep.store[RESOURCE_ENERGY] / creep.store.getCapacity()) * 100;
+    let louder: string = "[    ]" as string;
+    if (_.ceil(percent) >= 25 && _.ceil(percent) < 50) {
+      louder = "[=   ]";
+    } else if (_.ceil(percent) >= 50 && _.ceil(percent) < 75) {
+      louder = "[==  ]";
+    } else if (_.ceil(percent) >= 75 && _.ceil(percent) < 100) {
+      louder = "[=== ]";
+    } else if (_.ceil(percent) === 100) {
+      louder = "[====]";
+    }
+
+
+
+    creep.say(`${louder} ${_.ceil(percent)}%`);
+  }
+
+  /**
    * Рандомное распределение крисаов на майниг ресурсов
    * @param creep
    */
@@ -23,6 +45,8 @@ export class CreepRole {
     const source = Game.getObjectById(creep.memory.sourceID) as Source;
     if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
       creep.moveTo(source, { visualizePathStyle: { stroke: "#ffaa00" } });
+    } else {
+      this.toLouder(creep);
     }
   }
 
