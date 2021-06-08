@@ -11,8 +11,8 @@ export class App {
       "Spawn1",
       properties({
         LIMIT_HARVESTER: { size: 2, level: 2 },
-        LIMIT_UPGRADER: { size: 2, level: 2 },
-        LIMIT_BUILDER: { size: 3, level: 2 },
+        LIMIT_UPGRADER: { size: 2, level: 1 },
+        LIMIT_BUILDER: { size: null, level: 1 },
         LIMIT_REFUELLER: { size: 2, level: 1 },
         LIMIT_REPAIR: { size: null, level: 1 },
 

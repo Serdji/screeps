@@ -19,7 +19,7 @@ export class ColonySpawnOne extends Colony {
     const creepRoleWorkingAbroadUpgraderW38S57 = new CreepRoleWorkingAbroadUpgrader(
       "W38S57",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 2 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
     );
     // const creepRoleWorkingAbroadUpgraderW37S58 = new CreepRoleWorkingAbroadUpgrader(
     //   "W37S58",
@@ -29,13 +29,13 @@ export class ColonySpawnOne extends Colony {
     const creepRoleWorkingAbroadUpgraderW37S56 = new CreepRoleWorkingAbroadUpgrader(
       "W37S56",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 2 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
     );
 
     const creepRoleWorkingAbroadHarvesterW38S57 = new CreepRoleWorkingAbroadHarvester(
       "W38S57",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 2 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 1, level: 2 })
     );
     // const creepRoleWorkingAbroadHarvesterW37S58 = new CreepRoleWorkingAbroadHarvester(
     //   "W37S58",
@@ -45,7 +45,7 @@ export class ColonySpawnOne extends Colony {
     const creepRoleWorkingAbroadHarvesterW37S56 = new CreepRoleWorkingAbroadHarvester(
       "W37S56",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 2 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 1, level: 2 })
     );
 
     //

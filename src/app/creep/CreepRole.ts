@@ -15,15 +15,13 @@ export class CreepRole {
    */
   public toLouder(creep: Creep) {
     const percent: number = (creep.store[RESOURCE_ENERGY] / creep.store.getCapacity()) * 100;
-    let louder: string = "[    ]" as string;
+    let louder: string = "🔴" as string;
     if (_.ceil(percent) >= 25 && _.ceil(percent) < 50) {
-      louder = "[=   ]";
+      louder = "🟠";
     } else if (_.ceil(percent) >= 50 && _.ceil(percent) < 75) {
-      louder = "[==  ]";
-    } else if (_.ceil(percent) >= 75 && _.ceil(percent) < 100) {
-      louder = "[=== ]";
-    } else if (_.ceil(percent) === 100) {
-      louder = "[====]";
+      louder = "🟡";
+    } else if (_.ceil(percent) >= 75 && _.ceil(percent) <= 100) {
+      louder = "🟢";
     }
 
 
