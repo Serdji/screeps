@@ -8,11 +8,15 @@
  */
 
 import { CreepRoleAttack } from "../creep/creepAttack/CreepRoleAttack";
+import { CreepRoleWorkingAbroadAttack } from "../creep/creepAttack/CreepRoleWorkingAbroadAttack";
+import { CreepRoleRanged } from "../creep/creepRanged/CreepRoleRanged";
 import { CreepRoleBuilder } from "../creep/creepWorking/CreepRoleBuilder";
 import { CreepRoleHarvester } from "../creep/creepWorking/CreepRoleHarvester";
 import { CreepRoleRefueller } from "../creep/creepWorking/CreepRoleRefueller";
 import { CreepRoleRepair } from "../creep/creepWorking/CreepRoleRepair";
 import { CreepRoleUpgrader } from "../creep/creepWorking/CreepRoleUpgrader";
+import { CreepRoleWorkingAbroadHarvester } from "../creep/creepWorking/CreepRoleWorkingAbroadHarvester";
+import { CreepRoleWorkingAbroadUpgrader } from "../creep/creepWorking/CreepRoleWorkingAbroadUpgrader";
 import { TowerControl } from "../tower/TowerControl";
 
 export class Colony {
@@ -57,6 +61,73 @@ export class Colony {
           break;
         case ROLE_ATTACK:
           creepRoleAttack.run(creep);
+          break;
+      }
+    }
+  }
+
+  public spawnWorkingAbroadHarvester(roomName: string, spawnName: string, properties: IProperties): void {
+    const { ROLE_WORKING_ABROAD_HARVESTER } = properties;
+    const creepRoleWorkingAbroadHarvester = new CreepRoleWorkingAbroadHarvester(roomName, spawnName, properties);
+    for (const name in Game.creeps) {
+      const creep = Game.creeps[name];
+      switch (creep.memory.role) {
+        case ROLE_WORKING_ABROAD_HARVESTER + roomName:
+          creepRoleWorkingAbroadHarvester.run(creep);
+          break;
+      }
+    }
+  }
+
+  public spawnWorkingAbroadUpgrader(roomName: string, spawnName: string, properties: IProperties): void {
+    const { ROLE_WORKING_ABROAD_UPGRADER } = properties;
+    const creepRoleWorkingAbroadUpgrader = new CreepRoleWorkingAbroadUpgrader(roomName, spawnName, properties);
+    for (const name in Game.creeps) {
+      const creep = Game.creeps[name];
+      switch (creep.memory.role) {
+        case ROLE_WORKING_ABROAD_UPGRADER + roomName:
+          creepRoleWorkingAbroadUpgrader.run(creep);
+          break;
+      }
+    }
+  }
+
+  public spawnWorkingAbroadAttack(
+    roomName: string,
+    spawnName: string,
+    properties: IProperties,
+    patrollingCoordinates: IProperties["PATROLLING_COORDINATES"]
+  ): void {
+    const { ROLE_WORKING_ABROAD_ATTACK } = properties;
+    const creepRoleWorkingAbroadAttack = new CreepRoleWorkingAbroadAttack(
+      roomName,
+      spawnName,
+      properties,
+      patrollingCoordinates
+    );
+    for (const name in Game.creeps) {
+      const creep = Game.creeps[name];
+      switch (creep.memory.role) {
+        case ROLE_WORKING_ABROAD_ATTACK + roomName:
+          creepRoleWorkingAbroadAttack.run(creep);
+          break;
+      }
+    }
+  }
+
+  public spawnCreepRoleRanged(
+    suffixName: string,
+    nameSpawn: string,
+    properties: IProperties,
+    parkingCoordinates: [number, number]
+  ): void {
+    const { ROLE_RANGED } = properties;
+    const creepRoleRanged = new CreepRoleRanged("1", this.nameSpawn, this.properties, [34, 11]);
+    for (const name in Game.creeps) {
+      const creep = Game.creeps[name];
+      switch (creep.memory.role) {
+        case ROLE_RANGED + suffixName:
+          creepRoleRanged.run(creep);
           break;
       }
     }
