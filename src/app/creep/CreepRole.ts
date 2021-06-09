@@ -1,4 +1,4 @@
-export class CreepRole {
+export abstract class CreepRole {
   public nameSpawn: string;
   public properties: IProperties;
 

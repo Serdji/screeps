@@ -1,6 +1,6 @@
 import { CreepRole } from "../CreepRole";
 
-export class CreepWorking extends CreepRole {
+export abstract class CreepWorking extends CreepRole {
   /**
    * Авотоматическое создание крипс
    * @param role Роль крипса

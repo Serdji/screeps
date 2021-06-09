@@ -1,14 +1,32 @@
 import { Colony } from "./Colony";
 
 export class ColonySpawnOne extends Colony {
+  private nameSpawn: string;
+  private properties: IProperties;
+
   public constructor(nameSpawn: string, properties: IProperties) {
-    super(nameSpawn, properties);
+    super();
+    this.nameSpawn = nameSpawn;
+    this.properties = properties;
     this.run();
   }
 
   public run(): void {
     super.run();
+    this.runPrivateRoleCreeps();
+    this.runPublicRoleCreeps();
+  }
 
+  private runPublicRoleCreeps() {
+    this.spawnCreepRoleHarvester(this.nameSpawn, this.properties);
+    this.spawnCreepRoleUpgrader(this.nameSpawn, this.properties);
+    this.spawnCreepRoleBuilder(this.nameSpawn, this.properties);
+    this.spawnCreepRoleRefueller(this.nameSpawn, this.properties);
+    this.spawnCreepRoleRepair(this.nameSpawn, this.properties);
+    this.spawnCreepRoleAttack(this.nameSpawn, this.properties);
+  }
+
+  private runPrivateRoleCreeps() {
     this.spawnWorkingAbroadHarvester(
       "W38S57",
       this.nameSpawn,
@@ -20,18 +38,42 @@ export class ColonySpawnOne extends Colony {
       this.nameSpawn,
       _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
     );
-    //   this.spawnWorkingAbroadAttack(
-    //     "W37S56",
-    //     this.nameSpawn,
-    //     _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 2, level: 2 }),
-    //     [
-    //       [35, 26],
-    //       [41, 33],
-    //     ]
-    //   );
+
+    // this.spawnWorkingAbroadAttack(
+    //   "W37S56",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 2, level: 2 }),
+    //   [
+    //     [35, 26],
+    //     [41, 33]
+    //   ]
+    // );
     //
-    //   this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, [34, 11]);
-    //
+    // this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, [34, 11]);
+  }
+
+  public spawnCreepRoleHarvester(nameSpawn: string, properties: IProperties) {
+    super.spawnCreepRoleHarvester(nameSpawn, properties);
+  }
+
+  public spawnCreepRoleUpgrader(nameSpawn: string, properties: IProperties) {
+    super.spawnCreepRoleUpgrader(nameSpawn, properties);
+  }
+
+  public spawnCreepRoleBuilder(nameSpawn: string, properties: IProperties) {
+    super.spawnCreepRoleBuilder(nameSpawn, properties);
+  }
+
+  public spawnCreepRoleRefueller(nameSpawn: string, properties: IProperties) {
+    super.spawnCreepRoleRefueller(nameSpawn, properties);
+  }
+
+  public spawnCreepRoleRepair(nameSpawn: string, properties: IProperties) {
+    super.spawnCreepRoleRepair(nameSpawn, properties);
+  }
+
+  public spawnCreepRoleAttack(nameSpawn: string, properties: IProperties) {
+    super.spawnCreepRoleAttack(nameSpawn, properties);
   }
 
   public spawnWorkingAbroadHarvester(roomName: string, spawnName: string, properties: IProperties) {
