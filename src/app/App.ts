@@ -12,7 +12,7 @@ export class App {
       properties({
         LIMIT_HARVESTER: { size: 2, level: 1 },
         LIMIT_UPGRADER: { size: 2, level: 1 },
-        LIMIT_BUILDER: { size: 3, level: 1 },
+        LIMIT_BUILDER: { size: null, level: 1 },
         LIMIT_REFUELLER: { size: null, level: 1 },
         LIMIT_REPAIR: { size: 2, level: 1 },
 
