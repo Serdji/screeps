@@ -69,7 +69,7 @@ export abstract class CreepRole {
     const storage = creep.room.find(FIND_STRUCTURES, {
       filter: structure =>
         structure.structureType === STRUCTURE_STORAGE && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
-    });
+    }) as StructureStorage[];
     // Если есть куда носить ресурсы, несем в общее хранилище
     if (storage.length) {
       const target = Game.getObjectById(storage[0].id) as Structure;
