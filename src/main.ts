@@ -20,6 +20,7 @@ declare global {
     building: boolean;
     harvester: boolean;
     upgrading: boolean;
+    repair: boolean;
     role: string;
     room: string;
     working: boolean;

@@ -5,6 +5,7 @@ interface IPublicConfig {
   ROLE_UPGRADER: string;
   ROLE_BUILDER: string;
   ROLE_REFUELLER: string;
+  ROLE_REPAIR: string;
   ROLE_WORKING_ABROAD_UPGRADER: string;
   ROLE_WORKING_ABROAD_HARVESTER: string;
   ROLE_WORKING_ABROAD_ATTACK: string;

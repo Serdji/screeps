@@ -1,4 +1,4 @@
-export class CreepRole {
+export abstract class CreepRole {
   public nameSpawn: string;
   public properties: IProperties;
 
@@ -8,6 +8,26 @@ export class CreepRole {
   }
 
   public run(creep: Creep): void {}
+
+  /**
+   * Отображение загрузки энергии
+   * @param creep
+   */
+  public toLouder(creep: Creep) {
+    const percent: number = (creep.store[RESOURCE_ENERGY] / creep.store.getCapacity()) * 100;
+    let louder: string = "🔴" as string;
+    if (_.ceil(percent) >= 25 && _.ceil(percent) < 50) {
+      louder = "🟠";
+    } else if (_.ceil(percent) >= 50 && _.ceil(percent) < 75) {
+      louder = "🟡";
+    } else if (_.ceil(percent) >= 75 && _.ceil(percent) <= 100) {
+      louder = "🟢";
+    }
+
+
+
+    creep.say(`${louder} ${_.ceil(percent)}%`);
+  }
 
   /**
    * Рандомное распределение крисаов на майниг ресурсов
@@ -23,6 +43,8 @@ export class CreepRole {
     const source = Game.getObjectById(creep.memory.sourceID) as Source;
     if (creep.harvest(source) === ERR_NOT_IN_RANGE) {
       creep.moveTo(source, { visualizePathStyle: { stroke: "#ffaa00" } });
+    } else {
+      this.toLouder(creep);
     }
   }
 
@@ -34,8 +56,28 @@ export class CreepRole {
     const spawn = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: structure => structure.structureType === STRUCTURE_SPAWN
     }) as StructureSpawn;
-    if (creep.transfer(spawn, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+    if (creep.moveTo(spawn) === ERR_TIRED) {
       creep.moveTo(spawn);
+    }
+  }
+
+  /**
+   * Заполненеие энергией обещго хранилеща
+   * @param creep
+   */
+  public toStorage(creep: Creep): void {
+    const storage = creep.room.find(FIND_STRUCTURES, {
+      filter: structure =>
+        structure.structureType === STRUCTURE_STORAGE && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+    }) as StructureStorage[];
+    // Если есть куда носить ресурсы, несем в общее хранилище
+    if (storage.length) {
+      const target = Game.getObjectById(storage[0].id) as Structure;
+      if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(target, { visualizePathStyle: { stroke: "#d6e815" } });
+      }
+    } else {
+      this.toSpawn(creep);
     }
   }
 
@@ -56,7 +98,7 @@ export class CreepRole {
     isForward: CreepMemory["isForward"] = true,
     counter: CreepMemory["counter"] = 0
   ): void {
-    const nameCreep = `${this.makeId()}${Game.time}${role}${level}`;
+    const nameCreep = `${this.makeId()}#${Game.time}#${role}#${level}`;
     const memory = {
       role,
       sourceID,
@@ -96,7 +138,7 @@ export class CreepRole {
     }
     if (!creep.memory.building && creep.store.getFreeCapacity() === 0) {
       creep.memory.building = true;
-      creep.say("🚧 Строить");
+      creep.say("🏗 Строить");
     }
 
     if (creep.memory.building) {
@@ -111,16 +153,44 @@ export class CreepRole {
       if (constructions.length) {
         const construction = Game.getObjectById(constructions[0].id) as ConstructionSite;
         if (creep.build(construction) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(construction, { visualizePathStyle: { stroke: "#ffffff" } });
+          creep.moveTo(construction, { visualizePathStyle: { stroke: "#26e815" } });
         }
-        // Пока нет пушки, заниматься ремонтом
-      } else if (structureRepairs.length) {
-        const structureRepair = Game.getObjectById(structureRepairs[0].id) as Structure;
-        // if (creep.repair(structureRepair) === ERR_NOT_IN_RANGE) {
-        //   creep.moveTo(structureRepair);
-        // }
       } else {
-        this.toSpawn(creep);
+        this.toStorage(creep);
+      }
+    } else {
+      this.mining(creep);
+    }
+  }
+
+  /**
+   * Ремонт
+   * @param creep
+   */
+  public toRepair(creep: Creep) {
+    if (creep.memory.repair && creep.store[RESOURCE_ENERGY] === 0) {
+      creep.memory.repair = false;
+      creep.say("🔄 Копать");
+    }
+    if (!creep.memory.repair && creep.store.getFreeCapacity() === 0) {
+      creep.memory.repair = true;
+      creep.say("🚧 Ремонтировать");
+    }
+
+    if (creep.memory.repair) {
+      const structureRepairs = creep.room.find(FIND_STRUCTURES, {
+        filter: object => object.hits < object.hitsMax
+      });
+      structureRepairs.sort((a, b) => a.hits - b.hits);
+
+      // Если есть что ремонтировать, крипс идет ремонтировать
+      if (structureRepairs.length) {
+        const structureRepair = Game.getObjectById(structureRepairs[0].id) as Structure;
+        if (creep.repair(structureRepair) === ERR_NOT_IN_RANGE) {
+          creep.moveTo(structureRepair, { visualizePathStyle: { stroke: "#26e815" } });
+        }
+      } else {
+        this.toStorage(creep);
       }
     } else {
       this.mining(creep);
@@ -151,10 +221,10 @@ export class CreepRole {
       if (targets.length) {
         const target = Game.getObjectById(targets[0].id) as Structure;
         if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(target, { visualizePathStyle: { stroke: "#ffffff" } });
+          creep.moveTo(target, { visualizePathStyle: { stroke: "#d6e815" } });
         }
       } else {
-        this.toSpawn(creep);
+        this.toStorage(creep);
       }
     } else {
       this.mining(creep);
@@ -181,20 +251,15 @@ export class CreepRole {
           structure.structureType === STRUCTURE_TOWER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
       });
 
-      const structureRepairs = creep.room.find(FIND_STRUCTURES, {
-        filter: object => object.hits < object.hitsMax
-      });
-      structureRepairs.sort((a, b) => a.hits - b.hits);
-
-      // Заправить пушку, если нечего сторить
+      // Заправить пушку
       if (structureTowers.length) {
         const structureTower = Game.getObjectById(structureTowers[0].id) as StructureTower;
         if (creep.transfer(structureTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
-          creep.moveTo(structureTower, { visualizePathStyle: { stroke: "#ffffff" } });
+          creep.moveTo(structureTower, { visualizePathStyle: { stroke: "#d6e815" } });
         }
-        // Пока нет пушки, заниматься ремонтом
+        // Если пушка заряжана, отдать энергию спавну
       } else {
-        this.toSpawn(creep);
+        this.toStorage(creep);
       }
     } else {
       this.mining(creep);
@@ -218,7 +283,7 @@ export class CreepRole {
     // Едем упгрейдить контролер
     if (creep.memory.upgrading) {
       if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#ffffff" } });
+        creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#e87b15" } });
       }
     } else {
       this.mining(creep);
@@ -245,7 +310,7 @@ export class CreepRole {
     } else if (structureInvaderCores.length) {
       const structureInvaderCore = Game.getObjectById(structureInvaderCores[0].id) as StructureInvaderCore;
       if (creep.attack(structureInvaderCore) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(structureInvaderCore);
+        creep.moveTo(structureInvaderCore, { visualizePathStyle: { stroke: "#e82315" } });
       }
       return true;
     }

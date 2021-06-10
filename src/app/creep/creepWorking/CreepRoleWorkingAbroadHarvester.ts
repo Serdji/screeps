@@ -54,7 +54,7 @@ export class CreepRoleWorkingAbroadHarvester extends CreepWorking {
               creep.moveTo(target, { visualizePathStyle: { stroke: "#ffffff" } });
             }
           } else {
-            super.toSpawn(creep);
+            super.toStorage(creep);
           }
         }
       } else {

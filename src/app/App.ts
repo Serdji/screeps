@@ -10,21 +10,21 @@ export class App {
     new ColonySpawnOne(
       "Spawn1",
       properties({
-        LIMIT_HARVESTER: { size: 3, level: 1 },
-        LIMIT_UPGRADER: { size: 1, level: 3 },
-        LIMIT_BUILDER: { size: null, level: 2 },
-        LIMIT_REFUELLER: { size: 2, level: 2 },
+        LIMIT_HARVESTER: { size: 2, level: 1 },
+        LIMIT_UPGRADER: { size: 2, level: 1 },
+        LIMIT_BUILDER: { size: 3, level: 1 },
+        LIMIT_REFUELLER: { size: null, level: 1 },
+        LIMIT_REPAIR: { size: 2, level: 1 },
 
-        LIMIT_ATTACK: { size: 3, level: 2 },
+        LIMIT_ATTACK: { size: null, level: 1 },
         PATROLLING_COORDINATES: [
-          [45, 20],
-          [45, 30],
-          [45, 38],
-          [35, 39],
-          [23, 47],
-          [9, 47]
+          [30, 45],
+          [18, 43],
+          [13, 34],
+          [7, 33],
+          [5, 16]
         ],
-        LIMIT_RANGED: { size: 1, level: 1 }
+        LIMIT_RANGED: { size: null, level: 1 }
       })
     );
   }
