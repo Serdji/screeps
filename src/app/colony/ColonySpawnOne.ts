@@ -39,6 +39,18 @@ export class ColonySpawnOne extends Colony {
       _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
     );
 
+    this.spawnWorkingAbroadHarvester(
+      "W37S56",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
+    );
+
+    this.spawnWorkingAbroadUpgrader(
+      "W37S56",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
+    );
+
     // this.spawnWorkingAbroadAttack(
     //   "W37S56",
     //   this.nameSpawn,
