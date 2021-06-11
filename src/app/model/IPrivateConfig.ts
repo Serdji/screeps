@@ -4,6 +4,9 @@ interface IPrivateConfig {
   LIMIT_BUILDER: ILimitCreep;
   LIMIT_REFUELLER: ILimitCreep;
   LIMIT_REPAIR: ILimitCreep;
+  LIMIT_MINER: ILimitCreep;
+  LIMIT_FILLER: ILimitCreep;
+  LIMIT_STORAGE: ILimitCreep;
 
   LIMIT_WORKING_ABROAD_UPGRADER?: ILimitCreep;
   LIMIT_WORKING_ABROAD_HARVESTER?: ILimitCreep;
@@ -13,4 +16,6 @@ interface IPrivateConfig {
   LIMIT_RANGED: ILimitCreep;
 
   PATROLLING_COORDINATES: [number, number][];
+  STORAGE_CONTAINER_IDS: string[];
+  FILLER_CONTAINER_ID: string;
 }

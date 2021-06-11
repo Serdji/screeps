@@ -2,16 +2,18 @@ import { CreepRanged } from "./CreepRanged";
 
 export class CreepRoleRanged extends CreepRanged {
   private suffixName: string;
-  private parkingCoordinates: [number, number];
+  private rampart: StructureRampart;
+  private parkingCoordinates: RoomPosition;
   public constructor(
     suffixName: string,
     nameSpawn: string,
     properties: IProperties,
-    parkingCoordinates: [number, number]
+    rampartId: string
   ) {
     super(nameSpawn, properties);
     this.suffixName = suffixName; // Имя комнаты, куда отправляем крипса
-    this.parkingCoordinates = parkingCoordinates; // Координаты стоянке
+    this.rampart = Game.getObjectById(rampartId as Id<StructureRampart>) as StructureRampart;
+    this.parkingCoordinates = this.rampart.pos;
     this.spawn();
   }
 
@@ -23,7 +25,7 @@ export class CreepRoleRanged extends CreepRanged {
     super.toRanged(creep);
   }
 
-  public parking(creep: Creep, parkingCoordinates: [number, number]): boolean {
+  public parking(creep: Creep, parkingCoordinates: RoomPosition): boolean {
     return super.parking(creep, parkingCoordinates);
   }
 
