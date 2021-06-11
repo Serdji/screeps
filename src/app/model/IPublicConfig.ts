@@ -11,6 +11,9 @@ interface IPublicConfig {
   ROLE_WORKING_ABROAD_ATTACK: string;
   ROLE_ATTACK: string;
   ROLE_RANGED: string;
+  ROLE_MINER: string;
+  ROLE_FILLER: string;
+  ROLE_STORAGE: string;
 
   LEVEL_1: number;
   LEVEL_2: number;
@@ -36,4 +39,14 @@ interface IPublicConfig {
   FIT_RANGED_550: BodyPartConstant[];
   FIT_RANGED_800: BodyPartConstant[];
   FIT_RANGED_1300: BodyPartConstant[];
+
+  FIT_MINER_300: BodyPartConstant[];
+  FIT_MINER_550: BodyPartConstant[];
+  FIT_MINER_800: BodyPartConstant[];
+  FIT_MINER_1300: BodyPartConstant[];
+
+  FIT_LOADER_300: BodyPartConstant[];
+  FIT_LOADER_550: BodyPartConstant[];
+  FIT_LOADER_800: BodyPartConstant[];
+  FIT_LOADER_1300: BodyPartConstant[];
 }

@@ -21,6 +21,8 @@ declare global {
     harvester: boolean;
     upgrading: boolean;
     repair: boolean;
+    storage: boolean;
+    filler: boolean;
     role: string;
     room: string;
     working: boolean;
