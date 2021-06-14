@@ -23,9 +23,8 @@ import { CreepRoleWorkingAbroadUpgrader } from "../creep/creepWorking/CreepRoleW
 import { TowerControl } from "../tower/TowerControl";
 
 export abstract class Colony {
-  public run(): void {
-    const towerControl = new TowerControl();
-    towerControl.run();
+  public run(properties: IProperties): void {
+    new TowerControl(properties);
   }
 
   public spawnCreepRoleHarvester(nameSpawn: string, properties: IProperties) {
