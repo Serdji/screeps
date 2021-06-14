@@ -46,7 +46,7 @@ export abstract class CreepRole {
     }
   }
 
-  public miningRefueller(creep: Creep){
+  public miningStorageRefueller(creep: Creep){
     const storage = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: structure => structure.structureType === STRUCTURE_STORAGE
     }) as StructureSpawn;
@@ -63,7 +63,7 @@ export abstract class CreepRole {
    * Как появляется контейнер, брать с него
    * @param creep
    */
-  public miningUpgrade(creep: Creep) {
+  public miningContainerUpgrade(creep: Creep) {
     const container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: structure => structure.structureType === STRUCTURE_CONTAINER
     }) as StructureController;
@@ -71,8 +71,6 @@ export abstract class CreepRole {
       if (creep.withdraw(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(container, { visualizePathStyle: { stroke: "#ffaa00" } });
       }
-    } else {
-      this.mining(creep);
     }
   }
 
@@ -226,6 +224,7 @@ export abstract class CreepRole {
    * @param creep
    */
   public toRepair(creep: Creep) {
+    const { MAX_HITS } = this.properties;
     if (creep.memory.repair && creep.store[RESOURCE_ENERGY] === 0) {
       creep.memory.repair = false;
       creep.say("🔄 Копать");
@@ -237,7 +236,7 @@ export abstract class CreepRole {
 
     if (creep.memory.repair) {
       const structureRepairs = creep.room.find(FIND_STRUCTURES, {
-        filter: object => object.hits < 5000
+        filter: object => object.hits < MAX_HITS
       });
       structureRepairs.sort((a, b) => a.hits - b.hits);
 
@@ -311,12 +310,13 @@ export abstract class CreepRole {
             structure.structureType === STRUCTURE_SPAWN) &&
           structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
       });
-      // Если есть куда носить ресурсы, несем туда
+      // Несем ресурсы в спавн и яцей
       if (targets.length) {
         const target = Game.getObjectById(targets[0].id) as Structure;
         if (creep.transfer(target, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.moveTo(target, { visualizePathStyle: { stroke: "#d6e815" } });
         }
+        // Избыток относим в контейнер для упдейтеров
       } else {
         if (creep.transfer(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.moveTo(container, { visualizePathStyle: { stroke: "#d6e815" } });
@@ -389,15 +389,16 @@ export abstract class CreepRole {
         // Если пушка заряжана, отдать энергию спавну
       }
     } else {
-      this.miningRefueller(creep);
+      this.miningStorageRefueller(creep);
     }
   }
 
   /**
    * Упгрейд контроллера
    * @param creep
+   * @param containerId
    */
-  public toUpgrader(creep: Creep) {
+  public toUpgrader(creep: Creep, containerId: string) {
     if (creep.memory.upgrading && creep.store[RESOURCE_ENERGY] === 0) {
       creep.memory.upgrading = false;
       creep.say("🔄 Копать");
@@ -413,7 +414,8 @@ export abstract class CreepRole {
         creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#e87b15" } });
       }
     } else {
-      this.miningUpgrade(creep);
+      if (containerId) this.miningContainer(creep, containerId);
+      this.mining(creep);
     }
   }
 

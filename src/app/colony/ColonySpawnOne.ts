@@ -12,7 +12,7 @@ export class ColonySpawnOne extends Colony {
   }
 
   public run(): void {
-    super.run();
+    super.run(this.properties);
     this.runPublicRoleCreeps();
     // this.runPrivateRoleCreeps();
   }

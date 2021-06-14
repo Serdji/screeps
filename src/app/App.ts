@@ -36,7 +36,9 @@ export class App {
         ],
 
         LIMIT_MINER: { size: 1, level: 1 }, // Статический майнер, скклаывает в контейнер. SIZE ВСЕГДА 1
-        LIMIT_RANGED: { size: 1, level: 1 } // Статический стрелок, приезджает на точку и стоит. SIZE ВСЕГДА 1
+        LIMIT_RANGED: { size: 1, level: 1 }, // Статический стрелок, приезджает на точку и стоит. SIZE ВСЕГДА 1
+
+        MAX_HITS: 5000
       })
     );
   }
