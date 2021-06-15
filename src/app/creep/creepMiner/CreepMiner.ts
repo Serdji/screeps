@@ -1,6 +1,6 @@
 import { CreepRole } from "../CreepRole";
 
-export abstract class CreepAttack extends CreepRole {
+export abstract class CreepMiner extends CreepRole {
   /**
    * Авотоматическое создание крипс
    * @param role Роль крипса
@@ -18,10 +18,10 @@ export abstract class CreepAttack extends CreepRole {
       LEVEL_3,
       LEVEL_4,
 
-      FIT_ATTACK_300,
-      FIT_ATTACK_550,
-      FIT_ATTACK_800,
-      FIT_ATTACK_1300,
+      FIT_MINER_300,
+      FIT_MINER_550,
+      FIT_MINER_800,
+      FIT_MINER_1300
     } = this.properties;
 
     const creepRole = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === role);
@@ -35,8 +35,8 @@ export abstract class CreepAttack extends CreepRole {
             (Game.rooms[roomName].energyCapacityAvailable >= ROOM_ENERGY_LIMIT_300 &&
               Game.rooms[roomName].energyCapacityAvailable < ROOM_ENERGY_LIMIT_550)
           ) {
-            if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_300) {
-              this.spawnFit(FIT_ATTACK_300, role, sourceID, roomName, LEVEL_1);
+            if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_550) {
+              this.spawnFit(FIT_MINER_300, role, sourceID, roomName, LEVEL_1);
             }
             // Крипсы за 550
           } else if (
@@ -45,7 +45,7 @@ export abstract class CreepAttack extends CreepRole {
               Game.rooms[roomName].energyCapacityAvailable < ROOM_ENERGY_LIMIT_800)
           ) {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_550) {
-              this.spawnFit(FIT_ATTACK_550, role, sourceID, roomName, LEVEL_2);
+              this.spawnFit(FIT_MINER_550, role, sourceID, roomName, LEVEL_1);
             }
             // Крипсы за 800
           } else if (
@@ -54,7 +54,7 @@ export abstract class CreepAttack extends CreepRole {
               Game.rooms[roomName].energyCapacityAvailable < ROOM_ENERGY_LIMIT_1300)
           ) {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_800) {
-              this.spawnFit(FIT_ATTACK_800, role, sourceID, roomName, LEVEL_3);
+              this.spawnFit(FIT_MINER_800, role, sourceID, roomName, LEVEL_2);
             }
             // Крипсы за 1500
           } else if (
@@ -62,14 +62,13 @@ export abstract class CreepAttack extends CreepRole {
             Game.rooms[roomName].energyCapacityAvailable >= ROOM_ENERGY_LIMIT_1300
           ) {
             if (Game.rooms[roomName].energyAvailable >= ROOM_ENERGY_LIMIT_1300) {
-              this.spawnFit(FIT_ATTACK_1300, role, sourceID, roomName, LEVEL_4);
+              this.spawnFit(FIT_MINER_1300, role, sourceID, roomName, LEVEL_3);
             }
           }
         }
       }
     }
   }
-
   /**
    * Создаемм аттакующем крипса
    * @param fit

@@ -2,16 +2,21 @@ export const properties = (config: IPrivateConfig): IProperties => ({
   ...config,
   SIZE_NAME_CREEP: 5,
 
-  ROLE_HARVESTER: "harvester",
-  ROLE_UPGRADER: "upgrader",
-  ROLE_BUILDER: "builder",
-  ROLE_REFUELLER: "refueller",
-  ROLE_REPAIR: "repair",
-  ROLE_WORKING_ABROAD_UPGRADER: "workingAbroadUpgrader",
-  ROLE_WORKING_ABROAD_HARVESTER: "workingAbroadHarvester",
-  ROLE_WORKING_ABROAD_ATTACK: "workingAbroadAttack",
-  ROLE_ATTACK: "attack",
-  ROLE_RANGED: "ranged",
+  ROLE_HARVESTER: "harvester", // Стандартный рабочий
+  ROLE_UPGRADER: "upgrader", // Упгрейдер контроллера
+  ROLE_BUILDER: "builder", // Строитель
+  ROLE_REFUELLER: "refueller", // Заправщик пушки
+  ROLE_REPAIR: "repair", // Ремонтник
+  ROLE_WORKING_ABROAD_UPGRADER: "workingAbroadUpgrader", // Упгрейдер за границей
+  ROLE_WORKING_ABROAD_HARVESTER: "workingAbroadHarvester", // Рабочий за границей
+  ROLE_WORKING_ABROAD_ATTACK: "workingAbroadAttack", // Патрульный заграницей
+  ROLE_ATTACK: "attack", // Патрульный
+  ROLE_RANGED: "ranged", // Стрелок
+  ROLE_MINER: "miner", // Статический майнер
+  ROLE_FILLER: "filler", // Рабочий работает со хранилищем
+  ROLE_STORAGE: "storage", // Заправщик зранилища
+  ROLE_RESERVE: "reserve", // Резервирование контроллера
+  ROLE_CLIME: "clime", // Захвачик контроллера
 
   LEVEL_1: 1,
   LEVEL_2: 2,
@@ -37,4 +42,17 @@ export const properties = (config: IPrivateConfig): IProperties => ({
   FIT_RANGED_550: [MOVE, MOVE, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK],
   FIT_RANGED_800: [MOVE, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK],
   FIT_RANGED_1300: [MOVE, MOVE, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK, RANGED_ATTACK ],
+
+  FIT_MINER_300: [WORK, WORK, MOVE, MOVE],
+  FIT_MINER_550: [WORK, WORK, WORK, WORK, WORK, MOVE],
+  FIT_MINER_800: [WORK, WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE],
+  FIT_MINER_1300: [WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, WORK, MOVE, MOVE],
+
+  FIT_LOADER_300: [CARRY, CARRY, MOVE, CARRY, CARRY, MOVE],
+  FIT_LOADER_550: [CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, MOVE],
+  FIT_LOADER_800: [CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, MOVE],
+  FIT_LOADER_1300: [CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, CARRY, MOVE, CARRY, MOVE],
+
+  FIT_CLAIM_800: [CLAIM, MOVE, MOVE, MOVE, MOVE],
+  FIT_CLAIM_1300: [CLAIM, CLAIM, MOVE, MOVE]
 });

@@ -15,11 +15,12 @@ export class CreepRoleUpgrader extends CreepWorking {
   }
 
   public run(creep: Creep): void {
-    this.toUpgrader(creep);
+    const { FILLER_CONTAINER_ID } = this.properties;
+    this.toUpgrader(creep, FILLER_CONTAINER_ID);
   }
 
-  public toUpgrader(creep: Creep) {
-    super.toUpgrader(creep);
+  public toUpgrader(creep: Creep, containerId: string) {
+    super.toUpgrader(creep, containerId);
   }
 
   public spawn(): void {
