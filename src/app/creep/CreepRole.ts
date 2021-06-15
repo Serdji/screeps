@@ -40,10 +40,10 @@ export abstract class CreepRole {
       const exitDir = Game.map.findExit(creep.room, roomNames[creep.memory.counter]) as ExitConstant;
       const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
       creep.moveTo(exit);
-      return true;
+      return false;
       // Как приехали в нужную комнату, начинаем работать
     }
-    return false;
+    return true;
   }
 
   /**

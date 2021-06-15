@@ -24,7 +24,7 @@ export class CreepRoleWorkingAbroadAttack extends CreepAttack {
   }
 
   public run(creep: Creep): void {
-    if (!this.toRooms(creep, this.roomNames)) {
+    if (this.toRooms(creep, this.roomNames)) {
       if (!this.toAttack(creep)) {
         this.patrolling(creep, this.patrollingCoordinates);
       }

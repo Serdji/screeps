@@ -14,7 +14,7 @@ export class ColonySpawnOne extends Colony {
   public run(): void {
     super.run(this.properties);
     this.runPublicRoleCreeps();
-    this.runPrivateRoleCreeps();
+    // this.runPrivateRoleCreeps();
   }
 
   private runPublicRoleCreeps() {
@@ -27,8 +27,8 @@ export class ColonySpawnOne extends Colony {
     this.spawnCreepRoleStorage(this.nameSpawn, this.properties);
     this.spawnCreepRoleFiller(this.nameSpawn, this.properties);
 
-    this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "7f99bad8557fe20");
-    this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "7530fa6a11d02ef");
+    // this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "7f99bad8557fe20");
+    // this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "7530fa6a11d02ef");
 
     // this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, "");
     // this.spawnCreepRoleRanged("2", this.nameSpawn, this.properties, "");

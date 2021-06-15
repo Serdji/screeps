@@ -9,7 +9,7 @@ export class CreepRoleReserve extends CreepClime {
   }
 
   public run(creep: Creep): void {
-    if (!this.toRooms(creep, this.roomNames)) {
+    if (this.toRooms(creep, this.roomNames)) {
       this.toReserveController(creep);
     }
   }
