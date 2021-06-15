@@ -15,7 +15,7 @@ interface IPrivateConfig {
   LIMIT_ATTACK: ILimitCreep;
   LIMIT_RANGED: ILimitCreep;
 
-  MAX_HITS: number;
+  HITS_MAX: number;
 
   PATROLLING_COORDINATES: [number, number][];
   STORAGE_CONTAINER_IDS: string[];

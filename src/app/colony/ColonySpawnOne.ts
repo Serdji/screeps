@@ -14,7 +14,7 @@ export class ColonySpawnOne extends Colony {
   public run(): void {
     super.run(this.properties);
     this.runPublicRoleCreeps();
-    // this.runPrivateRoleCreeps();
+    this.runPrivateRoleCreeps();
   }
 
   private runPublicRoleCreeps() {
@@ -27,35 +27,48 @@ export class ColonySpawnOne extends Colony {
     this.spawnCreepRoleStorage(this.nameSpawn, this.properties);
     this.spawnCreepRoleFiller(this.nameSpawn, this.properties);
 
-    // this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "839d853b79ba17e2a091d09e");
-    // this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "f0ade9dcde07aa28127bf6a0");
-    // this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, "5de6a379cb65830de0a1958a");
-    // this.spawnCreepRoleRanged("2", this.nameSpawn, this.properties, "cec6d2296a3d154b122801fa");
+    this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "7f99bad8557fe20");
+    this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "a676bcf43ed5056");
+
+    // this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, "");
+    // this.spawnCreepRoleRanged("2", this.nameSpawn, this.properties, "");
   }
 
   private runPrivateRoleCreeps() {
     this.spawnWorkingAbroadHarvester(
-      "W38S57",
+      "W7N3",
       this.nameSpawn,
       _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
     );
 
     this.spawnWorkingAbroadUpgrader(
-      "W38S57",
+      "W7N3",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 2 })
     );
 
-    // this.spawnWorkingAbroadAttack(
-    //   "W37S56",
-    //   this.nameSpawn,
-    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 2, level: 2 }),
-    //   [
-    //     [35, 26],
-    //     [41, 33]
-    //   ]
-    // );
-    //
+    this.spawnWorkingAbroadHarvester(
+      "W8N2",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
+    );
+
+    this.spawnWorkingAbroadUpgrader(
+      "W8N2",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 2 })
+    );
+
+    this.spawnWorkingAbroadAttack(
+      "W7N3",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 3, level: 1 }),
+      [
+        [36, 12],
+        [33, 16],
+        [37, 22]
+      ]
+    );
   }
 
   public spawnCreepRoleHarvester(nameSpawn: string, properties: IProperties) {
@@ -74,16 +87,16 @@ export class ColonySpawnOne extends Colony {
     super.spawnCreepRoleRefueller(nameSpawn, properties);
   }
 
-  public spawnCreepRoleFiller( nameSpawn: string, properties: IProperties ) {
-    super.spawnCreepRoleFiller( nameSpawn, properties );
+  public spawnCreepRoleFiller(nameSpawn: string, properties: IProperties) {
+    super.spawnCreepRoleFiller(nameSpawn, properties);
   }
 
   public spawnCreepRoleRepair(nameSpawn: string, properties: IProperties) {
     super.spawnCreepRoleRepair(nameSpawn, properties);
   }
 
-  public spawnCreepRoleStorage( nameSpawn: string, properties: IProperties ) {
-    super.spawnCreepRoleStorage( nameSpawn, properties );
+  public spawnCreepRoleStorage(nameSpawn: string, properties: IProperties) {
+    super.spawnCreepRoleStorage(nameSpawn, properties);
   }
 
   public spawnCreepRoleAttack(nameSpawn: string, properties: IProperties) {
@@ -107,21 +120,11 @@ export class ColonySpawnOne extends Colony {
     super.spawnWorkingAbroadAttack(roomName, spawnName, properties, patrollingCoordinates);
   }
 
-  public spawnCreepRoleRanged(
-    suffixName: string,
-    nameSpawn: string,
-    properties: IProperties,
-    rampartId: string
-  ) {
+  public spawnCreepRoleRanged(suffixName: string, nameSpawn: string, properties: IProperties, rampartId: string) {
     super.spawnCreepRoleRanged(suffixName, nameSpawn, properties, rampartId);
   }
 
-  public spawnCreepRoleMiner(
-    suffixName: string,
-    nameSpawn: string,
-    properties: IProperties,
-    containerId: string
-  ) {
+  public spawnCreepRoleMiner(suffixName: string, nameSpawn: string, properties: IProperties, containerId: string) {
     super.spawnCreepRoleMiner(suffixName, nameSpawn, properties, containerId);
   }
 }

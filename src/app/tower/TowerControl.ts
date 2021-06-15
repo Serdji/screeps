@@ -9,7 +9,7 @@
 
 export class TowerControl {
   public constructor(properties: IProperties) {
-    const { MAX_HITS } = properties;
+    const { HITS_MAX } = properties;
     for (const name in Game.rooms) {
       // Выбираем все пушки
       const towers = Game.rooms[name].find(FIND_MY_STRUCTURES, {
@@ -21,7 +21,7 @@ export class TowerControl {
           if (tower) {
             const closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-              filter: structure => structure.hits < MAX_HITS
+              filter: structure => structure.hits < structure.hitsMax && structure.hits <= HITS_MAX
             });
             const hilCreeps = tower.pos.findClosestByRange(FIND_CREEPS, {
               filter: structure => structure.hits < structure.hitsMax

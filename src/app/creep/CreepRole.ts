@@ -16,11 +16,11 @@ export abstract class CreepRole {
   public toLouder(creep: Creep) {
     const percent: number = (creep.store[RESOURCE_ENERGY] / creep.store.getCapacity()) * 100;
     let louder: string = "🔴" as string;
-    if (_.ceil(percent) >= 25 && _.ceil(percent) < 50) {
+    if (_.ceil(percent) >= 30 && _.ceil(percent) < 60) {
       louder = "🟠";
-    } else if (_.ceil(percent) >= 50 && _.ceil(percent) < 75) {
+    } else if (_.ceil(percent) >= 60 && _.ceil(percent) < 90) {
       louder = "🟡";
-    } else if (_.ceil(percent) >= 75 && _.ceil(percent) <= 100) {
+    } else if (_.ceil(percent) >= 90 && _.ceil(percent) <= 100) {
       louder = "🟢";
     }
 
@@ -224,7 +224,7 @@ export abstract class CreepRole {
    * @param creep
    */
   public toRepair(creep: Creep) {
-    const { MAX_HITS } = this.properties;
+    const { HITS_MAX } = this.properties;
     if (creep.memory.repair && creep.store[RESOURCE_ENERGY] === 0) {
       creep.memory.repair = false;
       creep.say("🔄 Копать");
@@ -236,7 +236,7 @@ export abstract class CreepRole {
 
     if (creep.memory.repair) {
       const structureRepairs = creep.room.find(FIND_STRUCTURES, {
-        filter: object => object.hits < MAX_HITS
+        filter: object => object.hits < object.hitsMax && object.hits <= HITS_MAX
       });
       structureRepairs.sort((a, b) => a.hits - b.hits);
 
