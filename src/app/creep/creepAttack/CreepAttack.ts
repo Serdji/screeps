@@ -71,24 +71,6 @@ export abstract class CreepAttack extends CreepRole {
   }
 
   /**
-   * Отправляем крипса в сосденюю комнату
-   * @param creep
-   * @param roomName
-   */
-  public toRoom(creep: Creep, roomName: string): boolean {
-    // Проверяем, совпадает ли имя комнаты в которой находиться крипс с именем куда ехеть
-    // елси нет, едем в ту комнату
-    if (creep.room.name !== roomName) {
-      const exitDir = Game.map.findExit(creep.room, roomName) as ExitConstant;
-      const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
-      creep.moveTo(exit);
-      return true;
-      // Как приехали в нужную комнату, начинаем работать
-    }
-    return false;
-  }
-
-  /**
    * Создаемм аттакующем крипса
    * @param fit
    * @param role

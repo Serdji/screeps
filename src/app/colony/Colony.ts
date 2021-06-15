@@ -9,6 +9,7 @@
 
 import { CreepRoleAttack } from "../creep/creepAttack/CreepRoleAttack";
 import { CreepRoleWorkingAbroadAttack } from "../creep/creepAttack/CreepRoleWorkingAbroadAttack";
+import { CreepRoleReserve } from "../creep/creepClime/CreepRoleReserve";
 import { CreepRoleFiller } from "../creep/creepLoader/CreepRoleFiller";
 import { CreepRoleStorage } from "../creep/creepLoader/CreepRoleStorage";
 import { CreepRoleMiner } from "../creep/creepMiner/CreepRoleMiner";
@@ -105,10 +106,7 @@ export abstract class Colony {
     }
   }
 
-  public spawnCreepRoleStorage(
-    nameSpawn: string,
-    properties: IProperties,
-  ): void {
+  public spawnCreepRoleStorage(nameSpawn: string, properties: IProperties): void {
     const { ROLE_STORAGE } = properties;
     const creepRoleStorage = new CreepRoleStorage(nameSpawn, properties);
     for (const name in Game.creeps) {
@@ -161,14 +159,14 @@ export abstract class Colony {
   }
 
   public spawnWorkingAbroadAttack(
-    roomName: string,
+    roomNames: string[],
     spawnName: string,
     properties: IProperties,
     patrollingCoordinates: IProperties["PATROLLING_COORDINATES"]
   ): void {
     const { ROLE_WORKING_ABROAD_ATTACK } = properties;
     const creepRoleWorkingAbroadAttack = new CreepRoleWorkingAbroadAttack(
-      roomName,
+      roomNames,
       spawnName,
       properties,
       patrollingCoordinates
@@ -176,19 +174,27 @@ export abstract class Colony {
     for (const name in Game.creeps) {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
-        case ROLE_WORKING_ABROAD_ATTACK + roomName:
+        case ROLE_WORKING_ABROAD_ATTACK + roomNames.join("#"):
           creepRoleWorkingAbroadAttack.run(creep);
           break;
       }
     }
   }
 
-  public spawnCreepRoleRanged(
-    suffixName: string,
-    nameSpawn: string,
-    properties: IProperties,
-    rampartId: string
-  ): void {
+  public spawnCreepRoleReserve(roomNames: string[], spawnName: string, properties: IProperties): void {
+    const { ROLE_RESERVE } = properties;
+    const creepRoleReserve = new CreepRoleReserve(roomNames, spawnName, properties);
+    for (const name in Game.creeps) {
+      const creep = Game.creeps[name];
+      switch (creep.memory.role) {
+        case ROLE_RESERVE + roomNames.join("#"):
+          creepRoleReserve.run(creep);
+          break;
+      }
+    }
+  }
+
+  public spawnCreepRoleRanged(suffixName: string, nameSpawn: string, properties: IProperties, rampartId: string): void {
     const { ROLE_RANGED } = properties;
     const creepRoleRanged = new CreepRoleRanged(suffixName, nameSpawn, properties, rampartId);
     for (const name in Game.creeps) {
