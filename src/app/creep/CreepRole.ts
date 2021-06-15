@@ -28,6 +28,37 @@ export abstract class CreepRole {
   }
 
   /**
+   * Отправляем крипса в сосденюю комнату
+   * @param creep
+   * @param roomName
+   */
+  public toRooms(creep: Creep, roomNames: string[]): boolean {
+    // Проверяем, совпадает ли имя комнаты в которой находиться крипс с именем куда ехеть
+    // елси нет, едем в ту комнату
+    if (creep.room.name === roomNames[creep.memory.counter]) creep.memory.counter++;
+    if (!_.isUndefined(roomNames[creep.memory.counter])) {
+      const exitDir = Game.map.findExit(creep.room, roomNames[creep.memory.counter]) as ExitConstant;
+      const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
+      creep.moveTo(exit);
+      return true;
+      // Как приехали в нужную комнату, начинаем работать
+    }
+    return false;
+  }
+
+  /**
+   * Резервирования контроллера
+   * @param creep
+   */
+  public toReserveController(creep: Creep) {
+    if (creep.room.controller) {
+      if (creep.reserveController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(creep.room.controller);
+      }
+    }
+  }
+
+  /**
    * Рандомное распределение крисаов на майниг ресурсов
    * @param creep
    */
@@ -46,11 +77,11 @@ export abstract class CreepRole {
     }
   }
 
-  public miningStorageRefueller(creep: Creep){
+  public miningStorageRefueller(creep: Creep) {
     const storage = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: structure => structure.structureType === STRUCTURE_STORAGE
     }) as StructureSpawn;
-    if ( storage ) {
+    if (storage) {
       if (creep.withdraw(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(storage, { visualizePathStyle: { stroke: "#ffaa00" } });
       }
@@ -67,7 +98,7 @@ export abstract class CreepRole {
     const container = creep.pos.findClosestByRange(FIND_STRUCTURES, {
       filter: structure => structure.structureType === STRUCTURE_CONTAINER
     }) as StructureController;
-    if(container){
+    if (container) {
       if (creep.withdraw(container, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
         creep.moveTo(container, { visualizePathStyle: { stroke: "#ffaa00" } });
       }
@@ -306,8 +337,7 @@ export abstract class CreepRole {
     if (creep.memory.filler) {
       const targets = creep.room.find(FIND_STRUCTURES, {
         filter: structure =>
-          (structure.structureType === STRUCTURE_EXTENSION ||
-            structure.structureType === STRUCTURE_SPAWN) &&
+          (structure.structureType === STRUCTURE_EXTENSION || structure.structureType === STRUCTURE_SPAWN) &&
           structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
       });
       // Несем ресурсы в спавн и яцей
@@ -414,8 +444,11 @@ export abstract class CreepRole {
         creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#e87b15" } });
       }
     } else {
-      if (containerId) this.miningContainer(creep, containerId);
-      this.mining(creep);
+      if (containerId) {
+        this.miningContainer(creep, containerId);
+      } else {
+        this.mining(creep);
+      }
     }
   }
 
@@ -477,13 +510,7 @@ export abstract class CreepRole {
   public toRouteContainerToStorage(creep: Creep, containerIds: IProperties["STORAGE_CONTAINER_IDS"]) {
     const size = containerIds.length;
     if (creep.memory.counter === size) creep.memory.counter = 0;
-    const container = Game.getObjectById(
-      containerIds[creep.memory.counter] as Id<StructureContainer>
-    ) as StructureContainer;
-    const posCoordinates = container.pos;
-    if (creep.moveTo(posCoordinates) === OK) {
-      this.toHarvesterStorage(creep, containerIds[creep.memory.counter]);
-    }
+    this.toHarvesterStorage(creep, containerIds[creep.memory.counter]);
   }
 
   /**

@@ -14,6 +14,8 @@ interface IPublicConfig {
   ROLE_MINER: string;
   ROLE_FILLER: string;
   ROLE_STORAGE: string;
+  ROLE_RESERVE: string;
+  ROLE_CLIME: string;
 
   LEVEL_1: number;
   LEVEL_2: number;
@@ -49,4 +51,7 @@ interface IPublicConfig {
   FIT_LOADER_550: BodyPartConstant[];
   FIT_LOADER_800: BodyPartConstant[];
   FIT_LOADER_1300: BodyPartConstant[];
+
+  FIT_CLAIM_800: BodyPartConstant[];
+  FIT_CLAIM_1300: BodyPartConstant[];
 }

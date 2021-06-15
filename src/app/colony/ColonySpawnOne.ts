@@ -28,7 +28,7 @@ export class ColonySpawnOne extends Colony {
     this.spawnCreepRoleFiller(this.nameSpawn, this.properties);
 
     this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "7f99bad8557fe20");
-    this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "a676bcf43ed5056");
+    this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "7530fa6a11d02ef");
 
     // this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, "");
     // this.spawnCreepRoleRanged("2", this.nameSpawn, this.properties, "");
@@ -44,7 +44,7 @@ export class ColonySpawnOne extends Colony {
     this.spawnWorkingAbroadUpgrader(
       "W7N3",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 2 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 1, level: 1 })
     );
 
     this.spawnWorkingAbroadHarvester(
@@ -56,18 +56,34 @@ export class ColonySpawnOne extends Colony {
     this.spawnWorkingAbroadUpgrader(
       "W8N2",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 2 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 1, level: 1 })
     );
 
     this.spawnWorkingAbroadAttack(
-      "W7N3",
+      ["W7N3"],
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 3, level: 1 }),
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 1, level: 1 }),
       [
         [36, 12],
         [33, 16],
         [37, 22]
       ]
+    );
+
+    this.spawnCreepRoleReserve(
+      ["W7N3"],
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 })
+    );
+    this.spawnCreepRoleReserve(
+      ["W8N2"],
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 })
+    );
+    this.spawnCreepRoleReserve(
+      ["W8N2", "W7N2"],
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 })
     );
   }
 
@@ -112,12 +128,16 @@ export class ColonySpawnOne extends Colony {
   }
 
   public spawnWorkingAbroadAttack(
-    roomName: string,
+    roomNames: string[],
     spawnName: string,
     properties: IProperties,
     patrollingCoordinates: IProperties["PATROLLING_COORDINATES"]
   ) {
-    super.spawnWorkingAbroadAttack(roomName, spawnName, properties, patrollingCoordinates);
+    super.spawnWorkingAbroadAttack(roomNames, spawnName, properties, patrollingCoordinates);
+  }
+
+  public spawnCreepRoleReserve(roomNames: string[], spawnName: string, properties: IProperties) {
+    super.spawnCreepRoleReserve(roomNames, spawnName, properties);
   }
 
   public spawnCreepRoleRanged(suffixName: string, nameSpawn: string, properties: IProperties, rampartId: string) {

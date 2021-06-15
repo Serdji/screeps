@@ -8,6 +8,8 @@ interface IPrivateConfig {
   LIMIT_FILLER: ILimitCreep;
   LIMIT_STORAGE: ILimitCreep;
 
+  LIMIT_RESERVE?: ILimitCreep;
+  LIMIT_CLIME?: ILimitCreep;
   LIMIT_WORKING_ABROAD_UPGRADER?: ILimitCreep;
   LIMIT_WORKING_ABROAD_HARVESTER?: ILimitCreep;
   LIMIT_WORKING_ABROAD_ATTACK?: ILimitCreep;
