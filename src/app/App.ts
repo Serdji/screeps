@@ -14,7 +14,7 @@ export class App {
         LIMIT_UPGRADER: { size: 2, level: 1 }, // Обнавляет контроллер
         LIMIT_BUILDER: { size: 2, level: 1 }, // Строитель
         LIMIT_REFUELLER: { size: null, level: 1 }, // Заправщик пушек
-        LIMIT_REPAIR: { size: null, level: 1 }, // Ремонтник
+        LIMIT_REPAIR: { size: 2, level: 1 }, // Ремонтник
 
         LIMIT_FILLER: { size: null, level: 1 }, // Рабочий таскает от хранилеща
         FILLER_CONTAINER_ID: "", // ID Контейнера для упгрейдоров
