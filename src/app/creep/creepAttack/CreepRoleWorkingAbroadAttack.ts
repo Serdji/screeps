@@ -9,30 +9,30 @@
 import { CreepAttack } from "./CreepAttack";
 
 export class CreepRoleWorkingAbroadAttack extends CreepAttack {
-  private roomNames: string[];
+  private roomName: string;
   private patrollingCoordinates: IProperties["PATROLLING_COORDINATES"];
   public constructor(
-    roomNames: string[],
+    roomName: string,
     nameSpawn: string,
     properties: IProperties,
     patrollingCoordinates: IProperties["PATROLLING_COORDINATES"]
   ) {
     super(nameSpawn, properties);
-    this.roomNames = roomNames; // Имя комнаты, куда отправляем крипса
+    this.roomName = roomName; // Имя комнаты, куда отправляем крипса
     this.patrollingCoordinates = patrollingCoordinates; // Координаты
     this.spawn();
   }
 
   public run(creep: Creep): void {
-    if (!this.toRooms(creep, this.roomNames)) {
+    if (this.toRoom(creep, this.roomName)) {
       if (!this.toAttack(creep)) {
         this.patrolling(creep, this.patrollingCoordinates);
       }
     }
   }
 
-  public toRooms(creep: Creep, roomNames: string[]): boolean {
-    return super.toRooms(creep, roomNames);
+  public toRoom(creep: Creep, roomName: string): boolean {
+    return super.toRoom(creep, roomName);
   }
 
   public toAttack(creep: Creep): boolean {
@@ -45,6 +45,6 @@ export class CreepRoleWorkingAbroadAttack extends CreepAttack {
 
   public spawn(): void {
     const { ROLE_WORKING_ABROAD_ATTACK, LIMIT_WORKING_ABROAD_ATTACK } = this.properties;
-    super.spawn(ROLE_WORKING_ABROAD_ATTACK + this.roomNames.join("#"), LIMIT_WORKING_ABROAD_ATTACK as ILimitCreep);
+    super.spawn(ROLE_WORKING_ABROAD_ATTACK + this.roomName, LIMIT_WORKING_ABROAD_ATTACK as ILimitCreep);
   }
 }
