@@ -10,8 +10,8 @@ export class App {
     new ColonySpawnOne(
       "Spawn1",
       properties({
-        LIMIT_HARVESTER: { size: 2, level: 1 }, // Стандартный рабочий
-        LIMIT_UPGRADER: { size: 2, level: 1 }, // Обнавляет контроллер
+        LIMIT_HARVESTER: { size: 3, level: 1 }, // Стандартный рабочий
+        LIMIT_UPGRADER: { size: 4, level: 1 }, // Обнавляет контроллер
         LIMIT_BUILDER: { size: 2, level: 1 }, // Строитель
         LIMIT_REFUELLER: { size: null, level: 1 }, // Заправщик пушек
         LIMIT_REPAIR: { size: 2, level: 1 }, // Ремонтник
@@ -29,11 +29,9 @@ export class App {
         LIMIT_ATTACK: { size: null, level: 1 }, // Атакующие
         PATROLLING_COORDINATES: [
           // Координаты для патрулирования
-          [47, 7],
-          [47, 31],
-          [35, 39],
-          [31, 46],
-          [9, 47]
+          [15, 10],
+          [11, 14],
+          [16, 18]
         ],
 
         LIMIT_MINER: { size: null, level: 4 }, // Статический майнер, скклаывает в контейнер. SIZE ВСЕГДА 1
