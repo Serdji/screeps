@@ -159,14 +159,14 @@ export abstract class Colony {
   }
 
   public spawnWorkingAbroadAttack(
-    roomNames: string[],
+    roomName: string,
     spawnName: string,
     properties: IProperties,
     patrollingCoordinates: IProperties["PATROLLING_COORDINATES"]
   ): void {
     const { ROLE_WORKING_ABROAD_ATTACK } = properties;
     const creepRoleWorkingAbroadAttack = new CreepRoleWorkingAbroadAttack(
-      roomNames,
+      roomName,
       spawnName,
       properties,
       patrollingCoordinates
@@ -174,20 +174,20 @@ export abstract class Colony {
     for (const name in Game.creeps) {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
-        case ROLE_WORKING_ABROAD_ATTACK + roomNames.join("#"):
+        case ROLE_WORKING_ABROAD_ATTACK + roomName:
           creepRoleWorkingAbroadAttack.run(creep);
           break;
       }
     }
   }
 
-  public spawnCreepRoleReserve(roomNames: string[], spawnName: string, properties: IProperties): void {
+  public spawnCreepRoleReserve(roomName: string, spawnName: string, properties: IProperties): void {
     const { ROLE_RESERVE } = properties;
-    const creepRoleReserve = new CreepRoleReserve(roomNames, spawnName, properties);
+    const creepRoleReserve = new CreepRoleReserve(roomName, spawnName, properties);
     for (const name in Game.creeps) {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
-        case ROLE_RESERVE + roomNames.join("#"):
+        case ROLE_RESERVE + roomName:
           creepRoleReserve.run(creep);
           break;
       }

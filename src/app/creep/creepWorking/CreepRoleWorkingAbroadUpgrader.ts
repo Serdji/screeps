@@ -20,7 +20,7 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
     // Проверяем, совпадает ли имя комнаты в которой находиться крипс с именем куда ехеть
     // елси нет, едем в ту комнату
     if (creep.room.name !== this.roomName && !creep.memory.upgrading) {
-      const exitDir = Game.map.findExit(creep.room, this.roomName) as ExitConstant;
+      const exitDir = creep.room.findExitTo(this.roomName) as ExitConstant;
       const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
       creep.moveTo(exit);
       // Как приехали в нужную комнату, начинаем работать
@@ -39,7 +39,7 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
 
         // Проверяем, если имя домашней комнаты не совпадает с комнотой в которой находися крипс, едем в ту комнату
         if (creep.memory.roomName !== creep.room.name && creep.memory.upgrading) {
-          const exitDir = Game.map.findExit(creep.room, creep.memory.roomName) as ExitConstant;
+          const exitDir = creep.room.findExitTo(creep.memory.roomName) as ExitConstant;
           const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
           creep.moveTo(exit);
           // Если имена совпали, едем убгрейживать контролер

@@ -13,11 +13,11 @@ export class ColonySpawnOne extends Colony {
 
   public run(): void {
     super.run(this.properties);
-    this.runPublicRoleCreeps();
-    this.runPrivateRoleCreeps();
+    this.runWorkingColony();
+    this.runWorkingAbroad();
   }
 
-  private runPublicRoleCreeps() {
+  private runWorkingColony() {
     this.spawnCreepRoleHarvester(this.nameSpawn, this.properties);
     this.spawnCreepRoleUpgrader(this.nameSpawn, this.properties);
     this.spawnCreepRoleBuilder(this.nameSpawn, this.properties);
@@ -34,7 +34,31 @@ export class ColonySpawnOne extends Colony {
     // this.spawnCreepRoleRanged("2", this.nameSpawn, this.properties, "");
   }
 
-  private runPrivateRoleCreeps() {
+  private runWorkingAbroad() {
+    this.spawnWorkingAbroadHarvester(
+      "W7N3",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
+    );
+
+    this.spawnWorkingAbroadUpgrader(
+      "W7N3",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 1, level: 1 })
+    );
+
+    this.spawnWorkingAbroadUpgrader(
+      "W7N4",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 3, level: 1 })
+    );
+
+    this.spawnWorkingAbroadHarvester(
+      "W8N2",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
+    );
+
     this.spawnWorkingAbroadUpgrader(
       "W42S52",
       this.nameSpawn,
@@ -106,16 +130,16 @@ export class ColonySpawnOne extends Colony {
   }
 
   public spawnWorkingAbroadAttack(
-    roomNames: string[],
+    roomName: string,
     spawnName: string,
     properties: IProperties,
     patrollingCoordinates: IProperties["PATROLLING_COORDINATES"]
   ) {
-    super.spawnWorkingAbroadAttack(roomNames, spawnName, properties, patrollingCoordinates);
+    super.spawnWorkingAbroadAttack(roomName, spawnName, properties, patrollingCoordinates);
   }
 
-  public spawnCreepRoleReserve(roomNames: string[], spawnName: string, properties: IProperties) {
-    super.spawnCreepRoleReserve(roomNames, spawnName, properties);
+  public spawnCreepRoleReserve(roomName: string, spawnName: string, properties: IProperties) {
+    super.spawnCreepRoleReserve(roomName, spawnName, properties);
   }
 
   public spawnCreepRoleRanged(suffixName: string, nameSpawn: string, properties: IProperties, rampartId: string) {
