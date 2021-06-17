@@ -1,15 +1,15 @@
 import { CreepClime } from "./CreepClime";
 
 export class CreepRoleReserve extends CreepClime {
-  private roomNames: string[];
-  public constructor(roomNames: string[], nameSpawn: string, properties: IProperties) {
+  private roomName: string;
+  public constructor(roomName: string, nameSpawn: string, properties: IProperties) {
     super(nameSpawn, properties);
-    this.roomNames = roomNames; // Имя комнаты, куда отправляем крипса
+    this.roomName = roomName; // Имя комнаты, куда отправляем крипса
     this.spawn();
   }
 
   public run(creep: Creep): void {
-    if (!this.toRooms(creep, this.roomNames)) {
+    if (this.toRoom(creep, this.roomName)) {
       this.toReserveController(creep);
     }
   }
@@ -18,12 +18,12 @@ export class CreepRoleReserve extends CreepClime {
     super.toReserveController(creep);
   }
 
-  public toRooms(creep: Creep, roomNames: string[]): boolean {
-    return super.toRooms(creep, roomNames);
+  public toRoom(creep: Creep, roomName: string): boolean {
+    return super.toRoom(creep, roomName);
   }
 
   public spawn(): void {
     const { ROLE_RESERVE, LIMIT_RESERVE } = this.properties;
-    super.spawn(ROLE_RESERVE + this.roomNames.join("#"), LIMIT_RESERVE as ILimitCreep);
+    super.spawn(ROLE_RESERVE + this.roomName, LIMIT_RESERVE as ILimitCreep);
   }
 }
