@@ -62,35 +62,22 @@ export class ColonySpawnOne extends Colony {
     this.spawnWorkingAbroadUpgrader(
       "W8N2",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 1, level: 1 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
     );
 
-    this.spawnWorkingAbroadAttack(
-      "W6N3",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 3, level: 1 }),
-      [
-        [40, 35],
-        [48, 35]
-      ]
-    );
-
-    this.spawnWorkingAbroadAttack(
-      "W5N3",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 3, level: 1 }),
-      [
-        [36, 6],
-        [36, 14]
-      ]
-    );
+    // this.spawnWorkingAbroadAttack(
+    //   "W6N3",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 3, level: 1 }),
+    //   [
+    //     [40, 35],
+    //     [48, 35]
+    //   ]
+    // );
 
     this.spawnCreepRoleReserve("W7N3", this.nameSpawn, _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 }));
     this.spawnCreepRoleReserve("W7N4", this.nameSpawn, _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 }));
-    this.spawnCreepRoleReserve("W8N4", this.nameSpawn, _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 }));
-    this.spawnCreepRoleReserve("W8N5", this.nameSpawn, _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 }));
     this.spawnCreepRoleReserve("W8N2", this.nameSpawn, _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 }));
-    this.spawnCreepRoleReserve("W7N2", this.nameSpawn, _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 }));
   }
 
   public spawnCreepRoleHarvester(nameSpawn: string, properties: IProperties) {
