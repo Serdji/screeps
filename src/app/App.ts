@@ -11,10 +11,10 @@ export class App {
       "Spawn1",
       properties({
         LIMIT_HARVESTER: { size: 3, level: 1 }, // Стандартный рабочий
-        LIMIT_UPGRADER: { size: 4, level: 1 }, // Обнавляет контроллер
-        LIMIT_BUILDER: { size: 2, level: 1 }, // Строитель
+        LIMIT_UPGRADER: { size: null, level: 1 }, // Обнавляет контроллер
+        LIMIT_BUILDER: { size: null, level: 1 }, // Строитель
         LIMIT_REFUELLER: { size: 2, level: 1 }, // Заправщик пушек
-        LIMIT_REPAIR: { size: 2, level: 1 }, // Ремонтник
+        LIMIT_REPAIR: { size: null, level: 1 }, // Ремонтник
 
         LIMIT_FILLER: { size: null, level: 1 }, // Рабочий таскает от хранилеща
         FILLER_CONTAINER_ID: "", // ID Контейнера для упгрейдоров
