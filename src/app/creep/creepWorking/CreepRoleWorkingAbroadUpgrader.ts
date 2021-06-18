@@ -20,9 +20,7 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
     // Проверяем, совпадает ли имя комнаты в которой находиться крипс с именем куда ехеть
     // елси нет, едем в ту комнату
     if (creep.room.name !== this.roomName && !creep.memory.upgrading) {
-      const exitDir = creep.room.findExitTo(this.roomName) as ExitConstant;
-      const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
-      creep.moveTo(exit);
+      this.toRoom(creep, this.roomName);
       // Как приехали в нужную комнату, начинаем работать
     } else {
       if (creep.memory.upgrading && creep.store[RESOURCE_ENERGY] === 0) {
@@ -39,9 +37,7 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
 
         // Проверяем, если имя домашней комнаты не совпадает с комнотой в которой находися крипс, едем в ту комнату
         if (creep.memory.roomName !== creep.room.name && creep.memory.upgrading) {
-          const exitDir = creep.room.findExitTo(creep.memory.roomName) as ExitConstant;
-          const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
-          creep.moveTo(exit);
+          this.toHome(creep);
           // Если имена совпали, едем убгрейживать контролер
         } else {
           if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {
@@ -70,9 +66,21 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
         //   }
         // }
       } else {
-        super.mining(creep);
+        this.mining(creep);
       }
     }
+  }
+
+  public mining(creep: Creep) {
+    super.mining(creep);
+  }
+
+  public toRoom(creep: Creep, roomName: string): boolean {
+    return super.toRoom(creep, roomName);
+  }
+
+  public toHome(creep: Creep): boolean {
+    return super.toHome(creep);
   }
 
   public spawn(): void {

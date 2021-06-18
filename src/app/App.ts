@@ -12,7 +12,7 @@ export class App {
       properties({
         LIMIT_HARVESTER: { size: null, level: 1 }, // Стандартный рабочий
         LIMIT_UPGRADER: { size: 4, level: 1 }, // Обнавляет контроллер
-        LIMIT_BUILDER: { size: null, level: 1 }, // Строитель
+        LIMIT_BUILDER: { size: 4, level: 1 }, // Строитель
         LIMIT_REFUELLER: { size: 1, level: 1 }, // Заправщик пушек
         LIMIT_REPAIR: { size: null, level: 1 }, // Ремонтник
         
