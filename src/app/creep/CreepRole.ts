@@ -66,6 +66,18 @@ export abstract class CreepRole {
    * Резервирования контроллера
    * @param creep
    */
+  public toClimeController(creep: Creep) {
+    if (creep.room.controller) {
+      if (creep.claimController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(creep.room.controller);
+      }
+    }
+  }
+
+  /**
+   * Резервирования контроллера
+   * @param creep
+   */
   public toReserveController(creep: Creep) {
     if (creep.room.controller) {
       if (creep.reserveController(creep.room.controller) === ERR_NOT_IN_RANGE) {
@@ -272,7 +284,8 @@ export abstract class CreepRole {
 
     if (creep.memory.repair) {
       const structureRepairs = creep.room.find(FIND_STRUCTURES, {
-        filter: object => object.hits < object.hitsMax && object.hits <= HITS_MAX
+        filter: object =>
+          object.hits < object.hitsMax && object.hits <= HITS_MAX && object.structureType === STRUCTURE_WALL
       });
       structureRepairs.sort((a, b) => a.hits - b.hits);
 

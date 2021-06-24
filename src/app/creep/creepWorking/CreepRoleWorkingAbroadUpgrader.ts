@@ -46,25 +46,25 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
         }
 
         // Ести есть что постороить, строим
-        // if (constructions.length) {
-        //   const construction = Game.getObjectById(constructions[0].id) as ConstructionSite;
-        //   if (creep.build(construction) === ERR_NOT_IN_RANGE) {
-        //     creep.moveTo(construction, { visualizePathStyle: { stroke: "#ffffff" } });
-        //   }
-        //   // Если нечего стоить и польностью забит клад, едем домой
-        // } else {
-        //   // Проверяем, если имя домашней комнаты не совпадает с комнотой в которой находися крипс, едем в ту комнату
-        //   if (creep.memory.roomName !== creep.room.name && creep.memory.upgrading) {
-        //     const exitDir = Game.map.findExit(creep.room, creep.memory.roomName) as ExitConstant;
-        //     const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
-        //     creep.moveTo(exit);
-        //     // Если имена совпали, едем убгрейживать контролер
-        //   } else {
-        //     if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {
-        //       creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#ffffff" } });
-        //     }
-        //   }
-        // }
+        if (constructions.length) {
+          const construction = Game.getObjectById(constructions[0].id) as ConstructionSite;
+          if (creep.build(construction) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(construction, { visualizePathStyle: { stroke: "#ffffff" } });
+          }
+          // Если нечего стоить и польностью забит клад, едем домой
+        } else {
+          // Проверяем, если имя домашней комнаты не совпадает с комнотой в которой находися крипс, едем в ту комнату
+          if (creep.memory.roomName !== creep.room.name && creep.memory.upgrading) {
+            const exitDir = Game.map.findExit(creep.room, creep.memory.roomName) as ExitConstant;
+            const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
+            creep.moveTo(exit);
+            // Если имена совпали, едем убгрейживать контролер
+          } else {
+            if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {
+              creep.moveTo(creep.room.controller as StructureController, { visualizePathStyle: { stroke: "#ffffff" } });
+            }
+          }
+        }
       } else {
         this.mining(creep);
       }

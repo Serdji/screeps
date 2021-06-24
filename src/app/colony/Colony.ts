@@ -9,6 +9,7 @@
 
 import { CreepRoleAttack } from "../creep/creepAttack/CreepRoleAttack";
 import { CreepRoleWorkingAbroadAttack } from "../creep/creepAttack/CreepRoleWorkingAbroadAttack";
+import { CreepRoleClime } from "../creep/creepClime/CreepRoleClime";
 import { CreepRoleReserve } from "../creep/creepClime/CreepRoleReserve";
 import { CreepRoleFiller } from "../creep/creepLoader/CreepRoleFiller";
 import { CreepRoleStorage } from "../creep/creepLoader/CreepRoleStorage";
@@ -193,6 +194,20 @@ export abstract class Colony {
       }
     }
   }
+
+  public spawnCreepRoleClime(roomName: string, spawnName: string, properties: IProperties): void {
+    const { ROLE_CLIME } = properties;
+    const creepRoleClime = new CreepRoleClime(roomName, spawnName, properties);
+    for (const name in Game.creeps) {
+      const creep = Game.creeps[name];
+      switch (creep.memory.role) {
+        case ROLE_CLIME + roomName:
+          creepRoleClime.run(creep);
+          break;
+      }
+    }
+  }
+
 
   public spawnCreepRoleRanged(suffixName: string, nameSpawn: string, properties: IProperties, rampartId: string): void {
     const { ROLE_RANGED } = properties;

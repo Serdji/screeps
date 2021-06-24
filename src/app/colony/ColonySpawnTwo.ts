@@ -1,6 +1,6 @@
 import { Colony } from "./Colony";
 
-export class ColonySpawnOne extends Colony {
+export class ColonySpawnTwo extends Colony {
   private nameSpawn: string;
   private properties: IProperties;
 
@@ -27,38 +27,38 @@ export class ColonySpawnOne extends Colony {
     this.spawnCreepRoleStorage(this.nameSpawn, this.properties);
     this.spawnCreepRoleFiller(this.nameSpawn, this.properties);
 
-    this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "60d1b046c29e8968bb925dc4");
-    this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "60d1e044ee99d3beb752d371");
-
-    this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, "60d217a62fd8f7c58ef12f02");
-    this.spawnCreepRoleRanged("2", this.nameSpawn, this.properties, "60d21990887cd55b37e5024a");
+    // this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "60d1b046c29e8968bb925dc4");
+    // this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "60d1e044ee99d3beb752d371");
+    //
+    // this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, "60d217a62fd8f7c58ef12f02");
+    // this.spawnCreepRoleRanged("2", this.nameSpawn, this.properties, "60d21990887cd55b37e5024a");
   }
 
   private runWorkingAbroad() {
 
-    this.spawnWorkingAbroadUpgrader(
-      "W42S51",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 3, level: 1 })
-    );
-
-    this.spawnWorkingAbroadUpgrader(
-      "W42S52",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: null, level: 1 })
-    );
-
-    this.spawnWorkingAbroadHarvester(
-      "W42S53",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
-    );
-
-    this.spawnWorkingAbroadUpgrader(
-      "W42S53",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: null, level: 1 })
-    );
+    // this.spawnWorkingAbroadUpgrader(
+    //   "W42S51",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 3, level: 1 })
+    // );
+    //
+    // this.spawnWorkingAbroadUpgrader(
+    //   "W42S52",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 1, level: 1 })
+    // );
+    //
+    // this.spawnWorkingAbroadHarvester(
+    //   "W42S53",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
+    // );
+    //
+    // this.spawnWorkingAbroadUpgrader(
+    //   "W42S53",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 1, level: 1 })
+    // );
 
     // this.spawnWorkingAbroadHarvester(
     //   "W8N2",
@@ -83,16 +83,16 @@ export class ColonySpawnOne extends Colony {
     //   _.set(this.properties, "LIMIT_CLIME", { size: 1, level: 2 })
     // );
 
-    this.spawnCreepRoleReserve(
-      "W42S52",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 1 })
-    );
-    this.spawnCreepRoleReserve(
-      "W42S53",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 1 })
-    );
+    // this.spawnCreepRoleReserve(
+    //   "W42S52",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 1 })
+    // );
+    // this.spawnCreepRoleReserve(
+    //   "W42S53",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 1 })
+    // );
   }
 
   public spawnCreepRoleHarvester(nameSpawn: string, properties: IProperties) {
