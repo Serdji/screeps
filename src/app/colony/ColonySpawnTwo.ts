@@ -13,8 +13,8 @@ export class ColonySpawnTwo extends Colony {
 
   public run(): void {
     super.run(this.properties);
-    this.runWorkingColony();
-    this.runWorkingAbroad();
+    // this.runWorkingColony();
+    // this.runWorkingAbroad();
   }
 
   private runWorkingColony() {

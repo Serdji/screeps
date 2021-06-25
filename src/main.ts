@@ -31,6 +31,7 @@ declare global {
     isForward: boolean;
     counter: number;
     level: number;
+    nameSpawn: string;
   }
 
   // Syntax for adding proprties to `global` (ex "global.log")

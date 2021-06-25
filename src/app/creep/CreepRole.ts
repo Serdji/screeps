@@ -202,6 +202,7 @@ export abstract class CreepRole {
     isForward: CreepMemory["isForward"] = true,
     counter: CreepMemory["counter"] = 0
   ): void {
+    const nameSpawn = this.nameSpawn;
     const nameCreep = `${this.makeId()}#${Game.time}#${role}#${level}`;
     const memory = {
       role,
@@ -209,9 +210,10 @@ export abstract class CreepRole {
       roomName,
       isForward,
       counter,
-      level
+      level,
+      nameSpawn
     } as CreepMemory;
-    if (Game.spawns[this.nameSpawn].spawnCreep(fit, nameCreep, { memory }) === OK) {
+    if (Game.spawns[nameSpawn].spawnCreep(fit, nameCreep, { memory }) === OK) {
       console.log(`Новый крипт | Роль -> ${role} | Имя -> ${nameCreep}`);
     }
   }

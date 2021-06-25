@@ -45,7 +45,7 @@ export class ColonySpawnOne extends Colony {
     this.spawnWorkingAbroadUpgrader(
       "W42S52",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: null, level: 1 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
     );
 
     this.spawnWorkingAbroadHarvester(
@@ -91,7 +91,7 @@ export class ColonySpawnOne extends Colony {
     this.spawnCreepRoleReserve(
       "W42S53",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 1 })
+      _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 })
     );
   }
 
