@@ -13,8 +13,8 @@ export class ColonySpawnTwo extends Colony {
 
   public run(): void {
     super.run(this.properties);
-    // this.runWorkingColony();
-    // this.runWorkingAbroad();
+    this.runWorkingColony();
+    this.runWorkingAbroad();
   }
 
   private runWorkingColony() {
@@ -48,11 +48,11 @@ export class ColonySpawnTwo extends Colony {
     //   _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 1, level: 1 })
     // );
     //
-    // this.spawnWorkingAbroadHarvester(
-    //   "W42S53",
-    //   this.nameSpawn,
-    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
-    // );
+    this.spawnWorkingAbroadHarvester(
+      "W42S52",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
+    );
     //
     // this.spawnWorkingAbroadUpgrader(
     //   "W42S53",
@@ -60,11 +60,11 @@ export class ColonySpawnTwo extends Colony {
     //   _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 1, level: 1 })
     // );
 
-    // this.spawnWorkingAbroadHarvester(
-    //   "W8N2",
-    //   this.nameSpawn,
-    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
-    // );
+    this.spawnWorkingAbroadHarvester(
+      "W42S53",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
+    );
 
     // this.spawnWorkingAbroadAttack(
     //   "W7N3",
