@@ -1,6 +1,6 @@
 export const properties = (config: IPrivateConfig): IProperties => ({
   ...config,
-  SIZE_NAME_CREEP: 5,
+  SIZE_NAME_CREEP: 3,
 
   ROLE_HARVESTER: "harvester", // Стандартный рабочий
   ROLE_UPGRADER: "upgrader", // Упгрейдер контроллера

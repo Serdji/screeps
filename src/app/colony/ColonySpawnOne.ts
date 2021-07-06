@@ -37,34 +37,28 @@ export class ColonySpawnOne extends Colony {
   private runWorkingAbroad() {
 
     this.spawnWorkingAbroadUpgrader(
-      "W42S51",
+      "W42S52",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 3, level: 1 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: null, level: 1 })
     );
 
-    // this.spawnWorkingAbroadUpgrader(
-    //   "W42S52",
-    //   this.nameSpawn,
-    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: null, level: 1 })
-    // );
-
-    // this.spawnWorkingAbroadHarvester(
-    //   "W42S53",
-    //   this.nameSpawn,
-    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
-    // );
+    this.spawnWorkingAbroadHarvester(
+      "W42S52",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
+    );
 
     this.spawnWorkingAbroadUpgrader(
       "W42S53",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: 2, level: 1 })
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: null, level: 1 })
     );
 
-    // this.spawnWorkingAbroadHarvester(
-    //   "W8N2",
-    //   this.nameSpawn,
-    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: 2, level: 1 })
-    // );
+    this.spawnWorkingAbroadHarvester(
+      "W42S53",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
+    );
 
     this.spawnWorkingAbroadAttack(
       "W42S51",
@@ -85,7 +79,7 @@ export class ColonySpawnOne extends Colony {
     this.spawnCreepRoleReserve(
       "W42S52",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 1 })
+      _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 })
     );
     this.spawnCreepRoleReserve(
       "W42S53",

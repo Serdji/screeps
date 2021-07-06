@@ -203,7 +203,7 @@ export abstract class CreepRole {
     counter: CreepMemory["counter"] = 0
   ): void {
     const nameSpawn = this.nameSpawn;
-    const nameCreep = `${this.makeId()}#${Game.time}#${role}#${level}`;
+    const nameCreep = `${this.makeId()}#${role}#${nameSpawn}#${level}`;
     const memory = {
       role,
       sourceID,

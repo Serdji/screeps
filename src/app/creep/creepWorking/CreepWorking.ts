@@ -23,7 +23,10 @@ export abstract class CreepWorking extends CreepRole {
       FIT_WORKING_1300
     } = this.properties;
 
-    const creepRole = _.filter(Game.creeps, (creep: Creep) => creep.memory.role === role);
+    const creepRole = _.filter(
+      Game.creeps,
+      (creep: Creep) => creep.memory.role === role && creep.memory.nameSpawn === this.nameSpawn
+    );
     const sourceID = null;
     const room = Game.spawns[this.nameSpawn].room;
     const roomName = room.name;

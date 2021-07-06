@@ -21,10 +21,7 @@ export class TowerControl {
           if (tower) {
             const closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
             const closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
-              filter: structure =>
-                structure.hits < structure.hitsMax &&
-                structure.hits <= HITS_MAX &&
-                structure.structureType !== STRUCTURE_WALL
+              filter: structure => structure.hits < structure.hitsMax && structure.hits <= HITS_MAX
             });
             const hilCreeps = tower.pos.findClosestByRange(FIND_CREEPS, {
               filter: structure => structure.hits < structure.hitsMax
