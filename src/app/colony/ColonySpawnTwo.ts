@@ -1,3 +1,4 @@
+import { TowerControl } from "../tower/TowerControl";
 import { Colony } from "./Colony";
 
 export class ColonySpawnTwo extends Colony {
@@ -13,6 +14,7 @@ export class ColonySpawnTwo extends Colony {
 
   public run(): void {
     super.run(this.properties);
+    new TowerControl(this.nameSpawn, this.properties);
     this.runWorkingColony();
     this.runWorkingAbroad();
   }
@@ -30,8 +32,10 @@ export class ColonySpawnTwo extends Colony {
     this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "60e32f504bb9d22adecb1212");
     // this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "60d1e044ee99d3beb752d371");
     //
-    // this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, "60d217a62fd8f7c58ef12f02");
-    // this.spawnCreepRoleRanged("2", this.nameSpawn, this.properties, "60d21990887cd55b37e5024a");
+    // this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, "60e8298f759ce62872794ab9");
+    // this.spawnCreepRoleRanged("2", this.nameSpawn, this.properties, "60e7fbbbbff687b8e31c1f41");
+    // this.spawnCreepRoleRanged("3", this.nameSpawn, this.properties, "60e7eccc8bcf658195c221e5");
+    // this.spawnCreepRoleRanged("4", this.nameSpawn, this.properties, "60e83f7dad2950f21218b336");
   }
 
   private runWorkingAbroad() {

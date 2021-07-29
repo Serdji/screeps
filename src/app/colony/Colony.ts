@@ -20,14 +20,13 @@ import { CreepRoleHarvester } from "../creep/creepWorking/CreepRoleHarvester";
 import { CreepRoleRefueller } from "../creep/creepWorking/CreepRoleRefueller";
 import { CreepRoleRepair } from "../creep/creepWorking/CreepRoleRepair";
 import { CreepRoleUpgrader } from "../creep/creepWorking/CreepRoleUpgrader";
+import { CreepRoleWorkingAbroadBuilder } from "../creep/creepWorking/CreepRoleWorkingAbroadBuilder";
 import { CreepRoleWorkingAbroadHarvester } from "../creep/creepWorking/CreepRoleWorkingAbroadHarvester";
 import { CreepRoleWorkingAbroadUpgrader } from "../creep/creepWorking/CreepRoleWorkingAbroadUpgrader";
 import { TowerControl } from "../tower/TowerControl";
 
 export abstract class Colony {
-  public run(properties: IProperties): void {
-    new TowerControl(properties);
-  }
+  public run(properties: IProperties): void {}
 
   public spawnCreepRoleHarvester(nameSpawn: string, properties: IProperties) {
     const { ROLE_HARVESTER } = properties;
@@ -36,7 +35,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_HARVESTER:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleHarvester.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleHarvester.run(creep);
           break;
       }
     }
@@ -49,7 +48,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_UPGRADER:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleUpgrader.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleUpgrader.run(creep);
           break;
       }
     }
@@ -62,7 +61,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_BUILDER:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleBuilder.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleBuilder.run(creep);
           break;
       }
     }
@@ -75,7 +74,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_REFUELLER:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleRefueller.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleRefueller.run(creep);
           break;
       }
     }
@@ -88,7 +87,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_FILLER:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleFiller.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleFiller.run(creep);
           break;
       }
     }
@@ -101,7 +100,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_REPAIR:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleRepair.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleRepair.run(creep);
           break;
       }
     }
@@ -114,7 +113,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_STORAGE:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleStorage.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleStorage.run(creep);
           break;
       }
     }
@@ -127,7 +126,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_ATTACK:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleAttack.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleAttack.run(creep);
           break;
       }
     }
@@ -140,7 +139,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_WORKING_ABROAD_HARVESTER + roomName:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleWorkingAbroadHarvester.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleWorkingAbroadHarvester.run(creep);
           break;
       }
     }
@@ -153,7 +152,19 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_WORKING_ABROAD_UPGRADER + roomName:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleWorkingAbroadUpgrader.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleWorkingAbroadUpgrader.run(creep);
+          break;
+      }
+    }
+  }
+  public spawnWorkingAbroadBuilder(roomName: string, nameSpawn: string, properties: IProperties): void {
+    const { ROLE_WORKING_ABROAD_BUILDER } = properties;
+    const creepRoleWorkingAbroadBuilder = new CreepRoleWorkingAbroadBuilder(roomName, nameSpawn, properties);
+    for (const name in Game.creeps) {
+      const creep = Game.creeps[name];
+      switch (creep.memory.role) {
+        case ROLE_WORKING_ABROAD_BUILDER + roomName:
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleWorkingAbroadBuilder.run(creep);
           break;
       }
     }
@@ -176,7 +187,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_WORKING_ABROAD_ATTACK + roomName:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleWorkingAbroadAttack.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleWorkingAbroadAttack.run(creep);
           break;
       }
     }
@@ -189,7 +200,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_RESERVE + roomName:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleReserve.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleReserve.run(creep);
           break;
       }
     }
@@ -202,7 +213,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_CLIME + roomName:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleClime.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleClime.run(creep);
           break;
       }
     }
@@ -215,7 +226,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_RANGED + suffixName:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleRanged.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleRanged.run(creep);
           break;
       }
     }
@@ -233,7 +244,7 @@ export abstract class Colony {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
         case ROLE_MINER + suffixName:
-          if(creep.memory.nameSpawn === nameSpawn) creepRoleMiner.run(creep);
+          if (creep.memory.nameSpawn === nameSpawn) creepRoleMiner.run(creep);
           break;
       }
     }

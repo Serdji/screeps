@@ -48,11 +48,12 @@ export abstract class CreepRole {
   /**
    * Отправляем крипса домой
    * @param creep
+   * @param roomToHome
    */
-  public toHome(creep: Creep): boolean {
+  public toHome(creep: Creep, roomToHome: string): boolean {
     // Проверяем, совпадает ли имя комнаты в которой находиться крипс с именем куда ехеть
     // елси нет, едем в ту комнату
-    if (creep.memory.roomName !== creep.room.name) {
+    if (creep.memory.roomName !== roomToHome) {
       const exitDir = creep.room.findExitTo(creep.memory.roomName) as ExitConstant;
       const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
       creep.moveTo(exit);
@@ -106,7 +107,7 @@ export abstract class CreepRole {
   }
 
   /**
-   * Брать ресурсы из зранилища иначе майнить
+   * Брать ресурсы из хранилища иначе майнить
    * @param creep
    */
   public miningStorageOrSources(creep: Creep) {
@@ -424,14 +425,18 @@ export abstract class CreepRole {
     if (creep.memory.building) {
       const structureTowers = creep.room.find(FIND_STRUCTURES, {
         filter: structure =>
-          structure.structureType === STRUCTURE_TOWER && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0
+          structure.structureType === STRUCTURE_TOWER
       });
 
       // Заправить пушку
       if (structureTowers.length) {
-        const structureTower = Game.getObjectById(structureTowers[0].id) as StructureTower;
+        const structureTower = Game.getObjectById(structureTowers[creep.memory.counter].id) as StructureTower;
         if (creep.transfer(structureTower, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
           creep.moveTo(structureTower, { visualizePathStyle: { stroke: "#d6e815" } });
+        }
+        if (structureTower.store.getFreeCapacity(RESOURCE_ENERGY) > 0) {
+          creep.memory.counter++;
+          if (creep.memory.counter === structureTowers.length) creep.memory.counter = 0;
         }
         // Если пушка заряжана, отдать энергию спавну
       }

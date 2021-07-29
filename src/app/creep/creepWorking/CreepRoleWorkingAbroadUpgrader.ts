@@ -10,16 +10,19 @@ import { CreepWorking } from "./CreepWorking";
 
 export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
   private roomName: string;
-  public constructor(roomName: string, nameSpawn: string, properties: IProperties) {
+  private roomToHome: string;
+  public constructor(roomName: string, nameSpawn: string, properties: IProperties, roomToHome = "") {
     super(nameSpawn, properties);
     this.roomName = roomName; // Имя комнаты, куда отправляем крипса
+    this.roomToHome = roomToHome;
     this.spawn();
   }
 
   public run(creep: Creep): void {
+    this.roomName = _.isEmpty(this.roomToHome) ? creep.room.name : this.roomToHome; // Если не задать домашнюю комнату руками, берем комнату из памяти крипса
     // Проверяем, совпадает ли имя комнаты в которой находиться крипс с именем куда ехеть
     // елси нет, едем в ту комнату
-    if (creep.room.name !== this.roomName && !creep.memory.upgrading) {
+    if (this.roomName !== this.roomName && !creep.memory.upgrading) {
       this.toRoom(creep, this.roomName);
       // Как приехали в нужную комнату, начинаем работать
     } else {
@@ -36,8 +39,8 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
         const constructions = creep.room.find(FIND_CONSTRUCTION_SITES);
 
         // Проверяем, если имя домашней комнаты не совпадает с комнотой в которой находися крипс, едем в ту комнату
-        if (creep.memory.roomName !== creep.room.name && creep.memory.upgrading) {
-          this.toHome(creep);
+        if (creep.memory.roomName !== this.roomName && creep.memory.upgrading) {
+          this.toHome(creep, this.roomName);
           // Если имена совпали, едем убгрейживать контролер
         } else {
           if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {
@@ -54,7 +57,7 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
         //   // Если нечего стоить и польностью забит клад, едем домой
         // } else {
         //   // Проверяем, если имя домашней комнаты не совпадает с комнотой в которой находися крипс, едем в ту комнату
-        //   if (creep.memory.roomName !== creep.room.name && creep.memory.upgrading) {
+        //   if (creep.memory.roomName !== this.roomName && creep.memory.upgrading) {
         //     const exitDir = Game.map.findExit(creep.room, creep.memory.roomName) as ExitConstant;
         //     const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
         //     creep.moveTo(exit);
@@ -79,8 +82,8 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
     return super.toRoom(creep, roomName);
   }
 
-  public toHome(creep: Creep): boolean {
-    return super.toHome(creep);
+  public toHome(creep: Creep, roomToHome: string): boolean {
+    return super.toHome(creep, roomToHome);
   }
 
   public spawn(): void {

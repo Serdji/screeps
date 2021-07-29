@@ -1,3 +1,4 @@
+import { TowerControl } from "../tower/TowerControl";
 import { Colony } from "./Colony";
 
 export class ColonySpawnOne extends Colony {
@@ -13,6 +14,7 @@ export class ColonySpawnOne extends Colony {
 
   public run(): void {
     super.run(this.properties);
+    new TowerControl(this.nameSpawn, this.properties);
     this.runWorkingColony();
     this.runWorkingAbroad();
   }
@@ -60,10 +62,16 @@ export class ColonySpawnOne extends Colony {
       _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
     );
 
+    this.spawnWorkingAbroadHarvester(
+      "W43S53",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
+    );
+
     this.spawnWorkingAbroadAttack(
       "W42S51",
       this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: 3, level: 1 }),
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: null, level: 1 }),
       [
         [44, 8],
         [31, 14]
@@ -81,11 +89,11 @@ export class ColonySpawnOne extends Colony {
       this.nameSpawn,
       _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 })
     );
-    this.spawnCreepRoleReserve(
-      "W42S53",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 2 })
-    );
+    // this.spawnCreepRoleReserve(
+    //   "W42S53",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_RESERVE", { size: 1, level: 1 })
+    // );
   }
 
   public spawnCreepRoleHarvester(nameSpawn: string, properties: IProperties) {

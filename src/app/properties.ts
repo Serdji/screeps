@@ -8,6 +8,7 @@ export const properties = (config: IPrivateConfig): IProperties => ({
   ROLE_REFUELLER: "refueller", // Заправщик пушки
   ROLE_REPAIR: "repair", // Ремонтник
   ROLE_WORKING_ABROAD_UPGRADER: "workingAbroadUpgrader", // Упгрейдер за границей
+  ROLE_WORKING_ABROAD_BUILDER: "workingAbroadBuilder", // Строитель за границей
   ROLE_WORKING_ABROAD_HARVESTER: "workingAbroadHarvester", // Рабочий за границей
   ROLE_WORKING_ABROAD_ATTACK: "workingAbroadAttack", // Патрульный заграницей
   ROLE_ATTACK: "attack", // Патрульный
