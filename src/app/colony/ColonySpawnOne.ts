@@ -37,7 +37,6 @@ export class ColonySpawnOne extends Colony {
   }
 
   private runWorkingAbroad() {
-
     // this.spawnWorkingAbroadUpgrader(
     //   "W42S52",
     //   this.nameSpawn,
@@ -116,6 +115,10 @@ export class ColonySpawnOne extends Colony {
 
   public spawnWorkingAbroadUpgrader(roomName: string, spawnName: string, properties: IProperties) {
     super.spawnWorkingAbroadUpgrader(roomName, spawnName, properties);
+  }
+
+  public spawnWorkingAbroadBuilder(roomName: string, nameSpawn: string, properties: IProperties) {
+    super.spawnWorkingAbroadBuilder(roomName, nameSpawn, properties);
   }
 
   public spawnWorkingAbroadAttack(
