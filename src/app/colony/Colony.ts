@@ -132,9 +132,19 @@ export abstract class Colony {
     }
   }
 
-  public spawnWorkingAbroadHarvester(roomName: string, nameSpawn: string, properties: IProperties): void {
+  public spawnWorkingAbroadHarvester(
+    roomName: string,
+    nameSpawn: string,
+    properties: IProperties,
+    roomToHome: string
+  ): void {
     const { ROLE_WORKING_ABROAD_HARVESTER } = properties;
-    const creepRoleWorkingAbroadHarvester = new CreepRoleWorkingAbroadHarvester(roomName, nameSpawn, properties);
+    const creepRoleWorkingAbroadHarvester = new CreepRoleWorkingAbroadHarvester(
+      roomName,
+      nameSpawn,
+      properties,
+      roomToHome
+    );
     for (const name in Game.creeps) {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
@@ -145,9 +155,19 @@ export abstract class Colony {
     }
   }
 
-  public spawnWorkingAbroadUpgrader(roomName: string, nameSpawn: string, properties: IProperties): void {
+  public spawnWorkingAbroadUpgrader(
+    roomName: string,
+    nameSpawn: string,
+    properties: IProperties,
+    roomToHome: string
+  ): void {
     const { ROLE_WORKING_ABROAD_UPGRADER } = properties;
-    const creepRoleWorkingAbroadUpgrader = new CreepRoleWorkingAbroadUpgrader(roomName, nameSpawn, properties);
+    const creepRoleWorkingAbroadUpgrader = new CreepRoleWorkingAbroadUpgrader(
+      roomName,
+      nameSpawn,
+      properties,
+      roomToHome
+    );
     for (const name in Game.creeps) {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {
@@ -157,9 +177,19 @@ export abstract class Colony {
       }
     }
   }
-  public spawnWorkingAbroadBuilder(roomName: string, nameSpawn: string, properties: IProperties): void {
+  public spawnWorkingAbroadBuilder(
+    roomName: string,
+    nameSpawn: string,
+    properties: IProperties,
+    roomToHome: string
+  ): void {
     const { ROLE_WORKING_ABROAD_BUILDER } = properties;
-    const creepRoleWorkingAbroadBuilder = new CreepRoleWorkingAbroadBuilder(roomName, nameSpawn, properties);
+    const creepRoleWorkingAbroadBuilder = new CreepRoleWorkingAbroadBuilder(
+      roomName,
+      nameSpawn,
+      properties,
+      roomToHome
+    );
     for (const name in Game.creeps) {
       const creep = Game.creeps[name];
       switch (creep.memory.role) {

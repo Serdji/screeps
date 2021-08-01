@@ -29,7 +29,7 @@ export class ColonySpawnTwo extends Colony {
     this.spawnCreepRoleStorage(this.nameSpawn, this.properties);
     this.spawnCreepRoleFiller(this.nameSpawn, this.properties);
 
-    // this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "60e32f504bb9d22adecb1212");
+    this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "6106dbbbe3d883642e98a5ae");
     // this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "60d1e044ee99d3beb752d371");
     //
     // this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, "60e8298f759ce62872794ab9");
@@ -104,16 +104,16 @@ export class ColonySpawnTwo extends Colony {
     super.spawnCreepRoleAttack(nameSpawn, properties);
   }
 
-  public spawnWorkingAbroadHarvester(roomName: string, spawnName: string, properties: IProperties) {
-    super.spawnWorkingAbroadHarvester(roomName, spawnName, properties);
+  public spawnWorkingAbroadHarvester(roomName: string, spawnName: string, properties: IProperties, roomToHome = "") {
+    super.spawnWorkingAbroadHarvester(roomName, spawnName, properties, roomToHome);
   }
 
-  public spawnWorkingAbroadUpgrader(roomName: string, spawnName: string, properties: IProperties) {
-    super.spawnWorkingAbroadUpgrader(roomName, spawnName, properties);
+  public spawnWorkingAbroadUpgrader(roomName: string, spawnName: string, properties: IProperties, roomToHome = "") {
+    super.spawnWorkingAbroadUpgrader(roomName, spawnName, properties, roomToHome);
   }
 
-  public spawnWorkingAbroadBuilder(roomName: string, nameSpawn: string, properties: IProperties) {
-    super.spawnWorkingAbroadBuilder(roomName, nameSpawn, properties);
+  public spawnWorkingAbroadBuilder(roomName: string, nameSpawn: string, properties: IProperties, roomToHome = "") {
+    super.spawnWorkingAbroadBuilder(roomName, nameSpawn, properties, roomToHome);
   }
 
   public spawnWorkingAbroadAttack(

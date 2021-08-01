@@ -53,8 +53,8 @@ export abstract class CreepRole {
   public toHome(creep: Creep, roomToHome: string): boolean {
     // Проверяем, совпадает ли имя комнаты в которой находиться крипс с именем куда ехеть
     // елси нет, едем в ту комнату
-    if (creep.memory.roomName !== roomToHome) {
-      const exitDir = creep.room.findExitTo(creep.memory.roomName) as ExitConstant;
+    if (roomToHome !== creep.room.name) {
+      const exitDir = creep.room.findExitTo(roomToHome) as ExitConstant;
       const exit = creep.pos.findClosestByRange(exitDir) as RoomPosition;
       creep.moveTo(exit);
       return false;

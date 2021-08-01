@@ -11,7 +11,7 @@ import { CreepWorking } from "./CreepWorking";
 export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
   private roomName: string;
   private roomToHome: string;
-  public constructor(roomName: string, nameSpawn: string, properties: IProperties, roomToHome = "") {
+  public constructor(roomName: string, nameSpawn: string, properties: IProperties, roomToHome: string) {
     super(nameSpawn, properties);
     this.roomName = roomName; // Имя комнаты, куда отправляем крипса
     this.roomToHome = roomToHome;
@@ -19,10 +19,10 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
   }
 
   public run(creep: Creep): void {
-    this.roomName = _.isEmpty(this.roomToHome) ? creep.room.name : this.roomToHome; // Если не задать домашнюю комнату руками, берем комнату из памяти крипса
+    this.roomToHome = _.isEmpty(this.roomToHome) ? creep.memory.roomName : this.roomToHome; // Если не задать домашнюю комнату руками, берем комнату из памяти крипса
     // Проверяем, совпадает ли имя комнаты в которой находиться крипс с именем куда ехеть
     // елси нет, едем в ту комнату
-    if (this.roomName !== this.roomName && !creep.memory.upgrading) {
+    if (creep.room.name !== this.roomName && !creep.memory.upgrading) {
       this.toRoom(creep, this.roomName);
       // Как приехали в нужную комнату, начинаем работать
     } else {
@@ -39,8 +39,8 @@ export class CreepRoleWorkingAbroadUpgrader extends CreepWorking {
         const constructions = creep.room.find(FIND_CONSTRUCTION_SITES);
 
         // Проверяем, если имя домашней комнаты не совпадает с комнотой в которой находися крипс, едем в ту комнату
-        if (creep.memory.roomName !== this.roomName && creep.memory.upgrading) {
-          this.toHome(creep, this.roomName);
+        if (this.roomToHome !== creep.room.name && creep.memory.upgrading) {
+          this.toHome(creep, this.roomToHome);
           // Если имена совпали, едем убгрейживать контролер
         } else {
           if (creep.upgradeController(creep.room.controller as StructureController) === ERR_NOT_IN_RANGE) {

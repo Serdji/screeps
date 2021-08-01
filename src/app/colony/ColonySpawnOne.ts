@@ -49,6 +49,13 @@ export class ColonySpawnOne extends Colony {
     //   _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
     // );
     //
+    this.spawnWorkingAbroadBuilder(
+      "W42S52",
+      this.nameSpawn,
+      _.set(this.properties, "LIMIT_WORKING_ABROAD_BUILDER", { size: 2, level: 1 }),
+      "W42S51"
+    );
+    //
     // this.spawnWorkingAbroadAttack(
     //   "W42S51",
     //   this.nameSpawn,
@@ -109,16 +116,16 @@ export class ColonySpawnOne extends Colony {
     super.spawnCreepRoleAttack(nameSpawn, properties);
   }
 
-  public spawnWorkingAbroadHarvester(roomName: string, spawnName: string, properties: IProperties) {
-    super.spawnWorkingAbroadHarvester(roomName, spawnName, properties);
+  public spawnWorkingAbroadHarvester(roomName: string, spawnName: string, properties: IProperties, roomToHome = "") {
+    super.spawnWorkingAbroadHarvester(roomName, spawnName, properties, roomToHome);
   }
 
-  public spawnWorkingAbroadUpgrader(roomName: string, spawnName: string, properties: IProperties) {
-    super.spawnWorkingAbroadUpgrader(roomName, spawnName, properties);
+  public spawnWorkingAbroadUpgrader(roomName: string, spawnName: string, properties: IProperties, roomToHome = "") {
+    super.spawnWorkingAbroadUpgrader(roomName, spawnName, properties, roomToHome);
   }
 
-  public spawnWorkingAbroadBuilder(roomName: string, nameSpawn: string, properties: IProperties) {
-    super.spawnWorkingAbroadBuilder(roomName, nameSpawn, properties);
+  public spawnWorkingAbroadBuilder(roomName: string, nameSpawn: string, properties: IProperties, roomToHome = "") {
+    super.spawnWorkingAbroadBuilder(roomName, nameSpawn, properties, roomToHome);
   }
 
   public spawnWorkingAbroadAttack(
