@@ -45,15 +45,15 @@ export class App {
       "Spawn2",
       properties({
         LIMIT_HARVESTER: { size: null, level: 1 }, // Стандартный рабочий
-        LIMIT_UPGRADER: { size: 4, level: 1 }, // Обнавляет контроллер
-        LIMIT_BUILDER: { size: null, level: 1 }, // Строитель
+        LIMIT_UPGRADER: { size: null, level: 1 }, // Обнавляет контроллер
+        LIMIT_BUILDER: { size: 4, level: 1 }, // Строитель
         LIMIT_REFUELLER: { size: 1, level: 1 }, // Заправщик пушек
         LIMIT_REPAIR: { size: null, level: 1 }, // Ремонтник
 
         LIMIT_FILLER: { size: 2, level: 1 }, // Рабочий таскает от хранилеща
-        FILLER_CONTAINER_ID: "60e0dc409d77dfb8ff6a8417", // ID Контейнера для упгрейдоров
+        FILLER_CONTAINER_ID: "", // ID Контейнера для упгрейдоров
 
-        LIMIT_STORAGE: { size: 1, level: 4 }, // Заправщик хранилеща
+        LIMIT_STORAGE: { size: null, level: 4 }, // Заправщик хранилеща
         STORAGE_CONTAINER_IDS: [
           // ID Контейнеров из которых носить в хранилеще
           "60e32f504bb9d22adecb1212"

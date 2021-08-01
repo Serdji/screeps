@@ -29,7 +29,7 @@ export class ColonySpawnTwo extends Colony {
     this.spawnCreepRoleStorage(this.nameSpawn, this.properties);
     this.spawnCreepRoleFiller(this.nameSpawn, this.properties);
 
-    this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "60e32f504bb9d22adecb1212");
+    // this.spawnCreepRoleMiner("1", this.nameSpawn, this.properties, "60e32f504bb9d22adecb1212");
     // this.spawnCreepRoleMiner("2", this.nameSpawn, this.properties, "60d1e044ee99d3beb752d371");
     //
     // this.spawnCreepRoleRanged("1", this.nameSpawn, this.properties, "60e8298f759ce62872794ab9");
