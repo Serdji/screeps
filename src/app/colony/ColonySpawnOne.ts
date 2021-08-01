@@ -37,46 +37,27 @@ export class ColonySpawnOne extends Colony {
   }
 
   private runWorkingAbroad() {
-
-    this.spawnWorkingAbroadUpgrader(
-      "W42S52",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: null, level: 1 })
-    );
-
-    this.spawnWorkingAbroadHarvester(
-      "W42S52",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
-    );
-
-    this.spawnWorkingAbroadUpgrader(
-      "W42S53",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: null, level: 1 })
-    );
-
-    this.spawnWorkingAbroadHarvester(
-      "W42S53",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
-    );
-
-    this.spawnWorkingAbroadHarvester(
-      "W43S53",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
-    );
-
-    this.spawnWorkingAbroadAttack(
-      "W42S51",
-      this.nameSpawn,
-      _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: null, level: 1 }),
-      [
-        [44, 8],
-        [31, 14]
-      ]
-    );
+    // this.spawnWorkingAbroadUpgrader(
+    //   "W42S52",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_UPGRADER", { size: null, level: 1 })
+    // );
+    //
+    // this.spawnWorkingAbroadHarvester(
+    //   "W42S53",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_HARVESTER", { size: null, level: 1 })
+    // );
+    //
+    // this.spawnWorkingAbroadAttack(
+    //   "W42S51",
+    //   this.nameSpawn,
+    //   _.set(this.properties, "LIMIT_WORKING_ABROAD_ATTACK", { size: null, level: 1 }),
+    //   [
+    //     [44, 8],
+    //     [31, 14]
+    //   ]
+    // );
 
     // this.spawnCreepRoleClime(
     //   "W42S51",
@@ -134,6 +115,10 @@ export class ColonySpawnOne extends Colony {
 
   public spawnWorkingAbroadUpgrader(roomName: string, spawnName: string, properties: IProperties) {
     super.spawnWorkingAbroadUpgrader(roomName, spawnName, properties);
+  }
+
+  public spawnWorkingAbroadBuilder(roomName: string, nameSpawn: string, properties: IProperties) {
+    super.spawnWorkingAbroadBuilder(roomName, nameSpawn, properties);
   }
 
   public spawnWorkingAbroadAttack(
