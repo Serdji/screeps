@@ -1,4 +1,5 @@
 import { ColonySpawnOne } from "./colony/ColonySpawnOne";
+import { ColonySpawnThree } from "./colony/ColonySpawnThree";
 import { ColonySpawnTwo } from "./colony/ColonySpawnTwo";
 import { properties } from "./properties";
 
@@ -45,8 +46,8 @@ export class App {
       "Spawn2",
       properties({
         LIMIT_HARVESTER: { size: null, level: 1 }, // Стандартный рабочий
-        LIMIT_UPGRADER: { size: 1, level: 1 }, // Обнавляет контроллер
-        LIMIT_BUILDER: { size: 4, level: 1 }, // Строитель
+        LIMIT_UPGRADER: { size: 2, level: 1 }, // Обнавляет контроллер
+        LIMIT_BUILDER: { size: null, level: 1 }, // Строитель
         LIMIT_REFUELLER: { size: 1, level: 1 }, // Заправщик пушек
         LIMIT_REPAIR: { size: null, level: 1 }, // Ремонтник
 
@@ -70,6 +71,39 @@ export class App {
         LIMIT_RANGED: { size: 1, level: 1 }, // Статический стрелок, приезджает на точку и стоит. SIZE ВСЕГДА 1
 
         HITS_MAX: 110000 // Максимальное значение Хилов у зданий
+      })
+    );
+
+    new ColonySpawnThree(
+      "Spawn4",
+      properties({
+        LIMIT_HARVESTER: { size: null, level: 1 }, // Стандартный рабочий
+        LIMIT_UPGRADER: { size: 4, level: 1 }, // Обнавляет контроллер
+        LIMIT_BUILDER: { size: 1, level: 1 }, // Строитель
+        LIMIT_REFUELLER: { size: 1, level: 1 }, // Заправщик пушек
+        LIMIT_REPAIR: { size: 2, level: 2 }, // Ремонтник
+
+        LIMIT_FILLER: { size: 2, level: 1 }, // Рабочий таскает от хранилеща
+        FILLER_CONTAINER_ID: "610e4ce38c31919dac120c5f", // ID Контейнера для упгрейдоров
+
+        LIMIT_STORAGE: { size: 1, level: 2 }, // Заправщик хранилеща
+        STORAGE_CONTAINER_IDS: [
+          // ID Контейнеров из которых носить в хранилеще
+          "610a3b1675004738934dca4a",
+          "610a777aad2b928a09e022eb"
+        ],
+
+        LIMIT_ATTACK: { size: 3, level: 1 }, // Атакующие
+        PATROLLING_COORDINATES: [
+          // Координаты для патрулирования
+          [4, 7],
+          [4, 21]
+        ],
+
+        LIMIT_MINER: { size: 1, level: 2 }, // Статический майнер, скклаывает в контейнер. SIZE ВСЕГДА 1
+        LIMIT_RANGED: { size: null, level: 1 }, // Статический стрелок, приезджает на точку и стоит. SIZE ВСЕГДА 1
+
+        HITS_MAX: 200000 // Максимальное значение Хилов у зданий
       })
     );
   }

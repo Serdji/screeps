@@ -40,7 +40,6 @@ export abstract class CreepLoader extends CreepRole {
             room.energyCapacityAvailable < ROOM_ENERGY_LIMIT_550)
         ) {
           if (room.energyAvailable >= ROOM_ENERGY_LIMIT_300) {
-            console.log(FIT_LOADER_300, role, sourceID, roomName, LEVEL_1);
             this.spawnFit(FIT_LOADER_300, role, sourceID, roomName, LEVEL_1);
           }
           // Крипсы за 550
